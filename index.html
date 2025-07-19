@@ -189,3 +189,95 @@
     </footer>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gavinnot’s Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Fonts Example -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0; padding: 0;
+            background: linear-gradient(135deg, #b0e0e6, #ffe4e1);
+            transition: background 0.5s, color 0.5s;
+        }
+        nav {
+            background: #333; color: #fff;
+            padding: 1em; text-align: center;
+        }
+        nav a {
+            color: #fff; margin: 0 10px; text-decoration: none;
+        }
+        .container {
+            max-width: 900px; margin: auto; padding: 2em;
+        }
+        .gallery {
+            display: flex; flex-wrap: wrap; gap: 10px;
+            justify-content: center;
+        }
+        .gallery img {
+            width: 200px; border-radius: 6px; box-shadow: 0 2px 6px #888;
+        }
+        section {
+            margin-bottom: 2em;
+        }
+        .socials a {
+            margin: 0 5px; text-decoration: none; font-size: 1.2em;
+        }
+        .dark-mode {
+            background: #232323;
+            color: #eaeaea;
+        }
+        .dark-mode nav { background: #111; }
+        .dark-mode a { color: #ffe4e1; }
+        @media (max-width: 600px) {
+            .gallery img { width: 100px; }
+        }
+        .toggle-btn {
+            float: right; margin-top: -2.5em; margin-right: 1em;
+            background: #444; color: #fff; border: none; border-radius: 4px; padding: 0.3em 0.7em; cursor: pointer;
+        }
+    </style>
+    <link rel="icon" href="GavinnotandGavinbot.png">
+</head>
+<body>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+        <button class="toggle-btn" onclick="toggleMode()">🌗 Mode</button>
+    </nav>
+    <div class="container">
+        <section id="about">
+            <h1>Welcome to Gavinnot’s Website!</h1>
+            <p>This is a personal website where I showcase images, share updates, and more. Explore and enjoy!</p>
+            <div class="socials">
+                <a href="https://github.com/gavinbot367" target="_blank">GitHub</a>
+                <!-- Add more social links as desired -->
+            </div>
+        </section>
+        <section id="gallery">
+            <h2>Image Gallery</h2>
+            <div class="gallery">
+                <img src="GavinnotandGavinbot.png" alt="Gavinnot and Gavinbot">
+                <img src="GavinnotandGavinbot(2).png" alt="Gavinnot and Gavinbot 2">
+                <img src="GavinnotandGracenot.png" alt="Gavinnot and Gracenot">
+                <img src="Gavinnot and Gracenot (2).PNG" alt="Gavinnot and Gracenot 2">
+                <img src="Edgeoftheworld.png" alt="Edge of the World">
+                <img src="6539FB3D-2C95-4B1C-971E-FA3D81FCBB46.PNG" alt="Misc">
+            </div>
+        </section>
+        <section>
+            <h2>Random Quote</h2>
+            <blockquote id="quoteBox">"The best way to predict the future is to invent it." – Alan Kay</blockquote>
+        </section>
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <form action="https://formspree.io/f/yourformid" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required><br><br>
+                <input type="email" name="email" placeholder="Your Email" required><br><br>
+                <textarea name="message" placeholder="Your Message" required></textarea><
+
