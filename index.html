@@ -339,3 +339,43 @@ setInterval(() => {
     idx = (idx + 1) % cyclePhrases.length;
 }, 2000);
 </script>
+<!-- Place this at the top of your body or main section -->
+<div id="evolving-banner" class="evolving-banner">
+  The best thing ever created — evolving forever 🚀✨
+</div>
+
+<style>
+.evolving-banner {
+  font-family: 'Orbitron', 'Roboto', Arial, sans-serif;
+  font-size: 2em;
+  color: #19f7d2;
+  text-align: center;
+  margin: 40px auto 24px auto;
+  padding: 20px 8px;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #0f2027 0%, #2c5364 100%);
+  box-shadow: 0 0 32px #19f7d2, 0 0 54px #0ff;
+  animation: evolveGlow 2.5s infinite alternate;
+  letter-spacing: 2px;
+}
+@keyframes evolveGlow {
+  from { box-shadow: 0 0 32px #19f7d2, 0 0 54px #0ff; }
+  to { box-shadow: 0 0 52px #39ff14, 0 0 74px #00ffe7; color: #fdbc4b; }
+}
+</style>
+<script>
+const phrases = [
+  "The best thing ever created — evolving forever 🚀✨",
+  "A website that never stops growing 🌱→🚀",
+  "Infinitely creative. Endlessly surprising.",
+  "Powered by imagination, built for the future.",
+  "Welcome to the evolution of awesome.",
+  "Always changing. Always amazing.",
+  "The adventure never ends here!"
+];
+let i = 0;
+setInterval(() => {
+  document.getElementById('evolving-banner').textContent = phrases[i];
+  i = (i + 1) % phrases.length;
+}, 3500);
+</script>
