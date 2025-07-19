@@ -380,3 +380,7 @@ setInterval(() => {
 }, 3500);
 </script>
 <img src="profile.jpg" alt="C:\Users\lewis\OneDrive\Desktop\Gavinnot files\Gavinnot and Gavinbot.PNG" class="profile-pic">
+<!-- Add this just before the closing </body> tag -->
+<audio id="bg-music" src="music/pirate-futuristic.mp3" autoplay loop hidden></audio>
+
+<script> window.addEventListener('DOMContentLoaded', function() { var audio = document.getElementById('bg-music'); audio.volume = 0.5; // Adjust volume as needed audio.play().catch(function(){ /* Autoplay may be blocked by the browser */ }); }); </script>
