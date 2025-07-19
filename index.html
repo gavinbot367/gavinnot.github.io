@@ -187,7 +187,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li, td, th, label, div {
             from { text-shadow: 0 0 7px #19f7d2, 0 0 21px #19f7d2, 0 0 42px #0ff, 0 0 82px #0ff; }
             to { text-shadow: 0 0 21px #19f7d2, 0 0 42px #2fffc8, 0 0 82px #00ffe7, 0 0 100px #00ffe7; }
         }
-        .neon-border {
+        .blackandgrey-border {
             border: 2px solid #19f7d2;
             box-shadow: 0 0 20px #19f7d2, 0 0 40px #0ff;
             border-radius: 20px;
@@ -263,24 +263,7 @@ body {
 }
 </style>
 <script>
-const colors = [
-  "#00fff7", "#ff00ea", "#00ff94", "#fff700", "#ff0099", "#00b7ff", "#ff5e00", "#00fffd",
-  "#ff00c8", "#36ff00", "#ff000a", "#00ffcc", "#66ffaa", "#ff9900", "#cc00ff"
-];
-let angle = 0;
-
-function setBackground() {
-  // Cycle through colors to create a gradient
-  const c1 = colors[Math.floor(Math.random() * colors.length)];
-  const c2 = colors[Math.floor(Math.random() * colors.length)];
-  const c3 = colors[Math.floor(Math.random() * colors.length)];
-  angle = (angle + 2) % 360;
-  document.body.style.background = `linear-gradient(${angle}deg, ${c1}, ${c2}, ${c3})`;
-  document.body.style.transition = "background 1s cubic-bezier(.85,0,.35,1)";
 }
-
-// Change background every 700ms
-setInterval(setBackground, 700);
 
 // Optional: make the background cover the whole screen with no scroll
 document.body.style.minHeight = "100vh";
