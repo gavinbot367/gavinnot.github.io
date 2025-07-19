@@ -281,3 +281,61 @@
                 <input type="email" name="email" placeholder="Your Email" required><br><br>
                 <textarea name="message" placeholder="Your Message" required></textarea><
 
+<!-- Place this inside your form -->
+<form>
+    <textarea name="comment" placeholder="Write your comment here..." required></textarea><br>
+    <button id="cycleButton" type="submit" class="neon-cycle-btn">Fire Off a Message 🚀</button>
+</form>
+
+<!-- Styles for the animated button (put in your <style> section or CSS file) -->
+<style>
+.neon-cycle-btn {
+    background: linear-gradient(135deg, #19f7d2 0%, #0ff 100%);
+    color: #232323;
+    font-family: 'Orbitron', 'Roboto', Arial, sans-serif;
+    font-size: 1.4em;
+    padding: 14px 40px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 0 10px #19f7d2, 0 0 40px #0ff, 0 0 80px #19f7d2;
+    text-shadow: 0 0 8px #19f7d2, 0 0 20px #0ff;
+    transition: background 0.3s, color 0.3s, transform 0.2s;
+    outline: none;
+    animation: neonPulse 1.8s infinite alternate;
+    position: relative;
+    overflow: hidden;
+}
+@keyframes neonPulse {
+    from { box-shadow: 0 0 10px #19f7d2, 0 0 40px #0ff, 0 0 80px #19f7d2;}
+    to { box-shadow: 0 0 20px #19f7d2, 0 0 60px #2fffc8, 0 0 110px #00ffe7;}
+}
+.neon-cycle-btn:hover {
+    background: linear-gradient(135deg, #39ff14 0%, #0ff 100%);
+    color: #232323;
+    transform: scale(1.05);
+}
+</style>
+
+<!-- JavaScript for cycling button text (put before </body> or in a JS file) -->
+<script>
+const cyclePhrases = [
+    "Send Some Pirate Wisdom 🏴‍☠️",
+    "Share Your Futuristic Dream 🤖",
+    "Squawk Your Thoughts 🦜",
+    "Fire Off a Message 🚀",
+    "Drop Some Banter 💬",
+    "Bid Your Tale 🪙",
+    "Join The Crew! ⚓",
+    "Post Your Spark ⚡",
+    "Beam Up Your Comment 🛸",
+    "Blast Into The Future 🌌",
+    "Cast a Digital Message 🧭"
+];
+let idx = 0;
+const btn = document.getElementById('cycleButton');
+setInterval(() => {
+    btn.textContent = cyclePhrases[idx];
+    idx = (idx + 1) % cyclePhrases.length;
+}, 2000);
+</script>
