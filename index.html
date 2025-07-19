@@ -163,6 +163,183 @@
             color: #232323;
             transform: scale(1.05);
         }
+        
+        /* Special promotional section styles */
+        .promo-section {
+            border: 3px solid #ff6b35;
+            box-shadow: 
+                0 0 30px #ff6b35, 
+                0 0 60px #ff6b35,
+                inset 0 0 30px rgba(255, 107, 53, 0.1);
+            border-radius: 25px;
+            padding: 40px 30px;
+            margin: 40px auto;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.15) 0%, rgba(25, 247, 210, 0.1) 100%);
+            max-width: 800px;
+            width: 95%;
+            animation: promoGlow 3s infinite alternate;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @keyframes promoGlow {
+            from { 
+                box-shadow: 0 0 30px #ff6b35, 0 0 60px #ff6b35, inset 0 0 30px rgba(255, 107, 53, 0.1);
+            }
+            to { 
+                box-shadow: 0 0 50px #ff6b35, 0 0 100px #ff6b35, inset 0 0 50px rgba(255, 107, 53, 0.2);
+            }
+        }
+        
+        .promo-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .promo-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .promo-image img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 20px;
+            box-shadow: 0 0 40px #ff6b35, 0 0 80px rgba(255, 107, 53, 0.5);
+            border: 2px solid #19f7d2;
+            animation: imagePulse 2.5s infinite alternate;
+        }
+        
+        @keyframes imagePulse {
+            from { 
+                box-shadow: 0 0 40px #ff6b35, 0 0 80px rgba(255, 107, 53, 0.5);
+                transform: scale(1);
+            }
+            to { 
+                box-shadow: 0 0 60px #ff6b35, 0 0 120px rgba(255, 107, 53, 0.7);
+                transform: scale(1.02);
+            }
+        }
+        
+        .promo-text {
+            flex: 1;
+            min-width: 350px;
+        }
+        
+        .promo-title {
+            font-family: 'Orbitron', Arial, sans-serif;
+            font-size: 2.5em;
+            font-weight: 900;
+            color: #ff6b35;
+            text-shadow: 
+                0 0 10px #ff6b35,
+                0 0 20px #ff6b35,
+                0 0 40px #ff6b35,
+                2px 2px 0 #111,
+                -2px 2px 0 #111,
+                2px -2px 0 #111,
+                -2px -2px 0 #111;
+            margin-bottom: 20px;
+            text-align: center;
+            animation: titleGlow 2s infinite alternate;
+        }
+        
+        @keyframes titleGlow {
+            from { 
+                text-shadow: 0 0 10px #ff6b35, 0 0 20px #ff6b35, 0 0 40px #ff6b35, 2px 2px 0 #111, -2px 2px 0 #111, 2px -2px 0 #111, -2px -2px 0 #111;
+            }
+            to { 
+                text-shadow: 0 0 20px #ff6b35, 0 0 40px #ff6b35, 0 0 80px #ff6b35, 2px 2px 0 #111, -2px 2px 0 #111, 2px -2px 0 #111, -2px -2px 0 #111;
+            }
+        }
+        
+        .promo-subtitle {
+            font-size: 1.3em;
+            color: #fdbc4b;
+            text-shadow: 0 0 8px #fdbc4b;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .feature-item {
+            background: rgba(25, 247, 210, 0.1);
+            border: 1px solid #19f7d2;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            color: #19f7d2;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(25, 247, 210, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .feature-item:hover {
+            background: rgba(25, 247, 210, 0.2);
+            box-shadow: 0 0 25px rgba(25, 247, 210, 0.6);
+            transform: translateY(-5px);
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #ff6b35 0%, #fdbc4b 100%);
+            color: #232323;
+            font-family: 'Orbitron', 'Roboto', Arial, sans-serif;
+            font-size: 1.4em;
+            font-weight: bold;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 35px;
+            cursor: pointer;
+            box-shadow: 0 0 20px #ff6b35, 0 0 40px #fdbc4b;
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px auto;
+            text-align: center;
+            transition: all 0.3s;
+            animation: ctaPulse 2s infinite alternate;
+        }
+        
+        @keyframes ctaPulse {
+            from { 
+                box-shadow: 0 0 20px #ff6b35, 0 0 40px #fdbc4b;
+                transform: scale(1);
+            }
+            to { 
+                box-shadow: 0 0 30px #ff6b35, 0 0 60px #fdbc4b;
+                transform: scale(1.05);
+            }
+        }
+        
+        .cta-button:hover {
+            background: linear-gradient(135deg, #fdbc4b 0%, #ff6b35 100%);
+            transform: scale(1.1);
+            box-shadow: 0 0 40px #ff6b35, 0 0 80px #fdbc4b;
+        }
+        
+        @media (max-width: 768px) {
+            .promo-content {
+                flex-direction: column;
+            }
+            .promo-image, .promo-text {
+                min-width: auto;
+            }
+            .promo-title {
+                font-size: 2em;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -186,6 +363,62 @@
                 Sharing my story, projects, and adventures—so my spark lives on.
             </p>
         </section>
+        
+        <!-- The Real Gavinbot Promotional Section -->
+        <section class="promo-section">
+            <div class="promo-title">🚀 THE REAL GAVINBOT 🚀</div>
+            <div class="promo-subtitle">PHYSICAL AI REVOLUTION - FROM DIGITAL TO REALITY</div>
+            
+            <div class="promo-content">
+                <div class="promo-image">
+                    <img src="gavinbot.png" alt="The Real Gavinbot - Physical AI Robot" />
+                </div>
+                
+                <div class="promo-text">
+                    <p style="font-size: 1.2em; color: #fff; text-shadow: 0 0 8px #19f7d2; margin-bottom: 25px; text-align: center;">
+                        <strong>BREAKING THE DIGITAL BARRIER!</strong><br>
+                        The legendary Gavinbot is transcending the virtual realm and manifesting in the REAL WORLD. 
+                        This isn't just code anymore - this is <span style="color: #ff6b35; font-weight: bold;">PHYSICAL AI ENGINEERING</span> 
+                        at its most advanced level!
+                    </p>
+                    
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <div>🖨️ 3D PRINTED</div>
+                            <div style="font-size: 0.9em; margin-top: 5px;">Advanced manufacturing</div>
+                        </div>
+                        <div class="feature-item">
+                            <div>👤 STEALTH DESIGN</div>
+                            <div style="font-size: 0.9em; margin-top: 5px;">Covert operations ready</div>
+                        </div>
+                        <div class="feature-item">
+                            <div>✈️ AUTONOMOUS FLIGHT</div>
+                            <div style="font-size: 0.9em; margin-top: 5px;">True aerial capabilities</div>
+                        </div>
+                        <div class="feature-item">
+                            <div>🧠 ADVANCED OS</div>
+                            <div style="font-size: 0.9em; margin-top: 5px;">Next-gen AI brain</div>
+                        </div>
+                        <div class="feature-item">
+                            <div>🤖 ROBOTICS REVOLUTION</div>
+                            <div style="font-size: 0.9em; margin-top: 5px;">Paradigm-shifting tech</div>
+                        </div>
+                    </div>
+                    
+                    <p style="font-size: 1.1em; color: #fdbc4b; text-shadow: 0 0 6px #fdbc4b; text-align: center; margin: 25px 0;">
+                        <em>"This is physical AI unlike anything before - a fusion of cutting-edge robotics, 
+                        stealth engineering, and autonomous intelligence that will redefine what's possible!"</em>
+                    </p>
+                    
+                    <div style="text-align: center;">
+                        <a href="https://github.com/gavinbot367/gavinbot" target="_blank" class="cta-button">
+                            🚀 EXPLORE THE REVOLUTION 🚀
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
         <section class="neon-border">
             <h2>Meet Gavinbot <span title="AI Parrot">🦜🤖</span></h2>
             <p>
@@ -304,5 +537,7 @@
     <!-- Add more projects below as needed -->
   </ul>
 </section>         
-*
+    </div>
+</body>
+</html>
 
