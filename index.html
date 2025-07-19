@@ -100,6 +100,30 @@
         }
     </style>
 </head>
+<script>
+const colors = [
+  "#00fff7", "#ff00ea", "#00ff94", "#fff700", "#ff0099", "#00b7ff", "#ff5e00", "#00fffd",
+  "#ff00c8", "#36ff00", "#ff000a", "#00ffcc", "#66ffaa", "#ff9900", "#cc00ff"
+];
+let angle = 0;
+
+function setBackground() {
+  // Cycle through colors to create a gradient
+  const c1 = colors[Math.floor(Math.random() * colors.length)];
+  const c2 = colors[Math.floor(Math.random() * colors.length)];
+  const c3 = colors[Math.floor(Math.random() * colors.length)];
+  angle = (angle + 2) % 360;
+  document.body.style.background = `linear-gradient(${angle}deg, ${c1}, ${c2}, ${c3})`;
+  document.body.style.transition = "background 1s cubic-bezier(.85,0,.35,1)";
+}
+
+// Change background every 700ms
+setInterval(setBackground, 700);
+
+// Optional: make the background cover the whole screen with no scroll
+document.body.style.minHeight = "100vh";
+document.body.style.margin = "0";
+</script>
 <body>
     <header>
         <div class="glow">Gavinnot & Gavinbot 🏴‍☠️🦜🤖</div>
