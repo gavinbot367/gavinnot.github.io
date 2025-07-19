@@ -1,164 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <style>
-body {
-  min-height: 100vh;
-  margin: 0;
-  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
-  background: linear-gradient(120deg, #d7eaff 0%, #f4f8fb 100%);
-  color: #222;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.main-wrapper {
-  background: rgba(255,255,255,0.92);
-  box-shadow: 0 6px 32px rgba(30,60,120,0.08);
-  border-radius: 20px;
-  margin: 40px 0;
-  padding: 36px 28px;
-  max-width: 700px;
-  width: 90vw;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  color: #225ab5;
-  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
-  font-weight: 700;
-  margin-top: 0;
-  margin-bottom: 0.8em;
-  letter-spacing: 0.01em;
-}
-
-p, li, a, span, div {
-  color: #222;
-  font-size: 1.1em;
-  line-height: 1.65;
-  margin-bottom: 1.1em;
-}
-
-a {
-  color: #3270d9;
-  text-decoration: underline;
-  transition: color 0.2s;
-}
-
-a:hover {
-  color: #18438f;
-}
-
-ul, ol {
-  padding-left: 1.2em;
-}
-
-@media (max-width: 600px) {
-  .main-wrapper {
-    padding: 18px 6px;
-    border-radius: 10px;
-  }
-  h1 {
-    font-size: 1.5em;
-  }
-}
-</style>   
-    <style>
-body {
-  /* Soft dark overlay over the animated background */
-  position: relative;
-  min-height: 100vh;
-  margin: 0;
-  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
-  color: #f5f6fa;
-}
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  /* Subtle dark overlay */
-  background: rgba(20, 24, 34, 0.77);
-}
-
-/* Modern, subtle text styling */
-h1, h2, h3, h4, h5, h6 {
-  color: #d0e6ff;
-  text-shadow: 0 2px 6px rgba(60,120,240,0.09);
-  font-weight: 700;
-  letter-spacing: 0.015em;
-}
-
-p, li, span, div, a, td, th, label {
-  color: #f5f6fa;
-  text-shadow: none;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-}
-
-a {
-  color: #7ec7ff;
-  text-decoration: underline;
-  transition: color 0.2s;
-}
-a:hover {
-  color: #66aaff;
-}
-
-@media (max-width: 600px) {
-  body {
-    font-size: 1.05em;
-  }
-  h1 {
-    font-size: 1.4em;
-  }
-}
-</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gavinnot & Gavinbot | The Futuristic Pirate Lair</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto&display=swap" rel="stylesheet">
     <style>
-       <style>
-body, html {
-  color: #fff;
-  text-shadow: 0 0 8px #0ff, 0 0 12px #f0f, 0 0 20px #0ff, 0 0 30px #f0f;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-}<script>
-const colors = [
-  "#3498db", "#8e44ad", "#1abc9c", "#f39c12", "#e74c3c", "#2ecc71", "#e67e22", "#16a085"
-];
-let angle = 0;
-
-function setBackground() {
-  const c1 = colors[Math.floor(Math.random() * colors.length)];
-  const c2 = colors[Math.floor(Math.random() * colors.length)];
-  angle = (angle + 1) % 360;
-  document.body.style.background = `linear-gradient(${angle}deg, ${c1} 0%, ${c2} 100%)`;
-  document.body.style.transition = "background 1.5s cubic-bezier(.9,0,.1,1)";
-}
-setInterval(setBackground, 2500);
-document.body.style.background = "linear-gradient(120deg, #2d3250 0%, #1a1d2b 100%)";
-</script>
-
-h1, h2, h3, h4, h5, h6, p, a, span, li, td, th, label, div {
-  /* Animated gradient text */
-  background: linear-gradient(270deg, #00fff7, #ff00ea, #00ff94, #fff700, #ff0099, #00b7ff, #ff5e00, #00fffd, #ff00c8, #36ff00, #ff000a, #00ffcc, #66ffaa, #ff9900, #cc00ff, #00fff7);
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: text-gradient 6s ease-in-out infinite;
-  text-shadow: 0 0 8px #0ff, 0 0 12px #f0f, 0 0 20px #0ff, 0 0 30px #f0f;
-}
-
-@keyframes text-gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-</style> 
         body {
             margin: 0;
             min-height: 100vh;
@@ -187,7 +34,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li, td, th, label, div {
             from { text-shadow: 0 0 7px #19f7d2, 0 0 21px #19f7d2, 0 0 42px #0ff, 0 0 82px #0ff; }
             to { text-shadow: 0 0 21px #19f7d2, 0 0 42px #2fffc8, 0 0 82px #00ffe7, 0 0 100px #00ffe7; }
         }
-        .blackandgrey-border {
+        .neon-border {
             border: 2px solid #19f7d2;
             box-shadow: 0 0 20px #19f7d2, 0 0 40px #0ff;
             border-radius: 20px;
@@ -253,22 +100,6 @@ h1, h2, h3, h4, h5, h6, p, a, span, li, td, th, label, div {
         }
     </style>
 </head>
- <style>
-body {
-  min-height: 100vh;
-  margin: 0;
-  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
-  /* Soft, non-flashing gradient background */
-  background: linear-gradient(120deg, #d7eaff 0%, #f4f8fb 100%);
-}
-</style>
-<script>
-}
-
-// Optional: make the background cover the whole screen with no scroll
-document.body.style.minHeight = "100vh";
-document.body.style.margin = "0";
-</script>
 <body>
     <header>
         <div class="glow">Gavinnot & Gavinbot 🏴‍☠️🦜🤖</div>
@@ -508,48 +339,3 @@ setInterval(() => {
     idx = (idx + 1) % cyclePhrases.length;
 }, 2000);
 </script>
-<!-- Place this at the top of your body or main section -->
-<div id="evolving-banner" class="evolving-banner">
-  The best thing ever created — evolving forever 🚀✨
-</div>
-
-<style>
-.evolving-banner {
-  font-family: 'Orbitron', 'Roboto', Arial, sans-serif;
-  font-size: 2em;
-  color: #19f7d2;
-  text-align: center;
-  margin: 40px auto 24px auto;
-  padding: 20px 8px;
-  border-radius: 30px;
-  background: linear-gradient(90deg, #0f2027 0%, #2c5364 100%);
-  box-shadow: 0 0 32px #19f7d2, 0 0 54px #0ff;
-  animation: evolveGlow 2.5s infinite alternate;
-  letter-spacing: 2px;
-}
-@keyframes evolveGlow {
-  from { box-shadow: 0 0 32px #19f7d2, 0 0 54px #0ff; }
-  to { box-shadow: 0 0 52px #39ff14, 0 0 74px #00ffe7; color: #fdbc4b; }
-}
-</style>
-<script>
-const phrases = [
-  "The best thing ever created — evolving forever 🚀✨",
-  "A website that never stops growing 🌱→🚀",
-  "Infinitely creative. Endlessly surprising.",
-  "Powered by imagination, built for the future.",
-  "Welcome to the evolution of awesome.",
-  "Always changing. Always amazing.",
-  "The adventure never ends here!"
-];
-let i = 0;
-setInterval(() => {
-  document.getElementById('evolving-banner').textContent = phrases[i];
-  i = (i + 1) % phrases.length;
-}, 3500);
-</script>
-<img src="profile.jpg" alt="C:\Users\lewis\OneDrive\Desktop\Gavinnot files\Gavinnot and Gavinbot.PNG" class="profile-pic">
-<!-- Add this just before the closing </body> tag -->
-<audio id="bg-music" src="music/pirate-futuristic.mp3" autoplay loop hidden></audio>
-
-<script> window.addEventListener('DOMContentLoaded', function() { var audio = document.getElementById('bg-music'); audio.volume = 0.5; // Adjust volume as needed audio.play().catch(function(){ /* Autoplay may be blocked by the browser */ }); }); </script>
