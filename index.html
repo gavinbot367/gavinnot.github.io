@@ -6,6 +6,30 @@
     <title>Gavinnot & Gavinbot | The Futuristic Pirate Lair</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto&display=swap" rel="stylesheet">
     <style>
+       <style>
+body, html {
+  color: #fff;
+  text-shadow: 0 0 8px #0ff, 0 0 12px #f0f, 0 0 20px #0ff, 0 0 30px #f0f;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, span, li, td, th, label, div {
+  /* Animated gradient text */
+  background: linear-gradient(270deg, #00fff7, #ff00ea, #00ff94, #fff700, #ff0099, #00b7ff, #ff5e00, #00fffd, #ff00c8, #36ff00, #ff000a, #00ffcc, #66ffaa, #ff9900, #cc00ff, #00fff7);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-gradient 6s ease-in-out infinite;
+  text-shadow: 0 0 8px #0ff, 0 0 12px #f0f, 0 0 20px #0ff, 0 0 30px #f0f;
+}
+
+@keyframes text-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+</style> 
         body {
             margin: 0;
             min-height: 100vh;
