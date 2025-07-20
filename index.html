@@ -426,6 +426,61 @@
   // Initial Greeting
   addMessage("Gavinbot", "Hi! I'm Gavinbot, your AI. Ask me anything about me, my projects, or this website!");
 </script>
+<!-- Gavinbot AI Chat Widget -->
+<div id="gavinbot-widget" style="position:fixed;bottom:24px;right:24px;width:360px;max-width:95vw;z-index:9999;font-family:sans-serif;">
+  <div style="background:#232526;color:#fff;padding:1em;border-radius:12px 12px 0 0;display:flex;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,0.14);">
+    <img src="gavinbot.png" alt="Gavinbot" style="width:44px;height:44px;margin-right:14px;border-radius:50%;background:#fff;">
+    <strong style="font-size:1.2em;">Gavinbot</strong>
+  </div>
+  <div id="gavinbot-chat" style="background:#fff;color:#222;height:320px;overflow-y:auto;padding:1em;border:1px solid #ddd;"></div>
+  <form id="gavinbot-form" style="background:#f3f3f3;padding:0.5em;border-radius:0 0 12px 12px;display:flex;gap:0.5em;">
+    <input id="gavinbot-input" type="text" placeholder="Ask Gavinbot anything..." autocomplete="off"
+          style="flex:1;padding:0.55em;border-radius:8px;border:1px solid #bbb;">
+    <button type="submit" style="background:#00ffea;color:#232526;border:none;padding:0.5em 1.2em;border-radius:8px;font-weight:bold;cursor:pointer;">
+      Send
+    </button>
+  </form>
+</div>
+<script>
+  // Change this to your deployed backend endpoint!
+  const GAVINBOT_API = "https://your-gavinbot-backend-url.com/api/chat";
 
+  const chat = document.getElementById('gavinbot-chat');
+  const form = document.getElementById('gavinbot-form');
+  const input = document.getElementById('gavinbot-input');
+
+  function addMessage(sender, text) {
+    const msg = document.createElement('div');
+    msg.style.margin = "0.6em 0";
+    msg.innerHTML = `<strong>${sender}:</strong> <span style="white-space:pre-line;">${text}</span>`;
+    chat.appendChild(msg);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  form.onsubmit = async function(e) {
+    e.preventDefault();
+    const userMsg = input.value.trim();
+    if (!userMsg) return;
+    addMessage("You", userMsg);
+    input.value = "";
+    addMessage("Gavinbot", "...");
+    try {
+      const response = await fetch(GAVINBOT_API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMsg })
+      });
+      const data = await response.json();
+      chat.removeChild(chat.lastChild); // remove "..."
+      addMessage("Gavinbot", data.reply || "I'm still learning, can you rephrase?");
+    } catch (err) {
+      chat.removeChild(chat.lastChild);
+      addMessage("Gavinbot", "Sorry, I'm having trouble reaching my brain right now.");
+    }
+  };
+
+  // Initial Greeting
+  addMessage("Gavinbot", "Hi! I'm Gavinbot, your AI. Ask me anything about me, my projects, or this website!");
+</script>
 </body>
 </html>
