@@ -62,7 +62,44 @@
         -2px 0px 0 #111;  /* dark outline left */
     animation: pulse 2s infinite alternate;
 }
-       
+       #gavinbot-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #222;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 50px;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+}
+
+#gavinbot-modal {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #f9f9f9;
+  border-top: 2px solid #ccc;
+  padding: 20px;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+
+.modal-content {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+#close-btn {
+  float: right;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
         @keyframes pulse {
             to { text-shadow: 0 0 24px #19f7d2, 0 0 42px #0ff, 0 0 82px #0ff, 0 0 120px #0ff; }
         }
