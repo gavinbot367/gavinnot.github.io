@@ -501,7 +501,18 @@
 
   // Initial Greeting
   addMessage("Gavinbot", "Hi! I'm Gavinbot, your AI. Ask me anything about me, my projects, or this website!");
-<script>
+"scripts": {
+  "start": "node server.js"
+}
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 3001;
+app.listen(port, () => {
+  console.log(`Gavinbot is flapping on port ${port}`);
+});
+app.use('/api/chat', require('./chat')); // Assuming chat.js handles the logic
+
+    <script>
   const button = document.getElementById('gavinbot-button');
   const modal = document.getElementById('gavinbot-modal');
   const closeBtn = document.getElementById('close-btn');
