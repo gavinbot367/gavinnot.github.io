@@ -132,8 +132,9 @@
   cursor: pointer;
 }
 
-        @keyframes pulse {
-            to { text-shadow: 0 0 24px #19f7d2, 0 0 42px #0ff, 0 0 82px #0ff, 0 0 120px #0ff; }
+        @keyframes pulse { /* NEW keyframes for glowing text */ }
+.glow { animation: pulse 2s infinite ease-in-out; }
+
         }
         .main-image {
             width: 120px; /* smaller image */
@@ -224,8 +225,14 @@
             overflow: hidden;
         }
         @keyframes neonPulse {
-            from { box-shadow: 0 0 10px #19f7d2, 0 0 40px #0ff, 0 0 80px #19f7d2;}
-            to { box-shadow: 0 0 20px #19f7d2, 0 0 60px #2fffc8, 0 0 110px #00ffe7;}
+  from {
+    box-shadow: 0 0 10px #19f7d2, 0 0 40px #0ff, 0 0 80px #19f7d2;
+  }
+  to {
+    box-shadow: 0 0 20px #19f7d2, 0 0 60px #2fffc8, 0 0 110px #00ffe7;
+  }
+}
+
         }
         .neon-cycle-btn:hover {
             background: linear-gradient(135deg, #39ff14 0%, #0ff 100%);
