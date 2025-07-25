@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
 
     <meta charset="UTF-8">
     <title>Gavinnot & Gavinbot | The Futuristic Pirate Lair</title>
@@ -578,6 +579,21 @@ function addMessage(sender, text) {
     <p>Hi, I'm GavinBot! What would you like to know?</p>
   </div>
 </div>
+<div id="particles-js" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;"></div>
+<script>
+tsParticles.load("particles-js", {
+  fullScreen: false,
+  particles: {
+    number: { value: 60 },
+    color: { value: "#0ff" },
+    shape: { type: "circle" },
+    opacity: { value: 0.4 },
+    size: { value: 2 },
+    move: { enable: true, speed: 0.6 }
+  },
+  background: { color: "transparent" }
+});
+</script>
  
 </body>
 </html>
