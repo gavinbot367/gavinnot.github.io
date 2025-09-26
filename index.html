@@ -1,281 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Gavinnot & Gavinbot | The Futuristic Pirate Lair</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Gavinnot & Gavinbot: Futuristic pirate energy, AI parrot banter, shed inventions, games, photography, auctions, and the rise of The Real Gavinbot.">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Roboto&display=swap" rel="stylesheet">
-  <link rel="icon" href="GavinnotandGavinbot.png">
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js" defer></script>
-  <style>
-    body { margin:0; min-height:100vh; background:linear-gradient(135deg,#0f2027 0%,#2c5364 100%); color:#fff; font-family:'Roboto',Arial,sans-serif; transition:background .6s; }
-    body.alt-mode { background:linear-gradient(135deg,#161616,#303030); }
-    nav { background:#232323; color:#fff; padding:1em .5em; text-align:center; position:relative; }
-    nav a { color:#19f7d2; margin:0 12px; font-weight:bold; text-decoration:none; font-family:'Orbitron',Arial,sans-serif; }
-    nav a:hover { color:#fdbc4b; text-shadow:0 0 8px #fdbc4b; }
-    .toggle-btn { position:absolute; right:10px; top:10px; background:#444; color:#fff; border:none; border-radius:4px; padding:.4em .8em; cursor:pointer; font-family:'Orbitron',sans-serif; }
-    .hero { display:flex; flex-direction:column; align-items:center; padding:32px 0 10px; text-align:center; }
-    .glow { font-family:'Orbitron',Arial,sans-serif; font-size:2.4em; font-weight:900; color:#19f7d2; text-shadow:0 0 7px #19f7d2,0 0 21px #19f7d2,0 0 42px #0ff,0 0 82px #0ff,2px 2px 0 #111,-2px 2px 0 #111,2px -2px 0 #111,-2px -2px 0 #111,0 2px 0 #111,2px 0 0 #111,0 -2px 0 #111,-2px 0 0 #111; animation:pulse 2.2s infinite alternate ease-in-out; }
-    @keyframes pulse { from { filter:brightness(.85);} to { filter:brightness(1.25);} }
-    .main-image { width:120px; max-width:95vw; border-radius:20px; margin:24px auto 12px; display:block; box-shadow:0 0 24px #19f7d2; }
-    .quote { font-style:italic; color:#fdbc4b; text-shadow:0 0 6px #fdbc4b80; margin:12px 0 20px; font-size:1.2em; max-width:700px; }
-    .container { max-width:900px; margin:auto; padding:2em 1em 4em; }
-    .neon-border { border:2px solid #19f7d2; box-shadow:0 0 20px #19f7d2,0 0 40px #0ff; border-radius:20px; padding:32px 24px; margin:32px auto; background:rgba(10,12,24,.85); max-width:650px; width:90%; }
-    h2 { font-family:'Orbitron',Arial,sans-serif; color:#fdbc4b; text-shadow:0 0 8px #fdbc4b,0 0 20px #fff20044; letter-spacing:1.5px; margin-top:0; }
-    .gallery-section { margin:40px 0; }
-    .gallery { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; }
-    .gallery img { width:180px; border-radius:12px; box-shadow:0 2px 8px #19f7d2; background:#232323; padding:2px; }
-    @media (max-width:600px){ .gallery img{ width:90px;} .container,.neon-border{ padding:1em .6em;} .glow{ font-size:1.9em;} }
-    ul { text-align:left; margin:0 auto 0 1.2em; padding:0; max-width:500px; font-size:1.05em; }
-    ul li { margin:10px 0; }
-    footer { margin:60px 0 20px; color:#aaa; font-size:.95em; text-align:center; letter-spacing:1px; }
-    #gavinbot-button { position:fixed; bottom:20px; right:20px; background:#0ff; color:#000; padding:12px 18px; border-radius:50px; font-weight:bold; box-shadow:0 0 10px #0ff,0 0 20px #0ff; font-family:'Orbitron',sans-serif; text-transform:uppercase; cursor:pointer; z-index:1000; }
-    #gavinbot-modal { display:none; position:fixed; bottom:0; left:0; right:0; background:linear-gradient(to top right,#020024,#090979,#00d4ff); padding:20px; border-top:2px solid #00d4ff; box-shadow:0 -2px 30px rgba(0,212,255,.2); z-index:999; font-family:'Orbitron',sans-serif; color:#fff; max-height:60vh; overflow-y:auto; }
-    #close-btn { float:right; font-size:1.5rem; cursor:pointer; }
-    #gavinbot-widget { position:fixed; bottom:100px; right:24px; width:360px; max-width:95vw; z-index:9999; font-family:'Roboto',sans-serif; background:#232526; border:2px solid #19f7d2; border-radius:16px; box-shadow:0 0 18px rgba(0,255,255,.4); display:none; flex-direction:column; }
-    #gavinbot-widget .chat-header { background:#1b1d22; padding:10px 12px; display:flex; align-items:center; gap:12px; border-radius:14px 14px 0 0; font-family:'Orbitron',sans-serif; }
-    #gavinbot-widget .chat-header img { width:44px; height:44px; border-radius:50%; background:#fff; }
-    #gavinbot-chat { background:#fff; color:#222; height:300px; overflow-y:auto; padding:1em; font-size:.9em; }
-    #gavinbot-form { background:#f3f3f3; padding:.5em; border-radius:0 0 14px 14px; display:flex; gap:.5em; }
-    #gavinbot-form input { flex:1; padding:.55em; border-radius:8px; border:1px solid #bbb; }
-    #gavinbot-form button { background:#00ffea; color:#232526; border:none; padding:.5em 1.2em; border-radius:8px; font-weight:bold; cursor:pointer; font-family:'Orbitron',sans-serif; }
-    .chat-msg { margin:.6em 0; padding:6px 8px; border-radius:8px; background:rgba(255,255,255,.1); }
-    .chat-msg.bot { background:rgba(0,255,234,.12); box-shadow:0 0 8px #0ff; }
-    #particles-js { position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:-1; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gavin Not | Futuristic Pirate</title>
+<style>
+body {
+margin: 0;
+font-family: 'Trebuchet MS', sans-serif;
+background: linear-gradient(to right, #0a0f1f, #1b2a4d);
+color: #f5f5f5;
+text-align: center;
+}
+header {
+padding: 2rem;
+background: rgba(0,0,0,0.5);
+}
+header h1 {
+font-size: 3rem;
+margin: 0;
+}
+header p {
+font-size: 1.2rem;
+color: #ccc;
+}
+.hero {
+padding: 4rem 2rem;
+}
+.hero img {
+width: 250px;
+border-radius: 50%;
+border: 3px solid #00ffe0;
+box-shadow: 0 0 20px #00ffe0;
+}
+.btn {
+display: inline-block;
+margin: 1rem;
+padding: 0.8rem 1.5rem;
+border: 2px solid #00ffe0;
+color: #00ffe0;
+text-decoration: none;
+border-radius: 8px;
+transition: 0.3s;
+}
+.btn:hover {
+background: #00ffe0;
+color: #0a0f1f;
+}
+section {
+padding: 3rem 2rem;
+max-width: 800px;
+margin: auto;
+}
+footer {
+padding: 1rem;
+background: rgba(0,0,0,0.7);
+font-size: 0.9rem;
+color: #888;
+}
+</style>
 </head>
 <body>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#contact">Contact</a>
-    <button class="toggle-btn" onclick="toggleMode()">🌗 Mode</button>
-  </nav>
+<header>
+<h1>⚓ Gavin Not</h1>
+<p>The Futuristic Pirate | Creator of GavinBot</p>
+</header>
 
-  <div class="hero">
-    <img src="gavinnot-gavinbot.png" alt="Gavinnot and Gavinbot" class="main-image" loading="lazy">
-    <div class="glow">Gavinnot & Gavinbot 🏴‍☠️🦜🤖</div>
-    <div class="quote">“The future isn’t written… but the code (and the banter) is.”</div>
-  </div>
+<div class="hero">
+<img src="your-cyber-gavin-image.jpg" alt="Cyber Gavin Pirate">
+<p>Half human, half machine, all pirate ⚔️</p>
+<a href="#shed-sessions" class="btn">📬 Shed Sessions</a>
+<a href="#gavinbot" class="btn">🤖 Meet GavinBot</a>
+</div>
 
-  <div class="container">
-    <section id="about" class="neon-border">
-      <h2>About Me</h2>
-      <p>
-        Born in Yorkshire made on Portland, UK. Firefighter, pirate at heart, and son of Navy men.<br>
-        F1 racing fan, builder of anything, crypto explorer, blackjack ace.<br>
-        Sharing my story, projects, and adventures—so my spark lives on.
-      </p>
-    </section>
+<section id="shed-sessions">
+<h2>📬 Shed Sessions Newsletter</h2>
+<p>Join my newsletter for adventures, mischief, and AI experiments straight from the Shed.</p>
+<!-- Substack embed -->
+<iframe src="https://shedsessions.substack.com/embed"
+width="100%"
+height="320"
+style="border:1px solid #00ffe0; background:white;"
+frameborder="0"
+scrolling="no"></iframe>
+</section>
 
-    <section class="neon-border">
-      <h2>Meet Gavinbot <span title="AI Parrot">🦜🤖</span></h2>
-      <p>
-        Gavinbot is my AI parrot!<br>
-        He squawks stories, pirate jokes, and keeps the banter alive.<br>
-        When I’m gone, Gavinbot will chat with my family and friends in true feathered, funny fashion.<br>
-        <span style="color:#39ff14;font-weight:bold;">"Pieces of eight! Squawk! Tell me a tale, matey!"</span>
-      </p>
-    </section>
+<section id="gavinbot">
+<h2>🤖 Meet GavinBot</h2>
+<p>A stealthy, jet-powered parrot with jokes sharper than a cutlass.
+Your cheeky AI sidekick for the voyage ahead.</p>
+<p><a href="#" class="btn">⚡ Talk to GavinBot</a></p>
+</section>
 
-    <section class="neon-border">
-      <h2>Shed Ideas</h2>
-      <p>Discover my wildest, wackiest, and most practical shed ideas for every tinkerer's dream.</p>
-    </section>
-
-    <section class="neon-border">
-      <h2>Fun Games & Competitions</h2>
-      <ul>
-        <li>Futuristic Pirate Quizzes</li>
-        <li>Build-offs & Tinkering Challenges</li>
-        <li>Blackjack, Roulette, and Slot Simulators</li>
-        <li>Caption This (with Amazing Photography)</li>
-        <li>Best Pirate Joke Contest</li>
-      </ul>
-    </section>
-
-    <section class="neon-border">
-      <h2>Funny Futuristic Themes</h2>
-      <p>Expect robots, lasers, neon lights, and AI parrots! Gavinbot keeps things lively with surprise themes, digital costumes, and evolving site features.</p>
-      <section id="top-ten-jokes" style="margin:2em 0; padding:2em; background:#f5f5f5; border-radius:12px; color:#000;">
-        <h2 style="text-align:center;color:#000;">😂 Top Ten Funniest Jokes of All Time</h2>
-        <ol style="font-size:1.05em; line-height:1.6; max-width:700px; margin:auto;">
-          <li><strong>Pirate:</strong> Why did the pirate go to school? To improve his “arrrrrticulation”!</li>
-          <li><strong>AI:</strong> Why did the AI cross the road? It didn’t—its neural network weights weren’t initialized properly.</li>
-          <li><strong>F1:</strong> Why don’t F1 drivers ever get lost? Because they always take the fastest route!</li>
-          <li><strong>Karaoke:</strong> Why was the microphone invited? It was always ready to drop the mic!</li>
-          <li><strong>Crypto:</strong> No sunblock needed—always in the blockchain’s shade.</li>
-          <li><strong>Photography:</strong> Went broke—couldn’t focus on finances.</li>
-          <li><strong>Futuristic Shed:</strong> Installed facial recognition to keep out shady characters!</li>
-          <li><strong>AI:</strong> Told my AI a joke about self-awareness. It’s laughing at me now.</li>
-            <li><strong>Pirate AI:</strong> “Aye, aye, algorithm!”</li>
-          <li><strong>Karaoke Bot:</strong> Favorite song? “Mr. Roboto.”</li>
-        </ol>
-      </section>
-    </section>
-
-    <section id="gallery" class="gallery-section neon-border">
-      <h2>Amazing Photography</h2>
-      <p>Explore galleries of epic adventures, shed builds, and creative snapshots.</p>
-      <div class="gallery">
-        <img src="gavin-gracenot.png" alt="Gavinnot and Gracenot" loading="lazy">
-        <img src="gavinnot-young-gracenot.png" alt="Gavinnot and young Gracenot" loading="lazy">
-        <img src="gavinnot-character-poster.png" alt="Gavinnot character poster" loading="lazy">
-        <img src="gavinnot-pirate-gavinnot.png" alt="Pirate styled portrait" loading="lazy">
-        <img src="edge-of-the-world.png" alt="Edge of the world landscape" loading="lazy">
-        <img src="shed-essentials.png" alt="Shed essentials laid out" loading="lazy">
-      </div>
-    </section>
-
-    <section class="neon-border">
-      <h2>Friday Evening Auctions</h2>
-      <p>Join us every Friday night for futuristic, pirate-style auctions!</p>
-      <img src="auction-items.png" alt="Friday auction preview" style="width:100%;max-width:400px;border-radius:16px;margin-top:18px;box-shadow:0 0 18px #19f7d2;" loading="lazy">
-    </section>
-
-    <section id="contact" class="neon-border">
-      <h2>Connect & Support</h2>
-
-      <section id="karaoke" style="background:#121212;padding:1.2em 1em;border-radius:14px;margin-bottom:1.5em;">
-        <h2 style="margin-top:0;">Karaoke</h2>
-        <p>Enjoy some of my favorite karaoke performances and tracks!</p>
-        <ul>
-          <li>Teddy Swims – The Door</li>
-          <li>Lionel Richie – Hello</li>
-          <li>Nirvana</li>
-          <li>The Offspring</li>
-          <li>Blink 182</li>
-          <li>Sound of Silence</li>
-          <li>My Way</li>
-          <li>The Beatles</li>
-          <li>Crazy – Gnarls Barkley</li>
-          <li>Tenacious D – (clean edit)</li>
-          <li>Elton John</li>
-        </ul>
-      </section>
-
-      <section id="special-projects" style="background:#121212;padding:1.2em 1em;border-radius:14px;margin-bottom:1.5em;">
-        <h2 style="margin-top:0;">Special Projects</h2>
-        <ul>
-          <li><strong>gavinbot:</strong> Advanced bot for automation & fun. <a href="https://github.com/gavinbot367/gavinbot" target="_blank">View on GitHub</a></li>
-        </ul>
-      </section>
-
-      <section id="gavinbot-promo" style="background:linear-gradient(135deg,#232526 0%,#414345 100%); color:#fff; padding:2em; border-radius:16px; box-shadow:0 4px 16px rgba(0,0,0,.3); margin:2em 0; display:flex; flex-wrap:wrap; align-items:center; gap:2em;">
-        <div style="flex:1 1 320px; min-width:320px; text-align:center;">
-          <img src="gavinbot.png" alt="The Real Gavinbot prototype" style="max-width:300px;width:100%;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.5);background:#101014;padding:1em;" loading="lazy">
-        </div>
-        <div style="flex:2 1 400px; min-width:300px;">
-          <h2 style="font-size:2.2em;margin-bottom:.5em;">🚀 Introducing: The Real Gavinbot</h2>
-          <p style="font-size:1.15em;line-height:1.5;">
-            3D printed, stealth-engineered, experimental flight mode, modular AI OS. Physical AI evolution underway.
-          </p>
-          <ul style="font-size:1.05em; list-style:disc inside; line-height:1.5;">
-            <li>🦾 Precision engineered</li>
-            <li>🛩️ Flight potential</li>
-            <li>🧠 Modular AI core</li>
-            <li>👀 Stealth geometry</li>
-            <li>🌟 Robotics revolution</li>
-          </ul>
-          <div style="margin-top:1.2em;">
-            <a href="https://github.com/gavinbot367/gavinbot" target="_blank" style="background:#00ffea;color:#232526;padding:.9em 1.6em;border-radius:8px;font-size:1.05em;text-decoration:none;font-weight:bold;box-shadow:0 2px 8px rgba(0,255,234,.25);">Learn More →</a>
-          </div>
-          <div style="margin-top:1.2em;"><em>Be part of the journey. Gavinbot is just getting started.</em></div>
-        </div>
-      </section>
-
-      <div style="text-align:center; margin:2em 0;">
-        <a href="https://github.com/sponsors/gavinbot367" target="_blank"
-          style="background:#ea4aaa; color:#fff; padding:1em 2em; border-radius:8px;
-          font-size:1.1em; text-decoration:none; font-weight:bold;
-          box-shadow:0 2px 8px rgba(234,74,170,.35); display:inline-block;">
-          ❤️ Sponsor Me on GitHub
-        </a>
-      </div>
-    </section>
-  </div>
-
-  <footer>&copy; <span id="year"></span> Gavinnot & Gavinbot. All rights reserved.</footer>
-
-  <div id="gavinbot-button">💬 Ask GavinBot</div>
-
-  <div id="gavinbot-widget" aria-live="polite">
-    <div class="chat-header">
-      <img src="gavinbot.png" alt="Gavinbot avatar">
-      <strong>Gavinbot</strong>
-      <button id="chat-close" style="margin-left:auto;background:#333;color:#ccc;border:none;padding:4px 8px;border-radius:6px;cursor:pointer;">✕</button>
-    </div>
-    <div id="gavinbot-chat"></div>
-    <form id="gavinbot-form" autocomplete="off">
-      <input id="gavinbot-input" type="text" placeholder="Ask Gavinbot anything..." />
-      <button type="submit">Send</button>
-    </form>
-  </div>
-
-  <div id="gavinbot-modal">
-    <div class="modal-content">
-      <span id="close-btn">&times;</span>
-      <p>Hi, I'm GavinBot! What would you like to know?</p>
-    </div>
-  </div>
-
-  <div id="particles-js"></div>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-    function toggleMode(){ document.body.classList.toggle('alt-mode'); }
-    document.addEventListener('DOMContentLoaded', () => {
-      if (window.tsParticles) {
-        tsParticles.load("particles-js", {
-          fullScreen:false,
-          particles:{ number:{ value:60 }, color:{ value:"#0ff" }, shape:{ type:"circle" }, opacity:{ value:0.4 }, size:{ value:2 }, move:{ enable:true, speed:0.6 } },
-          background:{ color:"transparent" }
-        });
-      }
-    });
-    const chatContainer=document.getElementById('gavinbot-widget');
-    const chatButton=document.getElementById('gavinbot-button');
-    const chatClose=document.getElementById('chat-close');
-    const chatLog=document.getElementById('gavinbot-chat');
-    const chatForm=document.getElementById('gavinbot-form');
-    const chatInput=document.getElementById('gavinbot-input');
-    const GAVINBOT_API="https://gavinbot-shrine.onrender.com/api/chat";
-    function addMessage(sender,text){
-      const div=document.createElement('div');
-      div.className='chat-msg '+(sender==='Gavinbot'?'bot':'user');
-      div.innerHTML='<strong>'+sender+':</strong> <span style="white-space:pre-line;">'+text+'</span>';
-      chatLog.appendChild(div); chatLog.scrollTop=chatLog.scrollHeight;
-    }
-    function showLoading(){ addMessage('Gavinbot','...'); }
-    function replaceLastIfLoading(text){
-      const msgs=chatLog.querySelectorAll('.chat-msg');
-      const last=msgs[msgs.length-1];
-      if(last && last.textContent.trim()==='Gavinbot: ...'){
-        last.innerHTML='<strong>Gavinbot:</strong> <span style="white-space:pre-line;">'+text+'</span>';
-      }
-    }
-    chatButton.onclick=()=>{ chatContainer.style.display='flex'; chatInput.focus(); };
-    chatClose.onclick=()=>{ chatContainer.style.display='none'; };
-    chatForm.onsubmit=async e=>{
-      e.preventDefault();
-      const userMsg=chatInput.value.trim();
-      if(!userMsg) return;
-      addMessage('You',userMsg);
-      chatInput.value='';
-      showLoading();
-      try{
-        const res=await fetch(GAVINBOT_API,{ method:"POST", headers:{ "Content-Type":"application/json" }, body:JSON.stringify({ message:userMsg }) });
-        const data=await res.json();
-        replaceLastIfLoading(data.reply || "I'm still learning, can you rephrase?");
-      }catch(err){
-        replaceLastIfLoading("Stormy seas... I can't reach my brain right now.");
-      }
-    };
-    addMessage("Gavinbot","Hi! I'm Gavinbot, your AI. Ask me anything about me, my projects, or this website!");
-    const modal=document.getElementById('gavinbot-modal');
-    const closeBtn=document.getElementById('close-btn');
-    if(closeBtn) closeBtn.onclick=()=> modal.style.display='none';
-  </script>
+<footer>
+© 2025 Gavin Not | Built in the Shed 🛠️
+</footer>
 </body>
 </html>
