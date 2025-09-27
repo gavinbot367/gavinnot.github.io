@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gavinbot Village</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Welcome to Gavinbot Village! Meet all the quirky bots and villagers.">
+  <style>
+    body {
+      margin:0; padding:0;
+      font-family: 'Trebuchet MS', Arial, sans-serif;
+      background: linear-gradient(135deg, #1d315b 0%, #6e7fff 100%);
+      color: #fff;
+      min-height:100vh;
+    }
+    header {
+      padding: 2em 0 0.5em 0;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.7em;
+      margin: 0;
+      letter-spacing:2px;
+      text-shadow:0 0 18px #00ffe0, 0 0 24px #fff200;
+    }
+    header p {
+      margin: 0.7em 0 0 0;
+      font-size: 1.2em;
+      color: #ffe14b;
+      text-shadow:0 0 10px #0ff;
+    }
+    .village-map {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2em;
+      padding: 2em 1em;
+      max-width:1100px;
+      margin:auto;
+    }
+    .villager {
+      background: rgba(20,24,55,0.92);
+      border-radius: 18px;
+      box-shadow: 0 0 22px #0ff, 0 0 14px #fff200;
+      padding: 1.5em 1.2em;
+      width: 250px;
+      text-align: center;
+      margin-bottom: 1em;
+      transition:transform .16s;
+      position:relative;
+    }
+    .villager:hover { transform: scale(1.045) rotate(-2deg);}
+    .villager img {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      margin-bottom: 0.9em;
+      border: 3px solid #ffe14b;
+      background: #fff;
+      object-fit:cover;
+    }
+    .villager h2 {
+      margin: 0 0 0.3em 0;
+      font-size: 1.23em;
+      color: #fff200;
+      text-shadow:0 0 9px #0ff;
+      letter-spacing:0.5px;
+    }
+    .villager p {
+      font-size: 1em;
+      margin: 0 0 .4em 0;
+      color: #fff;
+      opacity: .92;
+    }
+    .villager .role {
+      font-size: 0.96em;
+      color: #0ff;
+      font-weight:bold;
+      margin-bottom:0.7em;
+      display:block;
+      text-shadow:0 0 7px #fff200;
+    }
+    .villager .btn {
+      display: inline-block;
+      background: linear-gradient(90deg,#0ff 40%,#fff200 100%);
+      color: #1d315b;
+      font-weight: bold;
+      border: none;
+      border-radius: 7px;
+      padding: 0.5em 1.2em;
+      margin-top:.3em;
+      text-decoration: none;
+      margin-bottom: 0.3em;
+      box-shadow: 0 0 8px #0ff;
+      transition: background .18s;
+      cursor:pointer;
+    }
+    .villager .btn:hover { background:linear-gradient(90deg,#fff200 30%,#0ff 100%);}
+    footer {
+      text-align:center;
+      color:#ccc;
+      margin:2.5em 0 1em 0;
+      font-size:.97em;
+      opacity:0.7;
+    }
+    @media (max-width:700px) {
+      .village-map {flex-direction:column;align-items:center;}
+      .villager {width:90vw;max-width:350px;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🏡 Gavinbot Village</h1>
+    <p>Meet the quirky bots and legendary villagers!</p>
+  </header>
+  <section class="village-map">
+    <div class="villager">
+      <img src="gavinbot.png" alt="Gavinbot" />
+      <h2>Gavinbot</h2>
+      <span class="role">Village Mayor & AI Tinkerer</span>
+      <p>The cheekiest bot in the shed. Makes all the rules (and breaks them, too).</p>
+      <a class="btn" href="index.html#chat">Chat</a>
+    </div>
+    <div class="villager">
+      <img src="gavinnot-pirate.png" alt="Captain Gavin Not" />
+      <h2>Captain Gavin Not</h2>
+      <span class="role">Pirate Dad</span>
+      <p>Runs the local tavern. Known for wild stories, karaoke, and mysterious inventions.</p>
+    </div>
+    <div class="villager">
+      <img src="gavinnot-&-grace.png" alt="GraceBot" />
+      <h2>GraceBot</h2>
+      <span class="role">Village Scribe</span>
+      <p>Writes the newsletter and keeps the history scrolls safe from mischievous bots.</p>
+    </div>
+    <div class="villager">
+      <img src="gavinnot-&-barney.png" alt="BarneyBot" />
+      <h2>BarneyBot</h2>
+      <span class="role">Chief Prankster</span>
+      <p>Loves practical jokes. Once replaced all the village wine with grape juice.</p>
+    </div>
+    <div class="villager">
+      <img src="gavinnot-&-young.png" alt="OreoBot" />
+      <h2>OreoBot</h2>
+      <span class="role">Guinea Pig Guardian</span>
+      <p>Small, fluffy, but fierce. Protects the village snacks at all costs.</p>
+    </div>
+    <div class="villager">
+      <img src="gavinnot-character.png" alt="WendyBot" />
+      <h2>WendyBot</h2>
+      <span class="role">Tea Master</span>
+      <p>Supplies the best brews. Secretly controls more village politics than Gavinbot knows.</p>
+    </div>
+    <!-- Add more villagers as you want! -->
+  </section>
+  <footer>
+    &copy; 2025 Gavinbot Village | Powered by shed energy and mischief!
+  </footer>
+</body>
+</html>
