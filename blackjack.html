@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blackjack Simulator | Gavin Not's Pirate Lair</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: 'Trebuchet MS', sans-serif; background:#101f2c; color:#fff; text-align:center; padding:40px;}
+    .gameboard { background:#162844; border-radius:16px; padding:2em; max-width:380px; margin:auto; box-shadow:0 0 24px #19f7d2;}
+    .hand { margin:1em 0; }
+    .card { display:inline-block; background:#fff; color:#222; border-radius:6px; padding:0.5em 1em; margin:0 .3em;}
+    button { margin:.5em; padding:.6em 1.2em; border:none; border-radius:8px; background:#19f7d2; color:#101f2c; font-weight:bold; cursor:pointer;}
+    button:disabled { background:#444; color:#aaa; }
+    #msg { font-size:1.2em; margin:1em 0 .2em; min-height:1.5em; }
+  </style>
+</head>
+<body>
+  <h1>🏴‍☠️ Pirate Blackjack</h1>
+  <div class="gameboard">
+    <div><b>Your Hand:</b> <span id="player"></span> (<span id="player-total"></span>)</div>
+    <div><b>Dealer:</b> <span id="dealer"></span> (<span id="dealer-total"></span>)</div>
+    <div id="msg"></div>
+    <button id="hit">Hit</button>
+    <button id="stand">Stand</button>
+    <button id="restart" style="display:none;">Play Again</button>
+  </div>
+  <p style="opacity:.7;margin-top:2em;">For fun only. <a href="index.html" style="color:#19f7d2;">Back to Main Site</a></p>
+  <script>
+    // Simple Blackjack logic
+    const suits = ["♠", "♥", "♦", "♣"];
+    const values = [2,3,4,5,6,7,8,9,10,"J","Q","K","A"];
+    let deck, player, dealer, playerHasStood, gameOver;
+
+    function shuffleDeck() {
+      let d = [];
+      for (let s of suits) for (let v of values) d.push({v,s});
+      for (let i=d.length-1; i>0; i--) {
+        let j = Math.floor(Math.random()*(i+1));
+        [d[i],d[j]] = [d[j],d[i]];
+      }
+      return d;
+    }
+
+    function handValue(hand) {
+      let val = 0, aces = 0;
+      for (let c of hand) {
+        if (c.v === "A") { val += 11; aces++; }
+        else if (["K","Q","J"].includes(c.v)) val += 10;
+        else val += c.v;
+      }
+      while (val > 21 && aces) { val -= 10; aces--; }
+      return val;
+    }
+
+    function render() {
+      document.getElementById('player').innerHTML = player.map(c => `<span class="card">${c.v}${c.s}</span>`).join('');
+      document.getElementById('dealer').innerHTML = dealer.map((c,i) => playerHasStood || i>0 ? `<span class="card">${c.v}${c.s}</span>` : "<span class='card'>🂠</span>").join('');
+      document.getElementById('player-total').textContent = handValue(player);
+      document.getElementById('dealer-total').textContent = playerHasStood ? handValue(dealer) : "?";
+    }
+
+    function endGame(msg) {
+      document.getElementById('msg').textContent = msg;
+      document.getElementById('hit').disabled = true;
+      document.getElementById('stand').disabled = true;
+      document.getElementById('restart').style.display = "inline-block";
+      playerHasStood = true;
+      render();
+    }
+
+    function start() {
+      deck = shuffleDeck();
+      player = [deck.pop(), deck.pop()];
+      dealer = [deck.pop(), deck.pop()];
+      playerHasStood = false;
+      gameOver = false;
+      document.getElementById('msg').textContent = '';
+      document.getElementById('hit').disabled = false;
+      document.getElementById('stand').disabled = false;
+      document.getElementById('restart').style.display = "none";
+      render();
+      if (handValue(player) === 21) endGame("Blackjack! You win! 🎉");
+    }
+
+    document.getElementById('hit').onclick = function() {
+      if (gameOver) return;
+      player.push(deck.pop());
+      render();
+      let pv = handValue(player);
+      if (pv > 21) endGame("Bust! Dealer wins.");
+      else if (pv === 21) document.getElementById('msg').textContent = "21! Stand or try your luck?";
+    };
+    document.getElementById('stand').onclick = function() {
+      playerHasStood = true;
+      while (handValue(dealer) < 17) dealer.push(deck.pop());
+      render();
+      let pv = handValue(player), dv = handValue(dealer);
+      if (dv > 21) endGame("Dealer busts! You win!");
+      else if (dv === pv) endGame("Push. It's a tie!");
+      else if (pv > dv) endGame("You win! 🏴‍☠️");
+      else endGame("Dealer wins.");
+    };
+    document.getElementById('restart').onclick = start;
+
+    start();
+  </script>
+</body>
+</html>
