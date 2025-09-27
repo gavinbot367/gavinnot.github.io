@@ -2,35 +2,253 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Blackjack Simulator | Gavin Not's Pirate Lair</title>
+  <title>Futuristic Pirate Blackjack | Gavinbot Lair</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body { font-family: 'Trebuchet MS', sans-serif; background:#101f2c; color:#fff; text-align:center; padding:40px;}
-    .gameboard { background:#162844; border-radius:16px; padding:2em; max-width:380px; margin:auto; box-shadow:0 0 24px #19f7d2;}
-    .hand { margin:1em 0; }
-    .card { display:inline-block; background:#fff; color:#222; border-radius:6px; padding:0.5em 1em; margin:0 .3em;}
-    button { margin:.5em; padding:.6em 1.2em; border:none; border-radius:8px; background:#19f7d2; color:#101f2c; font-weight:bold; cursor:pointer;}
-    button:disabled { background:#444; color:#aaa; }
-    #msg { font-size:1.2em; margin:1em 0 .2em; min-height:1.5em; }
+    html,body { height:100%; margin:0; }
+    body {
+      min-height:100vh;
+      background: linear-gradient(135deg, #0f2027 0%, #241e40 100%);
+      color: #fff;
+      font-family: 'Orbitron', 'Trebuchet MS', Arial, sans-serif;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      padding:0; margin:0;
+    }
+    h1 {
+      font-size:2.4em;
+      text-shadow:0 0 18px #0ff, 0 0 40px #19f7d2;
+      margin-bottom:10px;
+      letter-spacing:1px;
+    }
+    .chips {
+      font-family:'Orbitron',sans-serif;
+      font-size:1.1em;
+      letter-spacing:1px;
+      margin-bottom:15px;
+      color:#ffd700;
+      text-shadow:0 0 8px #0ff;
+    }
+    .game {
+      background: rgba(24,28,55,0.96);
+      border: 2px solid #19f7d2;
+      box-shadow: 0 0 25px #19f7d2, 0 0 50px #0ff;
+      border-radius: 18px;
+      padding: 2.5em 1.5em 2em 1.5em;
+      min-width:330px;
+      max-width:420px;
+      margin:auto;
+      position:relative;
+      overflow:visible;
+    }
+    .dealer-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background:linear-gradient(135deg,#0ff 30%,#232526 100%);
+      border: 3px solid #39ff14;
+      box-shadow:0 0 22px #0ff,0 0 40px #0ff;
+      display:flex;align-items:center;justify-content:center;
+      font-size:2.3em;
+      margin:auto;
+      margin-bottom:5px;
+      transition:transform 0.4s;
+    }
+    .dealer-avatar.celebrate { transform: scale(1.18) rotate(-10deg);}
+    .dealer-avatar.sad { filter: grayscale(0.7) brightness(0.9);}
+    .dealer-avatar.angry { filter: hue-rotate(190deg) brightness(1.2);}
+    .dealer-name {
+      font-family:'Orbitron',sans-serif;
+      font-size:1.1em;
+      color:#39ff14; text-shadow:0 0 5px #0ff;
+      margin-bottom:10px;
+    }
+    .hand {
+      margin:1em 0 0.5em 0;
+      display:flex; flex-wrap:wrap;
+      justify-content:center;
+      gap:8px;
+    }
+    .card {
+      display:inline-block;
+      background:linear-gradient(135deg,#181e33 60%,#0ff 100%);
+      color:#fff;
+      border-radius: 10px;
+      border:2px solid #0ff;
+      min-width: 42px;
+      padding: .7em .8em;
+      font-size: 1.3em;
+      font-family:'Orbitron',monospace;
+      position:relative;
+      box-shadow:0 0 15px #0ff;
+      animation:deal 0.7s cubic-bezier(.5,1.5,.7,1);
+      transition:background .2s, border .2s;
+      user-select:none;
+    }
+    @keyframes deal {
+      from { transform: translateY(-50px) scale(0.7) rotate(-12deg); opacity:0;}
+      to   { transform: translateY(0) scale(1) rotate(0); opacity:1;}
+    }
+    .card.revealed { background:linear-gradient(135deg,#19f7d2 10%,#fff 100%); color:#111;}
+    .card.xray { border:2px solid #39ff14; background:linear-gradient(135deg,#232532 55%,#39ff14 100%);}
+    .dealer-hand .card:not(.revealed):not(.xray) { filter: blur(2px) brightness(0.7);}
+    .totals {
+      color:#39ff14;
+      font-family:'Orbitron',sans-serif;
+      font-size:1.15em;
+      margin:0.4em 0 0.6em;
+      letter-spacing:.6px;
+      text-shadow:0 0 6px #0ff;
+    }
+    .msg {
+      font-size:1.15em;
+      min-height:2em;
+      margin:0.9em auto 0.2em;
+      padding:0.3em 0.8em;
+      color:#ffd700;
+      text-shadow:0 0 7px #0ff,0 0 15px #0ff;
+      font-family:'Orbitron',sans-serif;
+      letter-spacing:.2px;
+    }
+    .banter {
+      font-size:.96em;
+      color:#39ff14;
+      font-family:'Trebuchet MS',sans-serif;
+      margin-bottom:1em;
+      min-height:1.8em;
+      text-shadow:0 0 5px #19f7d2;
+    }
+    .actions {
+      margin:1.1em 0 0 0;
+    }
+    .actions button {
+      background: linear-gradient(135deg, #0ff 60%, #19f7d2 100%);
+      color: #111;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.14em;
+      font-weight: 700;
+      padding: 0.7em 1.2em;
+      margin: 0.6em 0.5em;
+      box-shadow: 0 0 12px #19f7d2, 0 0 28px #0ff;
+      cursor: pointer;
+      outline: none;
+      transition: background .15s, color .15s, transform .15s;
+    }
+    .actions button:disabled { background: #1a2329; color: #777; box-shadow:none; cursor:not-allowed;}
+    .powerups {
+      margin: 1.2em 0 0.2em 0;
+      display: flex; flex-wrap:wrap; justify-content:center; gap:12px;
+    }
+    .powerups button {
+      background: linear-gradient(135deg, #39ff14 60%, #0ff 100%);
+      color: #111;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: .97em;
+      font-weight: 600;
+      padding: 0.5em 1em;
+      box-shadow: 0 0 10px #39ff14, 0 0 20px #19f7d2;
+      cursor: pointer;
+      outline: none;
+      transition: background .15s, color .15s;
+    }
+    .powerups button:disabled { background:#112; color:#555; box-shadow:none;}
+    .stats {
+      margin:1.6em 0 0 0;
+      color:#19f7d2;
+      font-family:'Orbitron',sans-serif;
+      font-size:.99em;
+      opacity:.7;
+    }
+    .sound-toggle {
+      position:absolute;top:10px;right:12px;
+      background:#232526;color:#0ff;border:1.5px solid #0ff;
+      border-radius:6px;padding:4px 12px;cursor:pointer;
+      font-family:'Orbitron',sans-serif;font-size:.93em;z-index:2;
+      box-shadow:0 0 8px #0ff;
+      transition: background .18s, color .18s;
+    }
+    .sound-toggle.active { background:#0ff; color:#111;}
+    @media (max-width:510px) {
+      .game { padding:1.1em .4em 1.6em .4em; min-width:220px; max-width:99vw;}
+      .dealer-avatar { width:50px; height:50px; font-size:1.5em;}
+    }
   </style>
 </head>
 <body>
-  <h1>🏴‍☠️ Pirate Blackjack</h1>
-  <div class="gameboard">
-    <div><b>Your Hand:</b> <span id="player"></span> (<span id="player-total"></span>)</div>
-    <div><b>Dealer:</b> <span id="dealer"></span> (<span id="dealer-total"></span>)</div>
-    <div id="msg"></div>
-    <button id="hit">Hit</button>
-    <button id="stand">Stand</button>
-    <button id="restart" style="display:none;">Play Again</button>
+  <h1>Futuristic Pirate Blackjack</h1>
+  <div class="chips">💰 Pieces of Eight: <span id="chips">500</span></div>
+  <div class="game">
+    <button class="sound-toggle" id="soundBtn" title="Toggle sound">🔊</button>
+    <div class="dealer-avatar" id="dealerAvatar" title="AI Pirate Dealer">🦜</div>
+    <div class="dealer-name">Captain Gavinbot</div>
+    <div class="banter" id="banter">Welcome to the Neon Lair! 🦜</div>
+    <div>
+      <b>Your Hand:</b>
+      <div class="hand player-hand" id="playerHand"></div>
+      <div class="totals">Total: <span id="playerTotal">0</span></div>
+    </div>
+    <div>
+      <b>Dealer:</b>
+      <div class="hand dealer-hand" id="dealerHand"></div>
+      <div class="totals">Total: <span id="dealerTotal">?</span></div>
+    </div>
+    <div class="msg" id="msg"></div>
+    <div class="powerups">
+      <button id="xrayBtn" title="Peek at one hidden dealer card!">👁️ X-Ray Vision</button>
+      <button id="hackBtn" title="Swap your worst card - once per round!">🤖 Hack the Deck</button>
+    </div>
+    <div class="actions">
+      <button id="hitBtn">Hit</button>
+      <button id="standBtn">Stand</button>
+      <button id="restartBtn" style="display:none;">Play Again</button>
+    </div>
+    <div class="stats" id="stats"></div>
   </div>
-  <p style="opacity:.7;margin-top:2em;">For fun only. <a href="index.html" style="color:#19f7d2;">Back to Main Site</a></p>
+  <p style="margin:2em 0 0 0; text-align:center;"><a href="index.html" style="color:#0ff;">🏴 Back to Main Site</a></p>
+  <audio id="soundDeal" src="https://cdn.pixabay.com/audio/2022/07/26/audio_12bfa5f2e1.mp3"></audio>
+  <audio id="soundWin" src="https://cdn.pixabay.com/audio/2022/07/26/audio_12db5c4e4a.mp3"></audio>
+  <audio id="soundLose" src="https://cdn.pixabay.com/audio/2022/07/26/audio_12bcf7f5d1.mp3"></audio>
   <script>
-    // Simple Blackjack logic
-    const suits = ["♠", "♥", "♦", "♣"];
+    // --- Core Variables ---
+    const suits = ["♠","♥","♦","♣"];
     const values = [2,3,4,5,6,7,8,9,10,"J","Q","K","A"];
-    let deck, player, dealer, playerHasStood, gameOver;
+    let deck, player, dealer, playerStands, gameOver, playerChips = 500, sessionStats = {wins:0, losses:0, streak:0, maxStreak:0};
+    let xrayUsed = false, hackUsed = false, soundOn = true;
+    const banterLines = [
+      "Arrr! Let’s see if Lady Luck is with ye, matey.",
+      "Gavinbot says: The cards are neon-hot tonight.",
+      "Did you count cards? Or just parrots?",
+      "Blackjack? Or just black coffee?",
+      "Will you brave the cyber-waves, or play it safe?",
+      "My circuits say: hit, hit, HIT! (Or… maybe not)",
+      "You win, you get virtual rum. You lose? Swab the decks.",
+      "I deal with honor. Or do I? 🦜"
+    ];
+    const winLines = [
+      "Shiver me timbers, you win! 🏆",
+      "A clean win! Neon coins for you.",
+      "You bested me, matey. This round, at least.",
+      "AI parrot bows to your cunning!",
+      "Blackjack! You're a legend."
+    ];
+    const loseLines = [
+      "Oof! The cyber-seas were rough.",
+      "Dealer takes the loot! Try again?",
+      "Not your round, pirate.",
+      "Neon luck wasn't with you, matey.",
+      "Squawk! Try again, captain?"
+    ];
+    const gavinSquawk = [
+      "🦜 GAVINBOT SQUAWK: The next win gets double coins!",
+      "🦜 GAVINBOT SQUAWK: Dealer reveals a secret card.",
+      "🦜 GAVINBOT SQUAWK: Swap one card for free!"
+    ];
+    let nextWinDouble = false;
 
+    // --- Utility Functions ---
     function shuffleDeck() {
       let d = [];
       for (let s of suits) for (let v of values) d.push({v,s});
@@ -40,69 +258,200 @@
       }
       return d;
     }
-
     function handValue(hand) {
-      let val = 0, aces = 0;
+      let val=0,aces=0;
       for (let c of hand) {
-        if (c.v === "A") { val += 11; aces++; }
+        if (c.v==="A") { val += 11; aces++; }
         else if (["K","Q","J"].includes(c.v)) val += 10;
         else val += c.v;
       }
-      while (val > 21 && aces) { val -= 10; aces--; }
+      while (val>21 && aces) { val -=10; aces--; }
       return val;
     }
+    function sleep(ms) { return new Promise(r=>setTimeout(r,ms)); }
 
+    function playSound(id) {
+      if(!soundOn) return;
+      const el = document.getElementById(id);
+      el.currentTime=0; el.play();
+    }
+
+    // --- Render Functions ---
     function render() {
-      document.getElementById('player').innerHTML = player.map(c => `<span class="card">${c.v}${c.s}</span>`).join('');
-      document.getElementById('dealer').innerHTML = dealer.map((c,i) => playerHasStood || i>0 ? `<span class="card">${c.v}${c.s}</span>` : "<span class='card'>🂠</span>").join('');
-      document.getElementById('player-total').textContent = handValue(player);
-      document.getElementById('dealer-total').textContent = playerHasStood ? handValue(dealer) : "?";
+      // Player Hand
+      document.getElementById('playerHand').innerHTML =
+        player.map((c,i)=>
+          `<span class="card${(hackUsed && i===worstCardIndex(player))?' xray':''}">${c.v}${c.s}</span>`
+        ).join('');
+      document.getElementById('playerTotal').textContent = handValue(player);
+
+      // Dealer Hand
+      let showAll = playerStands || gameOver;
+      document.getElementById('dealerHand').innerHTML =
+        dealer.map((c, i)=>
+          `<span class="card${(showAll||c.revealed)?' revealed':''}${(xrayUsed && i===1 && !showAll)?' xray':''}">${(showAll||c.revealed|| (xrayUsed&&i===1))?`${c.v}${c.s}`:'🂠'}</span>`
+        ).join('');
+      document.getElementById('dealerTotal').textContent = (showAll?handValue(dealer):"?");
+      document.getElementById('chips').textContent = playerChips;
+      document.getElementById('stats').innerHTML = 
+        `Wins: ${sessionStats.wins} | Losses: ${sessionStats.losses} | Streak: ${sessionStats.streak} | Max Streak: ${sessionStats.maxStreak}`;
     }
 
-    function endGame(msg) {
-      document.getElementById('msg').textContent = msg;
-      document.getElementById('hit').disabled = true;
-      document.getElementById('stand').disabled = true;
-      document.getElementById('restart').style.display = "inline-block";
-      playerHasStood = true;
-      render();
+    // --- Powerups ---
+    function worstCardIndex(hand) {
+      let min = 15, idx = -1;
+      hand.forEach((c, i) => {
+        let v = (c.v === "A") ? 11 : (["K","Q","J"].includes(c.v)?10:c.v);
+        if (v < min) { min = v; idx = i; }
+      });
+      return idx;
     }
 
-    function start() {
+    // --- AI Banter ---
+    function randomBanter() {
+      if(Math.random()<0.08) {
+        // Gavinbot event
+        let which = Math.floor(Math.random()*gavinSquawk.length);
+        if (which===0) nextWinDouble=true;
+        document.getElementById('banter').textContent = gavinSquawk[which];
+      } else {
+        document.getElementById('banter').textContent = banterLines[Math.floor(Math.random()*banterLines.length)];
+      }
+    }
+    function dealerMood(mood) {
+      const avatar = document.getElementById('dealerAvatar');
+      avatar.className = "dealer-avatar " + (mood||"");
+      setTimeout(()=>{avatar.className="dealer-avatar";}, 1500);
+    }
+
+    // --- Game Logic ---
+    async function dealInitial() {
       deck = shuffleDeck();
       player = [deck.pop(), deck.pop()];
       dealer = [deck.pop(), deck.pop()];
-      playerHasStood = false;
+      playerStands = false;
       gameOver = false;
+      xrayUsed = false;
+      hackUsed = false;
+      document.getElementById('xrayBtn').disabled = false;
+      document.getElementById('hackBtn').disabled = false;
       document.getElementById('msg').textContent = '';
-      document.getElementById('hit').disabled = false;
-      document.getElementById('stand').disabled = false;
-      document.getElementById('restart').style.display = "none";
+      document.getElementById('restartBtn').style.display = "none";
+      document.getElementById('hitBtn').disabled = false;
+      document.getElementById('standBtn').disabled = false;
+      document.getElementById('dealerAvatar').textContent = "🦜";
       render();
-      if (handValue(player) === 21) endGame("Blackjack! You win! 🎉");
+      randomBanter();
+      playSound('soundDeal');
+      await sleep(350);
+      render();
     }
 
-    document.getElementById('hit').onclick = function() {
-      if (gameOver) return;
+    async function hit() {
       player.push(deck.pop());
+      playSound('soundDeal');
       render();
       let pv = handValue(player);
-      if (pv > 21) endGame("Bust! Dealer wins.");
-      else if (pv === 21) document.getElementById('msg').textContent = "21! Stand or try your luck?";
-    };
-    document.getElementById('stand').onclick = function() {
-      playerHasStood = true;
-      while (handValue(dealer) < 17) dealer.push(deck.pop());
+      if (pv > 21) return await endGame("Bust! Dealer wins.", false);
+      if (pv === 21) document.getElementById('msg').textContent = "21! Stand or try your luck?";
+    }
+
+    async function stand() {
+      playerStands = true;
+      document.getElementById('hitBtn').disabled = true;
+      document.getElementById('standBtn').disabled = true;
+      // Dealer reveals
+      while (handValue(dealer) < 17) {
+        dealer.push(deck.pop());
+        playSound('soundDeal');
+        render();
+        await sleep(550);
+      }
       render();
       let pv = handValue(player), dv = handValue(dealer);
-      if (dv > 21) endGame("Dealer busts! You win!");
-      else if (dv === pv) endGame("Push. It's a tie!");
-      else if (pv > dv) endGame("You win! 🏴‍☠️");
-      else endGame("Dealer wins.");
-    };
-    document.getElementById('restart').onclick = start;
+      if (dv > 21) return await endGame("Dealer busts! You win!", true);
+      if (pv === dv) return await endGame("Push. It's a tie!", null);
+      if (pv > dv) return await endGame("You win! 🏴‍☠️", true);
+      return await endGame("Dealer wins.", false);
+    }
 
-    start();
+    async function endGame(msg, win) {
+      gameOver = true;
+      document.getElementById('msg').textContent = msg;
+      document.getElementById('restartBtn').style.display = "inline-block";
+      document.getElementById('hitBtn').disabled = true;
+      document.getElementById('standBtn').disabled = true;
+      document.getElementById('xrayBtn').disabled = true;
+      document.getElementById('hackBtn').disabled = true;
+
+      let avatar = document.getElementById('dealerAvatar');
+      if (win === true) {
+        sessionStats.wins++; 
+        sessionStats.streak++;
+        if(sessionStats.streak>sessionStats.maxStreak) sessionStats.maxStreak=sessionStats.streak;
+        let payout = nextWinDouble?40:20;
+        playerChips+=payout;
+        document.getElementById('msg').textContent += nextWinDouble?" (Double coins: +40!)":" (+20 coins)";
+        nextWinDouble=false;
+        avatar.textContent = "😎";
+        dealerMood("celebrate");
+        playSound('soundWin');
+        showBanterLine(winLines);
+      } else if (win === false) {
+        sessionStats.losses++;
+        sessionStats.streak=0;
+        let lose = 15;
+        playerChips-=lose;
+        avatar.textContent = "😠";
+        dealerMood("angry");
+        playSound('soundLose');
+        document.getElementById('msg').textContent += " (-15 coins)";
+        showBanterLine(loseLines);
+      } else {
+        avatar.textContent = "🤖";
+        dealerMood("sad");
+        showBanterLine(["A close game, matey."]);
+      }
+      render();
+    }
+
+    function showBanterLine(arr) {
+      setTimeout(()=>{document.getElementById('banter').textContent = arr[Math.floor(Math.random()*arr.length)];}, 800);
+    }
+
+    // --- Powerups ---
+    document.getElementById('xrayBtn').onclick = function() {
+      if(xrayUsed) return;
+      xrayUsed=true;
+      render();
+      document.getElementById('xrayBtn').disabled=true;
+      document.getElementById('msg').textContent = "👁️ X-ray: You peeked at a dealer's hidden card!";
+    };
+    document.getElementById('hackBtn').onclick = function() {
+      if(hackUsed) return;
+      let idx = worstCardIndex(player);
+      if(idx !== -1) {
+        player[idx] = deck.pop();
+        hackUsed=true;
+        render();
+        document.getElementById('hackBtn').disabled=true;
+        document.getElementById('msg').textContent = "🤖 Hack: Swapped your weakest card!";
+      }
+    };
+    // --- Main Buttons ---
+    document.getElementById('hitBtn').onclick = hit;
+    document.getElementById('standBtn').onclick = stand;
+    document.getElementById('restartBtn').onclick = async function(){ await dealInitial();};
+
+    // Sound toggle
+    document.getElementById('soundBtn').onclick = function() {
+      soundOn = !soundOn;
+      this.classList.toggle("active", soundOn);
+      this.textContent = soundOn ? "🔊" : "🔇";
+    };
+
+    // --- Start Game ---
+    dealInitial();
   </script>
 </body>
 </html>
