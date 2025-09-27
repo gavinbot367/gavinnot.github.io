@@ -7,143 +7,34 @@
   <meta name="description" content="Futuristic pirate roulette game with SVG graphics, animation, and pirate banter.">
   <link rel="icon" href="gavinbot.png">
   <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: linear-gradient(120deg,#0a1b2a 0%,#232526 100%);
-      color: #fff;
-      font-family: 'Orbitron', 'Trebuchet MS', Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    h1 {
-      margin-top: 1.5em;
-      font-size: 2.3em;
-      text-shadow: 0 0 20px #0ff, 0 0 60px #19f7d2;
-    }
-    .coins {
-      color: #ffd700;
-      font-size: 1.18em;
-      margin-bottom: 1.2em;
-      text-shadow: 0 0 6px #0ff;
-      font-family: Orbitron, sans-serif;
-    }
-    .roulette-board {
-      margin: 1.3em auto 0 auto;
-      background: rgba(24,28,55,0.96);
-      border: 2.5px solid #19f7d2;
-      border-radius: 22px;
-      box-shadow: 0 0 32px #0ff, 0 0 55px #19f7d2;
-      padding: 2.2em 1em 2em 1em;
-      max-width: 450px;
-      width: 95vw;
-      position: relative;
-    }
-    .banter {
-      font-size: 1em;
-      color: #39ff14;
-      font-family: 'Trebuchet MS',sans-serif;
-      margin-bottom: 1.2em;
-      min-height: 1.7em;
-      text-shadow: 0 0 5px #19f7d2;
-      text-align: center;
-    }
-    .svg-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 1.6em;
-      position: relative;
-    }
-    .wheel-pointer {
-      position: absolute;
-      top: -40px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 2.4em;
-      color: #ffd700;
-      text-shadow: 0 0 16px #ffd700, 0 0 32px #fff;
-      z-index: 3;
-      user-select: none;
-      pointer-events: none;
-    }
-    .bet-controls {
-      margin-bottom: 1.2em;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 14px;
-    }
-    .bet-controls input, .bet-controls select {
-      padding: 0.45em 0.7em;
-      border-radius: 8px;
-      border: 1.5px solid #19f7d2;
-      background: #101820;
-      color: #0ff;
-      font-family: 'Orbitron',sans-serif;
-      font-size: 1em;
-      margin: 0 0.2em;
-    }
-    .bet-controls button {
-      background: linear-gradient(135deg, #0ff 60%, #19f7d2 100%);
-      color: #111;
-      border: none;
-      border-radius: 10px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1em;
-      font-weight: 700;
-      padding: 0.7em 1.2em;
-      margin: 0 0.5em;
-      box-shadow: 0 0 12px #19f7d2, 0 0 20px #0ff;
-      cursor: pointer;
-      outline: none;
-      transition: background .15s, color .15s;
-    }
-    .bet-controls button:disabled { background: #1a2329; color: #777; box-shadow:none; cursor:not-allowed;}
-    .msg {
-      font-size: 1.1em;
-      min-height: 2.1em;
-      margin: 1em auto .3em;
-      color: #ffd700;
-      text-shadow: 0 0 7px #0ff,0 0 15px #0ff;
-      font-family:'Orbitron',sans-serif;
-      letter-spacing:.1px; user-select:none;
-      text-align: center;
-    }
-    .stats {
-      color: #19f7d2;
-      font-family: 'Orbitron',sans-serif;
-      font-size: .98em;
-      opacity: .8;
-      margin-top: 1.1em;
-      text-align: center;
-    }
-    .history {
-      margin: 1.6em 0 0 0;
-      color: #aaa;
-      font-size: .95em;
-      font-family: 'Orbitron',sans-serif;
-      text-align: center;
-    }
-    .history .num {
-      border-radius: 6px;
-      border: 1.5px solid #0ff;
-      padding: 0.2em 0.7em;
-      margin: 0 0.2em;
-      font-weight: bold;
-      color: #fff;
-      background: #232526;
-      display: inline-block;
-      min-width: 28px;
-    }
-    .history .num.red { background: #e53935; color: #fff; border-color: #ffe14b;}
-    .history .num.black { background: #111; border-color: #39ff14;}
-    .history .num.green { background: #0ff; color: #111; border-color: #fff;}
-    @media (max-width: 520px) {
-      .roulette-board { padding: 1em .3em 1.2em .3em;}
-      .svg-container { margin-bottom: 1.1em;}
-    }
+    body { margin:0; min-height:100vh; background:linear-gradient(120deg,#0a1b2a 0%,#232526 100%);
+      color:#fff; font-family:'Orbitron','Trebuchet MS',Arial,sans-serif; display:flex; flex-direction:column; align-items:center;}
+    h1 { margin-top:1.5em; font-size:2.3em; text-shadow:0 0 20px #0ff,0 0 60px #19f7d2; }
+    .coins { color:#ffd700; font-size:1.18em; margin-bottom:1.2em; text-shadow:0 0 6px #0ff; font-family:Orbitron,sans-serif; }
+    .roulette-board { margin:1.3em auto 0 auto; background:rgba(24,28,55,0.96); border:2.5px solid #19f7d2; border-radius:22px;
+      box-shadow:0 0 32px #0ff,0 0 55px #19f7d2; padding:2.2em 1em 2em 1em; max-width:450px; width:95vw; position:relative; }
+    .banter { font-size:1em; color:#39ff14; font-family:'Trebuchet MS',sans-serif; margin-bottom:1.2em; min-height:1.7em;
+      text-shadow:0 0 5px #19f7d2; text-align:center;}
+    .svg-container { display:flex; flex-direction:column; align-items:center; margin-bottom:1.6em; position:relative;}
+    .wheel-pointer { position:absolute; top:-40px; left:50%; transform:translateX(-50%); font-size:2.4em; color:#ffd700;
+      text-shadow:0 0 16px #ffd700,0 0 32px #fff; z-index:3; user-select:none; pointer-events:none;}
+    .bet-controls { margin-bottom:1.2em; display:flex; flex-wrap:wrap; justify-content:center; gap:14px;}
+    .bet-controls input, .bet-controls select { padding:0.45em 0.7em; border-radius:8px; border:1.5px solid #19f7d2; background:#101820;
+      color:#0ff; font-family:'Orbitron',sans-serif; font-size:1em; margin:0 0.2em;}
+    .bet-controls button { background:linear-gradient(135deg,#0ff 60%,#19f7d2 100%); color:#111; border:none; border-radius:10px;
+      font-family:'Orbitron',sans-serif; font-size:1em; font-weight:700; padding:0.7em 1.2em; margin:0 0.5em;
+      box-shadow:0 0 12px #19f7d2,0 0 20px #0ff; cursor:pointer; outline:none; transition:background .15s, color .15s;}
+    .bet-controls button:disabled { background:#1a2329; color:#777; box-shadow:none; cursor:not-allowed;}
+    .msg { font-size:1.1em; min-height:2.1em; margin:1em auto .3em; color:#ffd700; text-shadow:0 0 7px #0ff,0 0 15px #0ff;
+      font-family:'Orbitron',sans-serif; letter-spacing:.1px; user-select:none; text-align:center;}
+    .stats { color:#19f7d2; font-family:'Orbitron',sans-serif; font-size:.98em; opacity:.8; margin-top:1.1em; text-align:center;}
+    .history { margin:1.6em 0 0 0; color:#aaa; font-size:.95em; font-family:'Orbitron',sans-serif; text-align:center;}
+    .history .num { border-radius:6px; border:1.5px solid #0ff; padding:0.2em 0.7em; margin:0 0.2em; font-weight:bold;
+      color:#fff; background:#232526; display:inline-block; min-width:28px;}
+    .history .num.red { background:#e53935; color:#fff; border-color:#ffe14b;}
+    .history .num.black { background:#111; border-color:#39ff14;}
+    .history .num.green { background:#0ff; color:#111; border-color:#fff;}
+    @media (max-width:520px) {.roulette-board{padding:1em .3em 1.2em .3em;} .svg-container{margin-bottom:1.1em;}}
   </style>
 </head>
 <body>
@@ -167,8 +58,10 @@
         <option value="high">High (19-36, 1:1)</option>
         <option value="zero">Zero (35:1)</option>
       </select>
-      <input type="number" min="1" max="500" value="10" id="betAmount" />
-      <input type="number" min="0" max="36" value="7" id="betNumber" style="width:60px;display:none;" />
+      <select id="betNumber" style="display:inline-block;">
+        <!-- Populated by JS -->
+      </select>
+      <input type="number" min="1" max="500" value="10" id="betAmount" style="width:70px;" />
       <button id="spinBtn">Spin</button>
     </div>
     <div class="msg" id="msg"></div>
@@ -263,6 +156,22 @@
         </defs>`;
     }
 
+    // --- Bet Number Dropdown ---
+    function populateBetNumberDropdown() {
+      const sel = document.getElementById('betNumber');
+      sel.innerHTML = "";
+      for(let i=0;i<=36;i++) {
+        sel.innerHTML += `<option value="${i}">${i}</option>`;
+      }
+    }
+    // --- Show/hide number dropdown based on bet type ---
+    function handleBetTypeChange() {
+      const type = document.getElementById('betType').value;
+      const numSel = document.getElementById('betNumber');
+      numSel.style.display = (type==='number') ? "inline-block" : "none";
+    }
+    document.getElementById('betType').addEventListener('change', handleBetTypeChange);
+
     // --- Game Logic ---
     function showMsg(msg) { document.getElementById('msg').textContent = msg; }
     function randomBanter() { document.getElementById('banter').textContent = banterLines[Math.floor(Math.random()*banterLines.length)]; }
@@ -281,9 +190,6 @@
       let num = parseInt(document.getElementById('betNumber').value, 10);
       return {type,num};
     }
-    document.getElementById('betType').onchange = function() {
-      document.getElementById('betNumber').style.display = (this.value==='number') ? "inline-block" : "none";
-    };
 
     // --- Main Spin ---
     document.getElementById('spinBtn').onclick = async function() {
@@ -301,7 +207,7 @@
       // Pick a random result index and winning number
       let resultIdx = Math.floor(Math.random()*wheelNums.length);
       let result = wheelNums[resultIdx];
-      let winningIndex = wheelNums.findIndex(x => x.n === result.n && x.color === result.color);
+      let winningIndex = resultIdx; // since wheelNums is the visual order!
 
       let seg = 360/wheelNums.length;
       let spins = 6+Math.floor(Math.random()*3);
@@ -352,6 +258,8 @@
     drawWheel();
     drawBall(-90 + (360/wheelNums.length)/2); // ball at zero
     updateStats();
+    populateBetNumberDropdown();
+    handleBetTypeChange();
   </script>
 </body>
 </html>
