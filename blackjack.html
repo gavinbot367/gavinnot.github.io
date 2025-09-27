@@ -2,188 +2,231 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Futuristic Pirate Blackjack | Gavinbot Lair</title>
+  <title>⚡ Pirate Neon Blackjack | Gavinbot Lair</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The most advanced, futuristic pirate blackjack game ever. AI banter, powerups, unlocks, stats, and more.">
+  <link rel="icon" href="gavinbot.png">
   <style>
     html,body { height:100%; margin:0; }
     body {
       min-height:100vh;
-      background: linear-gradient(135deg, #0f2027 0%, #241e40 100%);
-      color: #fff;
-      font-family: 'Orbitron', 'Trebuchet MS', Arial, sans-serif;
+      background:linear-gradient(120deg,#160c28 0%,#232526 70%,#0ff 100%);
+      color:#fff;
+      font-family:'Orbitron','Trebuchet MS',Arial,sans-serif;
       display:flex; flex-direction:column; align-items:center; justify-content:center;
       padding:0; margin:0;
+      transition:background 1s;
+      overflow-x:hidden;
+    }
+    body.coinrain {
+      animation:coinrain-bg 1.7s;
+    }
+    @keyframes coinrain-bg {
+      0% { background:#160c28;}
+      50% { background:#ffd700;}
+      100% { background:linear-gradient(120deg,#160c28 0%,#232526 70%,#0ff 100%);}
     }
     h1 {
-      font-size:2.4em;
-      text-shadow:0 0 18px #0ff, 0 0 40px #19f7d2;
+      font-size:2.5em;
+      text-shadow:0 0 18px #0ff,0 0 40px #19f7d2;
       margin-bottom:10px;
       letter-spacing:1px;
+      font-family:'Orbitron',sans-serif;
+      user-select:none;
     }
     .chips {
-      font-family:'Orbitron',sans-serif;
-      font-size:1.1em;
-      letter-spacing:1px;
-      margin-bottom:15px;
+      font-size:1.2em;
       color:#ffd700;
       text-shadow:0 0 8px #0ff;
+      margin-bottom:10px;
     }
     .game {
-      background: rgba(24,28,55,0.96);
-      border: 2px solid #19f7d2;
-      box-shadow: 0 0 25px #19f7d2, 0 0 50px #0ff;
-      border-radius: 18px;
-      padding: 2.5em 1.5em 2em 1.5em;
-      min-width:330px;
-      max-width:420px;
+      background:rgba(24,28,55,0.95);
+      border:2.5px solid #19f7d2;
+      box-shadow:0 0 32px #0ff,0 0 55px #19f7d2;
+      border-radius:18px;
+      padding:2.3em 1.3em 1.5em 1.3em;
+      min-width:320px;
+      max-width:440px;
       margin:auto;
       position:relative;
       overflow:visible;
+      transition:box-shadow .2s;
     }
     .dealer-avatar {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
+      width:75px;height:75px;
+      border-radius:50%;
       background:linear-gradient(135deg,#0ff 30%,#232526 100%);
-      border: 3px solid #39ff14;
+      border:3px solid #39ff14;
       box-shadow:0 0 22px #0ff,0 0 40px #0ff;
       display:flex;align-items:center;justify-content:center;
-      font-size:2.3em;
-      margin:auto;
-      margin-bottom:5px;
-      transition:transform 0.4s;
+      font-size:2.4em;
+      margin:auto 0 7px 0;
+      transition:transform .4s,filter .4s;
+      user-select:none;
     }
-    .dealer-avatar.celebrate { transform: scale(1.18) rotate(-10deg);}
-    .dealer-avatar.sad { filter: grayscale(0.7) brightness(0.9);}
-    .dealer-avatar.angry { filter: hue-rotate(190deg) brightness(1.2);}
+    .dealer-avatar.celebrate { transform:scale(1.18) rotate(-10deg);}
+    .dealer-avatar.sad { filter:grayscale(.7) brightness(.8);}
+    .dealer-avatar.angry { filter:contrast(1.5)  hue-rotate(200deg);}
+    .dealer-avatar.unlock { border:3px solid #ffd700; background:linear-gradient(135deg,#ffe14b,#0ff 100%);}
     .dealer-name {
-      font-family:'Orbitron',sans-serif;
       font-size:1.1em;
       color:#39ff14; text-shadow:0 0 5px #0ff;
       margin-bottom:10px;
+      font-family:'Orbitron',sans-serif;
+      letter-spacing:.5px;
     }
+    .bg-unlock { background:linear-gradient(120deg,#1b2a4d 0%,#ff007f 80%,#fff200 100%)!important; box-shadow:0 0 60px #ff007f,0 0 60px #fff200;}
     .hand {
-      margin:1em 0 0.5em 0;
-      display:flex; flex-wrap:wrap;
-      justify-content:center;
-      gap:8px;
+      margin:1em 0 .5em 0;
+      display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
     }
     .card {
       display:inline-block;
       background:linear-gradient(135deg,#181e33 60%,#0ff 100%);
       color:#fff;
-      border-radius: 10px;
+      border-radius:10px;
       border:2px solid #0ff;
-      min-width: 42px;
-      padding: .7em .8em;
-      font-size: 1.3em;
+      min-width:42px; padding:.7em .8em;
+      font-size:1.3em;
       font-family:'Orbitron',monospace;
       position:relative;
       box-shadow:0 0 15px #0ff;
-      animation:deal 0.7s cubic-bezier(.5,1.5,.7,1);
-      transition:background .2s, border .2s;
+      animation:deal .7s cubic-bezier(.5,1.5,.7,1);
       user-select:none;
+      transition:background .2s, border .2s, color .2s;
     }
     @keyframes deal {
-      from { transform: translateY(-50px) scale(0.7) rotate(-12deg); opacity:0;}
-      to   { transform: translateY(0) scale(1) rotate(0); opacity:1;}
+      from { transform:translateY(-50px) scale(.7) rotate(-12deg); opacity:0;}
+      to   { transform:translateY(0) scale(1) rotate(0); opacity:1;}
     }
     .card.revealed { background:linear-gradient(135deg,#19f7d2 10%,#fff 100%); color:#111;}
     .card.xray { border:2px solid #39ff14; background:linear-gradient(135deg,#232532 55%,#39ff14 100%);}
-    .dealer-hand .card:not(.revealed):not(.xray) { filter: blur(2px) brightness(0.7);}
+    .dealer-hand .card:not(.revealed):not(.xray) { filter:blur(2px) brightness(.7);}
     .totals {
       color:#39ff14;
       font-family:'Orbitron',sans-serif;
-      font-size:1.15em;
-      margin:0.4em 0 0.6em;
-      letter-spacing:.6px;
+      font-size:1.12em; margin:.3em 0 .5em; letter-spacing:.6px;
       text-shadow:0 0 6px #0ff;
     }
     .msg {
-      font-size:1.15em;
-      min-height:2em;
-      margin:0.9em auto 0.2em;
-      padding:0.3em 0.8em;
+      font-size:1.13em;
+      min-height:2.2em;
+      margin:1em auto .2em; padding:.3em .8em;
       color:#ffd700;
       text-shadow:0 0 7px #0ff,0 0 15px #0ff;
-      font-family:'Orbitron',sans-serif;
-      letter-spacing:.2px;
+      font-family:'Orbitron',sans-serif;letter-spacing:.2px;
+      user-select:none;
     }
     .banter {
-      font-size:.96em;
+      font-size:.98em;
       color:#39ff14;
       font-family:'Trebuchet MS',sans-serif;
       margin-bottom:1em;
       min-height:1.8em;
       text-shadow:0 0 5px #19f7d2;
+      user-select:none;
     }
-    .actions {
-      margin:1.1em 0 0 0;
-    }
+    .actions { margin:1.2em 0 0 0;}
     .actions button {
-      background: linear-gradient(135deg, #0ff 60%, #19f7d2 100%);
-      color: #111;
-      border: none;
-      border-radius: 10px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.14em;
-      font-weight: 700;
-      padding: 0.7em 1.2em;
-      margin: 0.6em 0.5em;
-      box-shadow: 0 0 12px #19f7d2, 0 0 28px #0ff;
-      cursor: pointer;
-      outline: none;
-      transition: background .15s, color .15s, transform .15s;
+      background:linear-gradient(135deg,#0ff 60%,#19f7d2 100%);
+      color:#111; border:none;
+      border-radius:10px;
+      font-family:'Orbitron',sans-serif;
+      font-size:1.14em; font-weight:700;
+      padding:.7em 1.2em;
+      margin:.6em .5em;
+      box-shadow:0 0 12px #19f7d2,0 0 28px #0ff;
+      cursor:pointer; outline:none;
+      transition:background .15s, color .15s, transform .15s;
     }
-    .actions button:disabled { background: #1a2329; color: #777; box-shadow:none; cursor:not-allowed;}
+    .actions button:disabled { background:#1a2329; color:#777; box-shadow:none; cursor:not-allowed;}
     .powerups {
-      margin: 1.2em 0 0.2em 0;
-      display: flex; flex-wrap:wrap; justify-content:center; gap:12px;
+      margin:1.2em 0 .2em 0;
+      display:flex;flex-wrap:wrap;justify-content:center;gap:13px;
     }
     .powerups button {
-      background: linear-gradient(135deg, #39ff14 60%, #0ff 100%);
-      color: #111;
-      border: none;
-      border-radius: 10px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: .97em;
-      font-weight: 600;
-      padding: 0.5em 1em;
-      box-shadow: 0 0 10px #39ff14, 0 0 20px #19f7d2;
-      cursor: pointer;
-      outline: none;
-      transition: background .15s, color .15s;
+      background:linear-gradient(135deg,#39ff14 60%,#0ff 100%);
+      color:#111; border:none;
+      border-radius:10px;
+      font-family:'Orbitron',sans-serif;
+      font-size:.97em; font-weight:600;
+      padding:.5em 1em;
+      box-shadow:0 0 10px #39ff14,0 0 20px #19f7d2;
+      cursor:pointer; outline:none;
+      transition:background .15s, color .15s;
     }
     .powerups button:disabled { background:#112; color:#555; box-shadow:none;}
     .stats {
-      margin:1.6em 0 0 0;
+      margin:1.3em 0 0 0;
       color:#19f7d2;
       font-family:'Orbitron',sans-serif;
       font-size:.99em;
-      opacity:.7;
+      opacity:.8;
     }
     .sound-toggle {
-      position:absolute;top:10px;right:12px;
+      position:absolute;top:10px;right:13px;
       background:#232526;color:#0ff;border:1.5px solid #0ff;
-      border-radius:6px;padding:4px 12px;cursor:pointer;
+      border-radius:7px;padding:4px 12px;cursor:pointer;
       font-family:'Orbitron',sans-serif;font-size:.93em;z-index:2;
       box-shadow:0 0 8px #0ff;
-      transition: background .18s, color .18s;
+      transition:background .18s, color .18s;
     }
     .sound-toggle.active { background:#0ff; color:#111;}
+    .coinrain-anim {
+      pointer-events:none;
+      position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999;
+      overflow:hidden;
+      opacity:1;animation:coinrain-fadeout 2.5s forwards;
+    }
+    @keyframes coinrain-fadeout { 0%{opacity:1;} 100%{opacity:0;}}
+    .coin {
+      position:absolute;top:-40px;
+      font-size:2.1em;
+      animation:coinfall 1.5s cubic-bezier(.3,1.35,.6,1.06) forwards;
+      user-select:none;
+      pointer-events:none;
+      text-shadow:0 0 12px #ffd700,0 0 24px #fff;
+    }
+    @keyframes coinfall {
+      0%{transform:translateY(0) rotate(0);}
+      60%{transform:translateY(60vh) rotate(180deg);}
+      100%{transform:translateY(100vh) rotate(360deg);}
+    }
+    .unlock-badge {
+      position:absolute;
+      bottom:-30px;
+      left:50%;
+      transform:translateX(-50%);
+      background:linear-gradient(135deg,#fff200,#ff007f 90%);
+      color:#181e33;
+      font-family:'Orbitron',sans-serif;
+      font-size:1.05em;
+      font-weight:900;
+      padding:8px 22px;
+      border-radius:16px;
+      box-shadow:0 0 16px #fff200,0 0 32px #ff007f;
+      border:3px solid #fff;
+      letter-spacing:.6px;
+      z-index:4;
+      animation:badgefade 1.6s;
+      user-select:none;
+    }
+    @keyframes badgefade { 0%{opacity:0;transform:translateX(-50%) scale(0.4);} 30%{opacity:1;} 100%{opacity:1;transform:translateX(-50%) scale(1);} }
     @media (max-width:510px) {
-      .game { padding:1.1em .4em 1.6em .4em; min-width:220px; max-width:99vw;}
-      .dealer-avatar { width:50px; height:50px; font-size:1.5em;}
+      .game { padding:1.1em .4em 1.5em .4em; min-width:220px; max-width:99vw;}
+      .dealer-avatar { width:55px;height:55px;font-size:1.5em;}
+      .unlock-badge { font-size:.95em; bottom:-22px;}
     }
   </style>
 </head>
 <body>
-  <h1>Futuristic Pirate Blackjack</h1>
+  <h1>⚡ Pirate Neon Blackjack</h1>
   <div class="chips">💰 Pieces of Eight: <span id="chips">500</span></div>
-  <div class="game">
+  <div class="game" id="gameboard">
     <button class="sound-toggle" id="soundBtn" title="Toggle sound">🔊</button>
     <div class="dealer-avatar" id="dealerAvatar" title="AI Pirate Dealer">🦜</div>
-    <div class="dealer-name">Captain Gavinbot</div>
+    <div class="dealer-name" id="dealerName">Captain Gavinbot</div>
     <div class="banter" id="banter">Welcome to the Neon Lair! 🦜</div>
     <div>
       <b>Your Hand:</b>
@@ -213,18 +256,21 @@
   <audio id="soundLose" src="https://cdn.pixabay.com/audio/2022/07/26/audio_12bcf7f5d1.mp3"></audio>
   <script>
     // --- Core Variables ---
-    const suits = ["♠","♥","♦","♣"];
+    const suits = ["♠", "♥", "♦", "♣"];
     const values = [2,3,4,5,6,7,8,9,10,"J","Q","K","A"];
-    let deck, player, dealer, playerStands, gameOver, playerChips = 500, sessionStats = {wins:0, losses:0, streak:0, maxStreak:0};
-    let xrayUsed = false, hackUsed = false, soundOn = true;
+    let deck, player, dealer, playerStands, gameOver, playerChips=500;
+    let sessionStats = {wins:0, losses:0, streak:0, maxStreak:0};
+    let xrayUsed = false, hackUsed = false, soundOn = true, unlockLevel = 0;
+    let nextWinDouble = false, gavinEvent = null;
+    let leaderboard = JSON.parse(localStorage.getItem('leaderboard')||"[]");
+
     const banterLines = [
-      "Arrr! Let’s see if Lady Luck is with ye, matey.",
+      "Arrr! Lady Luck is with ye, matey.",
       "Gavinbot says: The cards are neon-hot tonight.",
       "Did you count cards? Or just parrots?",
       "Blackjack? Or just black coffee?",
-      "Will you brave the cyber-waves, or play it safe?",
       "My circuits say: hit, hit, HIT! (Or… maybe not)",
-      "You win, you get virtual rum. You lose? Swab the decks.",
+      "Swab the decks if you lose!",
       "I deal with honor. Or do I? 🦜"
     ];
     const winLines = [
@@ -232,7 +278,8 @@
       "A clean win! Neon coins for you.",
       "You bested me, matey. This round, at least.",
       "AI parrot bows to your cunning!",
-      "Blackjack! You're a legend."
+      "Blackjack! You're a legend.",
+      "That was masterful, pirate."
     ];
     const loseLines = [
       "Oof! The cyber-seas were rough.",
@@ -242,11 +289,12 @@
       "Squawk! Try again, captain?"
     ];
     const gavinSquawk = [
-      "🦜 GAVINBOT SQUAWK: The next win gets double coins!",
-      "🦜 GAVINBOT SQUAWK: Dealer reveals a secret card.",
-      "🦜 GAVINBOT SQUAWK: Swap one card for free!"
+      {text:"🦜 GAVINBOT SQUAWK: The next win gets double coins!", fx:()=>{ nextWinDouble=true;}},
+      {text:"🦜 GAVINBOT SQUAWK: A coin rain bonus event!", fx:()=>{ coinRain(); playerChips+=30; showMsg('Coin Rain! +30 coins!'); }},
+      {text:"🦜 GAVINBOT SQUAWK: Dealer reveals a secret card.", fx:()=>{ dealer[1].revealed=true; render(); }},
+      {text:"🦜 GAVINBOT SQUAWK: You get a free hack this round!", fx:()=>{ hackUsed=false; document.getElementById('hackBtn').disabled=false; }},
+      {text:"🦜 GAVINBOT SQUAWK: You get a win streak badge if you win next round!", fx:()=>{ unlockLevel = Math.max(unlockLevel,1); showUnlock('Streak Badge Unlocked!'); }}
     ];
-    let nextWinDouble = false;
 
     // --- Utility Functions ---
     function shuffleDeck() {
@@ -269,11 +317,27 @@
       return val;
     }
     function sleep(ms) { return new Promise(r=>setTimeout(r,ms)); }
-
-    function playSound(id) {
-      if(!soundOn) return;
-      const el = document.getElementById(id);
-      el.currentTime=0; el.play();
+    function playSound(id) { if(!soundOn) return; const el=document.getElementById(id); el.currentTime=0; el.play(); }
+    function coinRain() {
+      document.body.classList.add('coinrain');
+      let rain = document.createElement('div'); rain.className='coinrain-anim';
+      for(let i=0;i<22;i++) {
+        let c=document.createElement('div');
+        c.className='coin'; c.style.left = (Math.random()*95)+'vw';
+        c.style.animationDelay=(Math.random()*1.3)+'s';
+        c.textContent='🪙';
+        rain.appendChild(c);
+      }
+      document.body.appendChild(rain);
+      setTimeout(()=>{rain.remove();document.body.classList.remove('coinrain');},1900);
+    }
+    function showUnlock(txt) {
+      let b = document.createElement('div');
+      b.className = 'unlock-badge'; b.textContent = txt;
+      document.getElementById('gameboard').appendChild(b);
+      document.getElementById('dealerAvatar').classList.add('unlock');
+      document.getElementById('gameboard').classList.add('bg-unlock');
+      setTimeout(()=>{b.remove();document.getElementById('dealerAvatar').classList.remove('unlock');document.getElementById('gameboard').classList.remove('bg-unlock');},2600);
     }
 
     // --- Render Functions ---
@@ -293,11 +357,9 @@
         ).join('');
       document.getElementById('dealerTotal').textContent = (showAll?handValue(dealer):"?");
       document.getElementById('chips').textContent = playerChips;
-      document.getElementById('stats').innerHTML = 
+      document.getElementById('stats').innerHTML =
         `Wins: ${sessionStats.wins} | Losses: ${sessionStats.losses} | Streak: ${sessionStats.streak} | Max Streak: ${sessionStats.maxStreak}`;
     }
-
-    // --- Powerups ---
     function worstCardIndex(hand) {
       let min = 15, idx = -1;
       hand.forEach((c, i) => {
@@ -306,16 +368,14 @@
       });
       return idx;
     }
-
-    // --- AI Banter ---
     function randomBanter() {
-      if(Math.random()<0.08) {
-        // Gavinbot event
-        let which = Math.floor(Math.random()*gavinSquawk.length);
-        if (which===0) nextWinDouble=true;
-        document.getElementById('banter').textContent = gavinSquawk[which];
+      if(Math.random()<0.14) {
+        gavinEvent = gavinSquawk[Math.floor(Math.random()*gavinSquawk.length)];
+        document.getElementById('banter').textContent = gavinEvent.text;
+        if(gavinEvent.fx) gavinEvent.fx();
       } else {
         document.getElementById('banter').textContent = banterLines[Math.floor(Math.random()*banterLines.length)];
+        gavinEvent = null;
       }
     }
     function dealerMood(mood) {
@@ -323,6 +383,7 @@
       avatar.className = "dealer-avatar " + (mood||"");
       setTimeout(()=>{avatar.className="dealer-avatar";}, 1500);
     }
+    function showMsg(txt) { document.getElementById('msg').textContent=txt; }
 
     // --- Game Logic ---
     async function dealInitial() {
@@ -335,7 +396,7 @@
       hackUsed = false;
       document.getElementById('xrayBtn').disabled = false;
       document.getElementById('hackBtn').disabled = false;
-      document.getElementById('msg').textContent = '';
+      showMsg('');
       document.getElementById('restartBtn').style.display = "none";
       document.getElementById('hitBtn').disabled = false;
       document.getElementById('standBtn').disabled = false;
@@ -346,16 +407,14 @@
       await sleep(350);
       render();
     }
-
     async function hit() {
       player.push(deck.pop());
       playSound('soundDeal');
       render();
       let pv = handValue(player);
       if (pv > 21) return await endGame("Bust! Dealer wins.", false);
-      if (pv === 21) document.getElementById('msg').textContent = "21! Stand or try your luck?";
+      if (pv === 21) showMsg("21! Stand or try your luck?");
     }
-
     async function stand() {
       playerStands = true;
       document.getElementById('hitBtn').disabled = true;
@@ -365,7 +424,7 @@
         dealer.push(deck.pop());
         playSound('soundDeal');
         render();
-        await sleep(550);
+        await sleep(530);
       }
       render();
       let pv = handValue(player), dv = handValue(dealer);
@@ -374,29 +433,30 @@
       if (pv > dv) return await endGame("You win! 🏴‍☠️", true);
       return await endGame("Dealer wins.", false);
     }
-
     async function endGame(msg, win) {
       gameOver = true;
-      document.getElementById('msg').textContent = msg;
+      showMsg(msg);
       document.getElementById('restartBtn').style.display = "inline-block";
       document.getElementById('hitBtn').disabled = true;
       document.getElementById('standBtn').disabled = true;
       document.getElementById('xrayBtn').disabled = true;
       document.getElementById('hackBtn').disabled = true;
-
       let avatar = document.getElementById('dealerAvatar');
       if (win === true) {
-        sessionStats.wins++; 
+        sessionStats.wins++;
         sessionStats.streak++;
         if(sessionStats.streak>sessionStats.maxStreak) sessionStats.maxStreak=sessionStats.streak;
         let payout = nextWinDouble?40:20;
         playerChips+=payout;
-        document.getElementById('msg').textContent += nextWinDouble?" (Double coins: +40!)":" (+20 coins)";
+        showMsg(msg+(nextWinDouble?" (Double coins: +40!)":" (+20 coins)"));
         nextWinDouble=false;
         avatar.textContent = "😎";
         dealerMood("celebrate");
         playSound('soundWin');
         showBanterLine(winLines);
+        if(sessionStats.streak===3) { unlockLevel = Math.max(unlockLevel,1); showUnlock('🔥 Neon Streak Unlocked!'); }
+        if(sessionStats.streak===5) { unlockLevel = Math.max(unlockLevel,2); showUnlock('💎 Max Pirate Unlocked!'); }
+        updateLeaderboard();
       } else if (win === false) {
         sessionStats.losses++;
         sessionStats.streak=0;
@@ -405,8 +465,9 @@
         avatar.textContent = "😠";
         dealerMood("angry");
         playSound('soundLose');
-        document.getElementById('msg').textContent += " (-15 coins)";
+        showMsg(msg+" (-15 coins)");
         showBanterLine(loseLines);
+        updateLeaderboard();
       } else {
         avatar.textContent = "🤖";
         dealerMood("sad");
@@ -414,7 +475,6 @@
       }
       render();
     }
-
     function showBanterLine(arr) {
       setTimeout(()=>{document.getElementById('banter').textContent = arr[Math.floor(Math.random()*arr.length)];}, 800);
     }
@@ -424,8 +484,8 @@
       if(xrayUsed) return;
       xrayUsed=true;
       render();
-      document.getElementById('xrayBtn').disabled=true;
-      document.getElementById('msg').textContent = "👁️ X-ray: You peeked at a dealer's hidden card!";
+      this.disabled=true;
+      showMsg("👁️ X-ray: You peeked at a dealer's hidden card!");
     };
     document.getElementById('hackBtn').onclick = function() {
       if(hackUsed) return;
@@ -434,11 +494,11 @@
         player[idx] = deck.pop();
         hackUsed=true;
         render();
-        document.getElementById('hackBtn').disabled=true;
-        document.getElementById('msg').textContent = "🤖 Hack: Swapped your weakest card!";
+        this.disabled=true;
+        showMsg("🤖 Hack: Swapped your weakest card!");
       }
     };
-    // --- Main Buttons ---
+    // Main Buttons
     document.getElementById('hitBtn').onclick = hit;
     document.getElementById('standBtn').onclick = stand;
     document.getElementById('restartBtn').onclick = async function(){ await dealInitial();};
@@ -450,8 +510,37 @@
       this.textContent = soundOn ? "🔊" : "🔇";
     };
 
+    // --- Session Leaderboard (Local) ---
+    function updateLeaderboard() {
+      let entry = {date:Date.now(), chips:playerChips, streak:sessionStats.streak, maxStreak:sessionStats.maxStreak};
+      leaderboard.push(entry);
+      leaderboard = leaderboard.slice(-10); // Keep last 10 sessions
+      localStorage.setItem('leaderboard',JSON.stringify(leaderboard));
+    }
+
     // --- Start Game ---
     dealInitial();
+
+    // Easter egg: change avatar/background on unlocks
+    setInterval(()=>{
+      if(unlockLevel===2) {
+        document.getElementById('dealerAvatar').textContent="💎";
+        document.getElementById('dealerName').textContent="Queen Neonbot";
+        document.getElementById('gameboard').classList.add('bg-unlock');
+      } else if(unlockLevel===1) {
+        document.getElementById('dealerAvatar').textContent="🦜";
+        document.getElementById('dealerName').textContent="Captain Gavinbot";
+        document.getElementById('gameboard').classList.add('bg-unlock');
+      }
+    },3200);
+
+    // Developer tool: Reset leaderboard with Shift+R
+    document.addEventListener('keydown',e=>{
+      if(e.shiftKey && e.key==='R') {
+        leaderboard=[];localStorage.setItem('leaderboard','[]');
+        showUnlock('Leaderboard reset!');
+      }
+    });
   </script>
 </body>
 </html>
