@@ -2,166 +2,159 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>⚡ Pirate Neon Roulette | Gavinbot Lair</title>
+  <title>Pirate Neon Roulette | Gavinbot Lair</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="The most advanced, futuristic pirate roulette game ever. AI banter, powerups, unlocks, sound, stats, and more.">
+  <meta name="description" content="Futuristic pirate roulette game with SVG graphics, animation, and pirate banter.">
   <link rel="icon" href="gavinbot.png">
   <style>
-    html,body { margin:0; padding:0; height:100%; }
     body {
-      min-height:100vh;
-      background:linear-gradient(120deg,#160c28 0%,#232526 90%,#0ff 100%);
-      color:#fff;
-      font-family:'Orbitron','Trebuchet MS',Arial,sans-serif;
-      display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
-      transition:background 1s;
-      overflow-x:hidden;
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(120deg,#0a1b2a 0%,#232526 100%);
+      color: #fff;
+      font-family: 'Orbitron', 'Trebuchet MS', Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    body.coinrain { animation:coinrain-bg 2s; }
-    @keyframes coinrain-bg { 0%{background:#160c28;} 50%{background:#ffd700;} 100%{background:linear-gradient(120deg,#160c28 0%,#232526 90%,#0ff 100%);} }
     h1 {
-      font-size:2.3em; margin-top:1.1em; margin-bottom:0.1em; letter-spacing:1px;
-      text-shadow:0 0 18px #0ff,0 0 40px #19f7d2;
-      user-select:none;
-      font-family:'Orbitron',sans-serif;
+      margin-top: 1.5em;
+      font-size: 2.3em;
+      text-shadow: 0 0 20px #0ff, 0 0 60px #19f7d2;
     }
     .coins {
-      color:#ffd700; font-size:1.12em; margin-bottom:1.1em; text-shadow:0 0 6px #0ff;
-      font-family:Orbitron,sans-serif;
+      color: #ffd700;
+      font-size: 1.18em;
+      margin-bottom: 1.2em;
+      text-shadow: 0 0 6px #0ff;
+      font-family: Orbitron, sans-serif;
     }
     .roulette-board {
-      margin:1.2em auto 0 auto;
-      background:rgba(24,28,55,0.98);
-      border:2.5px solid #19f7d2;
-      border-radius:22px;
-      box-shadow:0 0 32px #0ff,0 0 55px #19f7d2;
-      padding:2em 1em 2.5em 1em;
-      max-width:430px;
-      width:96vw;
+      margin: 1.3em auto 0 auto;
+      background: rgba(24,28,55,0.96);
+      border: 2.5px solid #19f7d2;
+      border-radius: 22px;
+      box-shadow: 0 0 32px #0ff, 0 0 55px #19f7d2;
+      padding: 2.2em 1em 2em 1em;
+      max-width: 450px;
+      width: 95vw;
       position: relative;
-      overflow:visible;
-      transition:box-shadow .2s;
-    }
-    .dealer-avatar {
-      width:70px;height:70px;
-      border-radius:50%;
-      background:linear-gradient(135deg,#0ff 30%,#232526 100%);
-      border:3px solid #39ff14;
-      box-shadow:0 0 22px #0ff,0 0 40px #0ff;
-      display:flex;align-items:center;justify-content:center;
-      font-size:2em;margin:0 auto 0.2em auto;transition:transform .4s,filter .4s;
-      user-select:none;
-    }
-    .dealer-avatar.celebrate { transform:scale(1.13) rotate(-10deg);}
-    .dealer-avatar.sad { filter:grayscale(.7) brightness(.8);}
-    .dealer-avatar.angry { filter:contrast(1.5)  hue-rotate(200deg);}
-    .dealer-avatar.unlock { border:3px solid #ffd700; background:linear-gradient(135deg,#ffe14b,#0ff 100%);}
-    .dealer-name {
-      font-size:1.1em; color:#39ff14; text-shadow:0 0 5px #0ff; margin-bottom:0.7em;
-      font-family:'Orbitron',sans-serif; letter-spacing:.5px;
     }
     .banter {
-      font-size:.98em; color:#39ff14; font-family:'Trebuchet MS',sans-serif;
-      margin-bottom:1.2em; min-height:1.7em; text-shadow:0 0 5px #19f7d2; user-select:none;
+      font-size: 1em;
+      color: #39ff14;
+      font-family: 'Trebuchet MS',sans-serif;
+      margin-bottom: 1.2em;
+      min-height: 1.7em;
+      text-shadow: 0 0 5px #19f7d2;
+      text-align: center;
     }
-    .wheel-container {
-      display:flex; flex-direction:column; align-items:center; margin-bottom:1.2em;
+    .svg-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1.6em;
+      position: relative;
     }
     .wheel-pointer {
-      position:absolute; top:-30px; left:50%; transform:translateX(-50%);
-      font-size:2.2em; color:#ffd700;
-      text-shadow:0 0 14px #ffd700, 0 0 36px #fff; z-index:3; user-select:none;
-    }
-    .wheel-bg {
-      width:222px; height:222px; border-radius:50%; background:radial-gradient(circle,#0ff 0 20%,#222 80%);
-      filter:blur(12px); position:absolute; left:50%; top:50%; z-index:0;
-      transform:translate(-50%,-50%);
-      opacity:.48;
-    }
-    .wheel {
-      width:210px; height:210px; border:5px solid #0ff; border-radius:50%;
-      background:#191b29; box-shadow:0 0 42px #0ff,0 0 110px #000;
-      position:relative; margin-bottom:0.8em; transition:transform 2.7s cubic-bezier(.18,.65,0,1.01);
-      display:flex;align-items:center;justify-content:center;z-index:2;overflow:visible;
-    }
-    .sector { position:absolute; left:50%; top:50%; width:100px; height:24px; transform-origin:left center; pointer-events:none;}
-    .sector .lbl {
-      font-size:1em; font-family:'Orbitron',monospace; color:#fff;
-      text-shadow:0 0 6px #0ff,0 0 12px #0ff;
-      letter-spacing:.5px; pointer-events:none; user-select:none;
-    }
-    .ball {
-      position:absolute; width:24px; height:24px; background:radial-gradient(circle,#fff 60%,#19f7d2 90%);
-      border-radius:50%; z-index:2; left:50%; top:50%; transform:translate(-50%,-102px); box-shadow:0 0 16px #fff,0 0 22px #0ff;
-      transition:box-shadow .2s;
-      pointer-events:none;
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.4em;
+      color: #ffd700;
+      text-shadow: 0 0 16px #ffd700, 0 0 32px #fff;
+      z-index: 3;
+      user-select: none;
+      pointer-events: none;
     }
     .bet-controls {
-      margin-bottom:1em; display:flex; flex-wrap:wrap; justify-content:center; gap:13px;
+      margin-bottom: 1.2em;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
     }
     .bet-controls input, .bet-controls select {
-      padding:.45em .7em; border-radius:8px; border:1.5px solid #19f7d2;
-      background:#101820; color:#0ff; font-family:'Orbitron',sans-serif; font-size:1em; margin:0 0.2em;
+      padding: 0.45em 0.7em;
+      border-radius: 8px;
+      border: 1.5px solid #19f7d2;
+      background: #101820;
+      color: #0ff;
+      font-family: 'Orbitron',sans-serif;
+      font-size: 1em;
+      margin: 0 0.2em;
     }
     .bet-controls button {
-      background:linear-gradient(135deg,#0ff 60%,#19f7d2 100%);
-      color:#111; border:none; border-radius:10px; font-family:'Orbitron',sans-serif;
-      font-size:1em; font-weight:700; padding:.7em 1.2em; margin:0 0.5em;
-      box-shadow:0 0 12px #19f7d2,0 0 20px #0ff; cursor:pointer; outline:none;
-      transition:background .15s, color .15s;
+      background: linear-gradient(135deg, #0ff 60%, #19f7d2 100%);
+      color: #111;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1em;
+      font-weight: 700;
+      padding: 0.7em 1.2em;
+      margin: 0 0.5em;
+      box-shadow: 0 0 12px #19f7d2, 0 0 20px #0ff;
+      cursor: pointer;
+      outline: none;
+      transition: background .15s, color .15s;
     }
-    .bet-controls button:disabled { background:#1a2329; color:#777; box-shadow:none; cursor:not-allowed;}
-    .powerups { margin:1em 0 .3em 0; display:flex; flex-wrap:wrap; justify-content:center; gap:11px;}
-    .powerups button {
-      background:linear-gradient(135deg,#ffe14b 60%,#0ff 100%);
-      color:#181e33; border:none; border-radius:10px; font-family:'Orbitron',sans-serif;
-      font-size:.95em; font-weight:700; padding:.5em 1.1em;
-      box-shadow:0 0 12px #ffe14b,0 0 20px #0ff; cursor:pointer; outline:none;
-      transition:background .15s, color .15s;
-    }
-    .powerups button:disabled { background:#112; color:#555; box-shadow:none;}
+    .bet-controls button:disabled { background: #1a2329; color: #777; box-shadow:none; cursor:not-allowed;}
     .msg {
-      font-size:1.09em; min-height:2.1em; margin:1em auto .2em; color:#ffd700;
-      text-shadow:0 0 7px #0ff,0 0 15px #0ff; font-family:'Orbitron',sans-serif; letter-spacing:.1px; user-select:none;
+      font-size: 1.1em;
+      min-height: 2.1em;
+      margin: 1em auto .3em;
+      color: #ffd700;
+      text-shadow: 0 0 7px #0ff,0 0 15px #0ff;
+      font-family:'Orbitron',sans-serif;
+      letter-spacing:.1px; user-select:none;
+      text-align: center;
     }
     .stats {
-      color:#19f7d2; font-family:'Orbitron',sans-serif; font-size:.98em; opacity:.8; margin-top:1.1em;
+      color: #19f7d2;
+      font-family: 'Orbitron',sans-serif;
+      font-size: .98em;
+      opacity: .8;
+      margin-top: 1.1em;
+      text-align: center;
     }
     .history {
-      margin:1.6em 0 0 0; color:#aaa; font-size:.95em; font-family:'Orbitron',sans-serif;
+      margin: 1.6em 0 0 0;
+      color: #aaa;
+      font-size: .95em;
+      font-family: 'Orbitron',sans-serif;
+      text-align: center;
     }
     .history .num {
-      border-radius:7px; border:2px solid #0ff; padding:0.2em 0.7em; margin:0 0.2em;
-      font-weight:bold; color:#fff; background:#232526; display:inline-block; min-width:30px;
+      border-radius: 6px;
+      border: 1.5px solid #0ff;
+      padding: 0.2em 0.7em;
+      margin: 0 0.2em;
+      font-weight: bold;
+      color: #fff;
+      background: #232526;
+      display: inline-block;
+      min-width: 28px;
     }
-    .history .num.red { background:#e53935; color:#fff; border-color:#ffe14b;}
-    .history .num.black { background:#111; border-color:#39ff14;}
-    .history .num.green { background:#0ff; color:#111; border-color:#fff;}
-    @media (max-width:540px) {
+    .history .num.red { background: #e53935; color: #fff; border-color: #ffe14b;}
+    .history .num.black { background: #111; border-color: #39ff14;}
+    .history .num.green { background: #0ff; color: #111; border-color: #fff;}
+    @media (max-width: 520px) {
       .roulette-board { padding: 1em .3em 1.2em .3em;}
-      .wheel { width: 150px; height: 150px;}
-      .wheel-bg { width:152px; height:152px;}
-      .dealer-avatar { width:50px;height:50px;font-size:1.3em;}
+      .svg-container { margin-bottom: 1.1em;}
     }
   </style>
 </head>
 <body>
   <h1>⚡ Pirate Neon Roulette</h1>
   <div class="coins">💰 Pieces of Eight: <span id="coins">500</span></div>
-  <div class="roulette-board" id="rouletteBoard">
-    <div class="dealer-avatar" id="dealerAvatar" title="AI Pirate Dealer">🦜</div>
-    <div class="dealer-name" id="dealerName">Captain Gavinbot</div>
+  <div class="roulette-board">
     <div class="banter" id="banter">Welcome to the neon wheel, matey!</div>
-    <div class="wheel-container">
+    <div class="svg-container">
       <div class="wheel-pointer">▼</div>
-      <div class="wheel-bg"></div>
-      <div class="wheel" id="wheel">
-        <div class="ball" id="ball"></div>
-      </div>
-    </div>
-    <div class="powerups">
-      <button id="parrotBtn" title="Lucky Parrot: Next win is doubled!">🦜 Lucky Parrot</button>
-      <button id="eyeBtn" title="Pirate's Eye: See the next color!">🦾 Pirate's Eye</button>
+      <svg id="rouletteSVG" width="270" height="270" viewBox="0 0 270 270"></svg>
+      <svg id="ballSVG" width="270" height="270" style="position:absolute;top:0;left:0;pointer-events:none;"></svg>
     </div>
     <div class="bet-controls">
       <select id="betType">
@@ -182,13 +175,19 @@
     <div class="stats" id="stats"></div>
     <div class="history" id="history"></div>
   </div>
-  <p style="margin:1.8em 0 0 0;text-align:center;"><a href="index.html" style="color:#0ff;">🏴 Back to Main Site</a></p>
-  <audio id="soundSpin" src="https://cdn.pixabay.com/audio/2022/07/26/audio_12bfa5f2e1.mp3"></audio>
-  <audio id="soundWin" src="https://cdn.pixabay.com/audio/2022/07/26/audio_12db5c4e4a.mp3"></audio>
-  <audio id="soundLose" src="https://cdn.pixabay.com/audio/2022/07/26/audio_12bcf7f5d1.mp3"></audio>
+  <p style="margin:1.5em 0 0 0;text-align:center;"><a href="index.html" style="color:#0ff;">🏴 Back to Main Site</a></p>
   <script>
-    // --- Core Variables ---
-    let coins = 500, spinning = false, rollHistory = [], nextWinDouble=false, parrotUsed=false, eyeUsed=false, unlockLevel=0;
+    // --- Wheel Data ---
+    const wheelNums = [
+      {n:0, color:'green'},
+      {n:32, color:'red'},{n:15, color:'black'},{n:19, color:'red'},{n:4,color:'black'},{n:21,color:'red'},{n:2,color:'black'},
+      {n:25,color:'red'},{n:17,color:'black'},{n:34,color:'red'},{n:6,color:'black'},{n:27,color:'red'},{n:13,color:'black'},
+      {n:36,color:'red'},{n:11,color:'black'},{n:30,color:'red'},{n:8,color:'black'},{n:23,color:'red'},{n:10,color:'black'},
+      {n:5,color:'red'},{n:24,color:'black'},{n:16,color:'red'},{n:33,color:'black'},{n:1,color:'red'},{n:20,color:'black'},
+      {n:14,color:'red'},{n:31,color:'black'},{n:9,color:'red'},{n:22,color:'black'},{n:18,color:'red'},{n:29,color:'black'},
+      {n:7,color:'red'},{n:28,color:'black'},{n:12,color:'red'},{n:35,color:'black'},{n:3,color:'red'},{n:26,color:'black'}
+    ];
+    let coins = 500, spinning = false, rollHistory = [];
     let stats = {wins:0, losses:0, streak:0, maxStreak:0};
     const banterLines = [
       "Place yer bets, neon buccaneer!",
@@ -214,37 +213,57 @@
       "The wheel laughs... and takes your loot.",
       "Squawk! Try again, captain?"
     ];
-    const gavinSquawk = [
-      {text:"🦜 GAVINBOT SQUAWK: Coin rain bonus!", fx:()=>{ coinRain(); coins+=30; showMsg('Coin Rain! +30 coins!'); }},
-      {text:"🦜 GAVINBOT SQUAWK: Next win gets double payout!", fx:()=>{ nextWinDouble=true; showMsg('Your next win pays double!'); }},
-      {text:"🦜 GAVINBOT SQUAWK: Lucky Parrot ready!", fx:()=>{ parrotUsed=false; document.getElementById('parrotBtn').disabled=false; showMsg('Lucky Parrot powerup recharged!'); }},
-      {text:"🦜 GAVINBOT SQUAWK: Neon streak badge unlocked!", fx:()=>{ unlockLevel = Math.max(unlockLevel, 1); showUnlock('🔥 Neon Streak Unlocked!'); }},
-      {text:"🦜 GAVINBOT SQUAWK: Pirate’s Eye vision recharged!", fx:()=>{ eyeUsed=false; document.getElementById('eyeBtn').disabled=false; showMsg('Pirate\'s Eye powerup recharged!'); }}
-    ];
-    const wheelNums = [
-      {n:0, color:'green'},
-      {n:32, color:'red'},{n:15, color:'black'},{n:19, color:'red'},{n:4,color:'black'},{n:21,color:'red'},{n:2,color:'black'},
-      {n:25,color:'red'},{n:17,color:'black'},{n:34,color:'red'},{n:6,color:'black'},{n:27,color:'red'},{n:13,color:'black'},
-      {n:36,color:'red'},{n:11,color:'black'},{n:30,color:'red'},{n:8,color:'black'},{n:23,color:'red'},{n:10,color:'black'},
-      {n:5,color:'red'},{n:24,color:'black'},{n:16,color:'red'},{n:33,color:'black'},{n:1,color:'red'},{n:20,color:'black'},
-      {n:14,color:'red'},{n:31,color:'black'},{n:9,color:'red'},{n:22,color:'black'},{n:18,color:'red'},{n:29,color:'black'},
-      {n:7,color:'red'},{n:28,color:'black'},{n:12,color:'red'},{n:35,color:'black'},{n:3,color:'red'},{n:26,color:'black'}
-    ];
-    // --- Wheel Graphics ---
-    function drawSectors(){
-      const wheel=document.getElementById('wheel');
-      if(document.querySelector('.sector')) return;
-      let seg = 360/wheelNums.length;
-      for(let i=0;i<wheelNums.length;i++){
-        let d=document.createElement('div');
-        d.className='sector';
-        d.style.transform=`rotate(${i*seg-90}deg) translate(-50%,-50%)`;
-        d.innerHTML=`<span class="lbl" style="color:${wheelNums[i].color==='red'?'#e53935':wheelNums[i].color==='black'?'#fff':'#0ff'}">${wheelNums[i].n}</span>`;
-        wheel.appendChild(d);
-      }
-    }
-    drawSectors();
 
+    // --- SVG Drawing ---
+    function drawWheel() {
+      const svg = document.getElementById('rouletteSVG');
+      svg.innerHTML = '';
+      const cx = 135, cy = 135, R = 110, r = 80;
+      const seg = 360/wheelNums.length;
+      for(let i=0;i<wheelNums.length;i++) {
+        const start = (i*seg-90)*Math.PI/180;
+        const end = ((i+1)*seg-90)*Math.PI/180;
+        // outer arc
+        const x1 = cx + R*Math.cos(start), y1 = cy + R*Math.sin(start);
+        const x2 = cx + R*Math.cos(end), y2 = cy + R*Math.sin(end);
+        // inner arc
+        const x3 = cx + r*Math.cos(end), y3 = cy + r*Math.sin(end);
+        const x4 = cx + r*Math.cos(start), y4 = cy + r*Math.sin(start);
+        const color = wheelNums[i].color === "red" ? "#e53935" : (wheelNums[i].color === "black" ? "#191a1a" : "#0ff");
+        svg.innerHTML += `
+          <path d="M${x1},${y1} A${R},${R} 0 0,1 ${x2},${y2} L${x3},${y3}
+          A${r},${r} 0 0,0 ${x4},${y4} Z"
+          fill="${color}" stroke="#0ff" stroke-width="1.7"/>
+        `;
+        // label number
+        const angle = (i+0.5)*seg-90;
+        const lx = cx + 95 * Math.cos(angle*Math.PI/180);
+        const ly = cy + 95 * Math.sin(angle*Math.PI/180) + 5;
+        svg.innerHTML += `<text x="${lx}" y="${ly}" text-anchor="middle" alignment-baseline="middle"
+          font-size="1em" font-family="Orbitron,monospace" 
+          fill="${wheelNums[i].color === 'red' ? '#ffe14b' : (wheelNums[i].color === 'black' ? '#fff' : '#181b1c')}"
+          style="text-shadow:0 0 4px #0ff;">${wheelNums[i].n}</text>`;
+      }
+      // neon center
+      svg.innerHTML += `<circle cx="${cx}" cy="${cy}" r="55" fill="#1c1c2b" stroke="#0ff" stroke-width="2" filter="url(#glow)"/>`;
+      svg.innerHTML += `<circle cx="${cx}" cy="${cy}" r="26" fill="#232526" stroke="#ffd700" stroke-width="3"/>`;
+      svg.innerHTML += `<defs><filter id="glow" height="200%" width="200%" x="-50%" y="-50%"><feGaussianBlur stdDeviation="4" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>`;
+    }
+    // Ball rendering
+    function drawBall(angle) {
+      const svg = document.getElementById('ballSVG');
+      svg.innerHTML = '';
+      const r = 105, cx = 135, cy = 135;
+      const rad = (angle-90)*Math.PI/180;
+      const bx = cx + r*Math.cos(rad), by = cy + r*Math.sin(rad);
+      svg.innerHTML = `<circle cx="${bx}" cy="${by}" r="12" fill="url(#ballgrad)" filter="url(#ballshadow)"/>
+        <defs>
+          <radialGradient id="ballgrad"><stop offset="60%" stop-color="#fff"/><stop offset="100%" stop-color="#19f7d2"/></radialGradient>
+          <filter id="ballshadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#fff" flood-opacity="0.8"/></filter>
+        </defs>`;
+    }
+
+    // --- Game Logic ---
     function showMsg(msg) { document.getElementById('msg').textContent = msg; }
     function randomBanter() { document.getElementById('banter').textContent = banterLines[Math.floor(Math.random()*banterLines.length)]; }
     function updateStats() {
@@ -256,7 +275,6 @@
         return `<span class="num ${c}">${r.n}</span>`;
       });
       document.getElementById('history').innerHTML = h.length ? "Recent: " + h.join("") : "";
-      if(stats.streak>=7) { unlockLevel = Math.max(unlockLevel,2); showUnlock('💎 Pirate Legend Unlocked!'); }
     }
     function getBetType() {
       let type = document.getElementById('betType').value;
@@ -267,21 +285,7 @@
       document.getElementById('betNumber').style.display = (this.value==='number') ? "inline-block" : "none";
     };
 
-    // --- Powerups ---
-    document.getElementById('parrotBtn').onclick = function() {
-      if(parrotUsed) return;
-      nextWinDouble = true;
-      this.disabled = true; parrotUsed=true;
-      showMsg("🦜 Lucky Parrot: Your next win pays double!");
-    };
-    document.getElementById('eyeBtn').onclick = function() {
-      if(eyeUsed) return;
-      let next = wheelNums[Math.floor(Math.random()*wheelNums.length)];
-      this.disabled = true; eyeUsed=true;
-      showMsg("🦾 Pirate's Eye: Next color is " + (next.color==='red'?'Red':'Black') + " (" + next.n + ")");
-    };
-
-    // --- Main Game Logic ---
+    // --- Main Spin ---
     document.getElementById('spinBtn').onclick = async function() {
       if(spinning) return;
       let bet = parseInt(document.getElementById('betAmount').value,10);
@@ -293,31 +297,24 @@
       spinning = true;
       showMsg("Spinning the wheel...");
       randomBanter();
-      document.getElementById('dealerAvatar').textContent = "🦜";
-      document.getElementById('dealerAvatar').className = "dealer-avatar";
-      document.getElementById('dealerName').textContent = unlockLevel===2?"Queen Neonbot":"Captain Gavinbot";
-      // Gavinbot event?
-      if(Math.random()<0.14) {
-        let event = gavinSquawk[Math.floor(Math.random()*gavinSquawk.length)];
-        showMsg(event.text);
-        if(event.fx) event.fx();
-      }
-      // Spin Animation
+
+      // Animate spin
       let resultIdx = Math.floor(Math.random()*wheelNums.length);
       let result = wheelNums[resultIdx];
-      let spins = 7+Math.floor(Math.random()*3);
-      let degPerNum = 360/wheelNums.length;
-      let endAngle = 360*spins + (360-resultIdx*degPerNum/wheelNums.length);
-      let wheel = document.getElementById('wheel');
-      let ball = document.getElementById('ball');
-      ball.style.transition = "transform 2.5s cubic-bezier(.23,.69,.46,1.08)";
-      ball.style.transform = `translate(-50%,-102px) rotate(${360*spins+resultIdx*degPerNum}deg)`;
-      wheel.style.transform = `rotate(${endAngle}deg)`;
-      document.getElementById('soundSpin').currentTime=0;document.getElementById('soundSpin').play();
-      await new Promise(r=>setTimeout(r,2400));
-      wheel.style.transform = '';
-      ball.style.transition = ""; ball.style.transform = "translate(-50%,-102px)";
-      // Pay results
+      let spins = 6+Math.floor(Math.random()*3);
+      let seg = 360/wheelNums.length;
+      let endAngle = 360*spins + (resultIdx*seg + seg/2); // aim for center of segment
+      let ballAngle = 0;
+      // Animate
+      for(let t=0;t<=1.02;t+=0.02) {
+        let ease = 1-Math.pow(1-t,2.5); // decelerate
+        let a = (360*spins)* (1-ease) + (resultIdx*seg + seg/2)*ease;
+        drawBall(a%360);
+        await new Promise(r=>setTimeout(r,12));
+      }
+      drawBall((resultIdx*seg+seg/2)%360);
+
+      // Result
       let win = false, payout = 0;
       if(type==='number' && result.n === num) { win = true; payout = bet*35; }
       else if(type==='zero' && result.n === 0) { win = true; payout = bet*35; }
@@ -327,55 +324,28 @@
       else if(type==='odd' && result.n!==0 && result.n%2===1) { win = true; payout = bet; }
       else if(type==='low' && result.n>=1 && result.n<=18) { win = true; payout = bet; }
       else if(type==='high' && result.n>=19 && result.n<=36) { win = true; payout = bet; }
-      // Update stats
+
       rollHistory.push(result);
       if(win) {
-        let totalPayout = payout;
-        if(nextWinDouble) { totalPayout *= 2; showMsg("Double payout!"); nextWinDouble=false; }
-        coins += bet + totalPayout;
+        coins += bet + payout;
         stats.wins++; stats.streak++;
         if(stats.streak>stats.maxStreak) stats.maxStreak=stats.streak;
-        showMsg(winLines[Math.floor(Math.random()*winLines.length)] + ` (+${totalPayout} coins)`);
-        document.getElementById('dealerAvatar').textContent = "😎";
-        document.getElementById('dealerAvatar').classList.add('celebrate');
-        document.getElementById('soundWin').currentTime=0;document.getElementById('soundWin').play();
-        if(stats.streak===3) { unlockLevel = Math.max(unlockLevel,1); showUnlock('🔥 Neon Streak Unlocked!'); }
-        if(stats.streak===6) { unlockLevel = Math.max(unlockLevel,2); showUnlock('💎 Pirate Legend Unlocked!'); }
+        showMsg(winLines[Math.floor(Math.random()*winLines.length)] + ` (+${payout} coins)`);
       } else {
         stats.losses++; stats.streak=0;
         showMsg(loseLines[Math.floor(Math.random()*loseLines.length)]);
-        document.getElementById('dealerAvatar').textContent = "😠";
-        document.getElementById('dealerAvatar').classList.add('angry');
-        document.getElementById('soundLose').currentTime=0;document.getElementById('soundLose').play();
       }
       updateStats();
       spinning = false;
     };
-    function showUnlock(txt) {
-      let b = document.createElement('div');
-      b.className = 'unlock-badge'; b.textContent = txt;
-      document.getElementById('rouletteBoard').appendChild(b);
-      document.getElementById('dealerAvatar').classList.add('unlock');
-      document.getElementById('rouletteBoard').classList.add('bg-unlock');
-      setTimeout(()=>{b.remove();document.getElementById('dealerAvatar').classList.remove('unlock');document.getElementById('rouletteBoard').classList.remove('bg-unlock');},2600);
-    }
-    function coinRain() {
-      document.body.classList.add('coinrain');
-      let rain = document.createElement('div'); rain.className='coinrain-anim';
-      for(let i=0;i<19;i++) {
-        let c=document.createElement('div');
-        c.className='coin'; c.style.left = (Math.random()*95)+'vw';
-        c.style.animationDelay=(Math.random()*1.3)+'s';
-        c.textContent='🪙';
-        rain.appendChild(c);
-      }
-      document.body.appendChild(rain);
-      setTimeout(()=>{rain.remove();document.body.classList.remove('coinrain');},1900);
-    }
+
     // Enter key play
     document.getElementById('betAmount').onkeydown = function(e){ if(e.key==="Enter") document.getElementById('spinBtn').click(); };
     document.getElementById('betNumber').onkeydown = function(e){ if(e.key==="Enter") document.getElementById('spinBtn').click(); };
-    // Init UI
+
+    // --- Init ---
+    drawWheel();
+    drawBall(0);
     updateStats();
   </script>
 </body>
