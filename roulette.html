@@ -254,7 +254,7 @@
       const svg = document.getElementById('ballSVG');
       svg.innerHTML = '';
       const r = 105, cx = 135, cy = 135;
-      const rad = (angle-90)*Math.PI/180;
+      const rad = (angle)*Math.PI/180;
       const bx = cx + r*Math.cos(rad), by = cy + r*Math.sin(rad);
       svg.innerHTML = `<circle cx="${bx}" cy="${by}" r="12" fill="url(#ballgrad)" filter="url(#ballshadow)"/>
         <defs>
@@ -301,20 +301,23 @@
       // Pick a random result index and winning number
       let resultIdx = Math.floor(Math.random()*wheelNums.length);
       let result = wheelNums[resultIdx];
-      // Find the drawn index of the winning number (in case of duplicates)
       let winningIndex = wheelNums.findIndex(x => x.n === result.n && x.color === result.color);
 
       let seg = 360/wheelNums.length;
       let spins = 6+Math.floor(Math.random()*3);
 
-      // Animate
+      // Ball must land at the **center** of the sector at the top (angle 270deg)
+      // So: zero is at -90deg, segment centers rotate clockwise
+      let baseAngle = -90; // pointer at top
+
+      // Animation: t goes 0 to 1, ease out
       for(let t=0;t<=1.02;t+=0.02) {
         let ease = 1-Math.pow(1-t,2.5); // decelerate
-        let a = (360*spins)*(1-ease) + (winningIndex*seg + seg/2)*ease;
+        let a = baseAngle + (360*spins)*(1-ease) + (winningIndex*seg + seg/2)*ease;
         drawBall(a%360);
         await new Promise(r=>setTimeout(r,12));
       }
-      drawBall((winningIndex*seg+seg/2)%360);
+      drawBall((baseAngle + winningIndex*seg + seg/2)%360);
 
       // Result
       let win = false, payout = 0;
@@ -347,7 +350,7 @@
 
     // --- Init ---
     drawWheel();
-    drawBall(0);
+    drawBall(-90 + (360/wheelNums.length)/2); // ball at zero
     updateStats();
   </script>
 </body>
