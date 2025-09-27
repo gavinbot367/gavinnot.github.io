@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pirate Neon Roulette | Gavinbot Lair</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Futuristic pirate roulette game. Neon theme, AI banter, and cyber coins.">
+  <link rel="icon" href="gavinbot.png">
+  <style>
+    body {
+      background: linear-gradient(120deg, #160c28 0%, #232526 90%, #0ff 100%);
+      color: #fff;
+      font-family: 'Orbitron', 'Trebuchet MS', Arial, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      text-align: center;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      font-size: 2.1em;
+      margin-top: 1.2em;
+      letter-spacing: 1px;
+      text-shadow: 0 0 18px #0ff, 0 0 40px #19f7d2;
+    }
+    .coins {
+      color: #ffd700;
+      font-size: 1.1em;
+      margin-bottom: 1.1em;
+      text-shadow: 0 0 6px #0ff;
+      font-family: Orbitron, sans-serif;
+    }
+    .roulette-board {
+      margin: 1em auto 0 auto;
+      background: rgba(24,28,55,0.95);
+      border: 2.5px solid #19f7d2;
+      border-radius: 18px;
+      box-shadow: 0 0 25px #0ff, 0 0 55px #19f7d2;
+      padding: 2em 1em 2em 1em;
+      max-width: 420px;
+      width: 94vw;
+      position: relative;
+      overflow: visible;
+    }
+    .wheel-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1.5em;
+    }
+    .wheel {
+      width: 210px;
+      height: 210px;
+      border: 5px solid #0ff;
+      border-radius: 50%;
+      background: conic-gradient(
+        #0ff 0deg 9.73deg, #e53935 9.73deg 19.46deg, #000 19.46deg 29.19deg, #0ff 29.19deg 38.92deg, 
+        #e53935 38.92deg 48.65deg, #000 48.65deg 58.38deg, #0ff 58.38deg 68.11deg, #e53935 68.11deg 77.84deg,
+        #000 77.84deg 87.57deg, #0ff 87.57deg 97.3deg, #e53935 97.3deg 107.03deg, #000 107.03deg 116.76deg,
+        #0ff 116.76deg 126.49deg, #e53935 126.49deg 136.22deg, #000 136.22deg 145.95deg, #0ff 145.95deg 155.68deg,
+        #e53935 155.68deg 165.41deg, #000 165.41deg 175.14deg, #0ff 175.14deg 184.87deg, #e53935 184.87deg 194.6deg,
+        #000 194.6deg 204.33deg, #0ff 204.33deg 214.06deg, #e53935 214.06deg 223.79deg, #000 223.79deg 233.52deg,
+        #0ff 233.52deg 243.25deg, #e53935 243.25deg 252.98deg, #000 252.98deg 262.71deg, #0ff 262.71deg 272.44deg,
+        #e53935 272.44deg 282.17deg, #000 282.17deg 291.9deg, #0ff 291.9deg 301.63deg, #e53935 301.63deg 311.36deg,
+        #000 311.36deg 321.09deg, #0ff 321.09deg 330.82deg, #e53935 330.82deg 340.55deg, #000 340.55deg 350.28deg,
+        #0ff 350.28deg 360deg
+      );
+      box-shadow: 0 0 42px #0ff, 0 0 110px #000;
+      position: relative;
+      margin-bottom: 0.8em;
+      transition: transform 2.5s cubic-bezier(.18,.65,0,1.01);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .wheel-pointer {
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.1em;
+      color: #ffd700;
+      text-shadow: 0 0 12px #ffd700, 0 0 28px #fff;
+      z-index: 3;
+      user-select: none;
+    }
+    .ball {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background: radial-gradient(circle,#fff 60%,#19f7d2 90%);
+      border-radius: 50%;
+      z-index: 2;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-102px);
+      box-shadow: 0 0 16px #fff, 0 0 22px #0ff;
+      transition: box-shadow .2s;
+      pointer-events: none;
+    }
+    .bet-controls {
+      margin-bottom: 1em;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+    .bet-controls input, .bet-controls select {
+      padding: 0.45em 0.7em;
+      border-radius: 8px;
+      border: 1.5px solid #19f7d2;
+      background: #101820;
+      color: #0ff;
+      font-family: 'Orbitron',sans-serif;
+      font-size: 1em;
+      margin: 0 0.2em;
+    }
+    .bet-controls button {
+      background: linear-gradient(135deg, #0ff 60%, #19f7d2 100%);
+      color: #111;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1em;
+      font-weight: 700;
+      padding: 0.7em 1.2em;
+      margin: 0 0.5em;
+      box-shadow: 0 0 12px #19f7d2, 0 0 20px #0ff;
+      cursor: pointer;
+      outline: none;
+      transition: background .15s, color .15s;
+    }
+    .bet-controls button:disabled { background: #1a2329; color: #777; box-shadow:none; cursor:not-allowed;}
+    .msg {
+      font-size:1.09em; min-height:2.1em;
+      margin:1em auto .2em;
+      color:#ffd700;
+      text-shadow:0 0 7px #0ff,0 0 15px #0ff;
+      font-family:'Orbitron',sans-serif;
+      letter-spacing:.1px;
+      user-select:none;
+    }
+    .banter {
+      font-size:.96em;
+      color:#39ff14;
+      font-family:'Trebuchet MS',sans-serif;
+      margin-bottom:1.1em;
+      min-height:1.7em;
+      text-shadow:0 0 5px #19f7d2;
+    }
+    .stats {
+      color:#19f7d2;
+      font-family:'Orbitron',sans-serif;
+      font-size:.98em;
+      opacity:.8;
+      margin-top:1.1em;
+    }
+    .history {
+      margin: 1.6em 0 0 0;
+      color: #aaa;
+      font-size: .95em;
+      font-family: 'Orbitron',sans-serif;
+    }
+    .history .num {
+      border-radius: 7px;
+      border: 2px solid #0ff;
+      padding: 0.2em 0.7em;
+      margin: 0 0.2em;
+      font-weight: bold;
+      color: #fff;
+      background: #232526;
+      display: inline-block;
+      min-width: 30px;
+    }
+    .history .num.red { background: #e53935; color: #fff; border-color: #ffe14b;}
+    .history .num.black { background: #111; border-color: #39ff14;}
+    .history .num.green { background: #0ff; color: #111; border-color: #fff;}
+    @media (max-width:520px) {
+      .roulette-board { padding: 1em .3em 1.2em .3em;}
+      .wheel { width: 150px; height: 150px;}
+    }
+  </style>
+</head>
+<body>
+  <h1>⚡ Pirate Neon Roulette</h1>
+  <div class="coins">💰 Pieces of Eight: <span id="coins">500</span></div>
+  <div class="roulette-board" id="rouletteBoard">
+    <div class="banter" id="banter">Welcome to the neon wheel, matey!</div>
+    <div class="wheel-container">
+      <div class="wheel-pointer">▼</div>
+      <div class="wheel" id="wheel">
+        <div class="ball" id="ball"></div>
+      </div>
+    </div>
+    <div class="bet-controls">
+      <select id="betType">
+        <option value="number">Number (pays 35:1)</option>
+        <option value="red">Red (pays 1:1)</option>
+        <option value="black">Black (pays 1:1)</option>
+        <option value="even">Even (pays 1:1)</option>
+        <option value="odd">Odd (pays 1:1)</option>
+        <option value="low">Low (1-18, 1:1)</option>
+        <option value="high">High (19-36, 1:1)</option>
+        <option value="zero">Zero (pays 35:1)</option>
+      </select>
+      <input type="number" min="1" max="500" value="10" id="betAmount" />
+      <input type="number" min="0" max="36" value="7" id="betNumber" style="width:60px;display:none;" />
+      <button id="spinBtn">Spin</button>
+    </div>
+    <div class="msg" id="msg"></div>
+    <div class="stats" id="stats"></div>
+    <div class="history" id="history"></div>
+  </div>
+  <p style="margin:1.8em 0 0 0;text-align:center;"><a href="index.html" style="color:#0ff;">🏴 Back to Main Site</a></p>
+  <script>
+    // --- Core Variables ---
+    let coins = 500, spinning = false, rollHistory = [];
+    let stats = {wins:0, losses:0, streak:0, maxStreak:0};
+    const banterLines = [
+      "Place yer bets, neon buccaneer!",
+      "Red or black, the cyber-waves decide.",
+      "High stakes, high voltage!",
+      "Lady Luck loves a bold pirate.",
+      "Let Gavinbot guide yer hand… or not.",
+      "The wheel’s got neon fever tonight.",
+      "Will ye walk away richer? Or swim with the sharks?"
+    ];
+    const winLines = [
+      "Fortune shines! You win! 🏴‍☠️",
+      "Neon coins for you, matey!",
+      "The parrot squawks: Winner!",
+      "You plundered the house! 🎉"
+    ];
+    const loseLines = [
+      "Ouch! The seas were rough. You lose.",
+      "Dealer takes your coins. Try again?",
+      "Not your spin, neon pirate.",
+      "The wheel laughs... and takes your loot."
+    ];
+    const wheelNums = [
+      {n:0, color:'green'},
+      {n:32, color:'red'},{n:15, color:'black'},{n:19, color:'red'},{n:4,color:'black'},{n:21,color:'red'},{n:2,color:'black'},
+      {n:25,color:'red'},{n:17,color:'black'},{n:34,color:'red'},{n:6,color:'black'},{n:27,color:'red'},{n:13,color:'black'},
+      {n:36,color:'red'},{n:11,color:'black'},{n:30,color:'red'},{n:8,color:'black'},{n:23,color:'red'},{n:10,color:'black'},
+      {n:5,color:'red'},{n:24,color:'black'},{n:16,color:'red'},{n:33,color:'black'},{n:1,color:'red'},{n:20,color:'black'},
+      {n:14,color:'red'},{n:31,color:'black'},{n:9,color:'red'},{n:22,color:'black'},{n:18,color:'red'},{n:29,color:'black'},
+      {n:7,color:'red'},{n:28,color:'black'},{n:12,color:'red'},{n:35,color:'black'},{n:3,color:'red'},{n:26,color:'black'}
+    ];
+
+    function showMsg(msg) { document.getElementById('msg').textContent = msg; }
+    function randomBanter() { document.getElementById('banter').textContent = banterLines[Math.floor(Math.random()*banterLines.length)]; }
+    function updateStats() {
+      document.getElementById('coins').textContent = coins;
+      document.getElementById('stats').textContent = `Wins: ${stats.wins} | Losses: ${stats.losses} | Streak: ${stats.streak} | Max Streak: ${stats.maxStreak}`;
+      // Show last 8 results
+      let h = rollHistory.slice(-8).map(r=>{
+        let c = r.color;
+        return `<span class="num ${c}">${r.n}</span>`;
+      });
+      document.getElementById('history').innerHTML = h.length ? "Recent: " + h.join("") : "";
+    }
+    function getBetType() {
+      let type = document.getElementById('betType').value;
+      let num = parseInt(document.getElementById('betNumber').value, 10);
+      return {type,num};
+    }
+    document.getElementById('betType').onchange = function() {
+      document.getElementById('betNumber').style.display = (this.value==='number') ? "inline-block" : "none";
+    };
+
+    // --- Main Game Logic ---
+    document.getElementById('spinBtn').onclick = async function() {
+      if(spinning) return;
+      let bet = parseInt(document.getElementById('betAmount').value,10);
+      let {type,num} = getBetType();
+      if(isNaN(bet)||bet<1||bet>coins) return showMsg("Invalid bet amount!");
+      if(type==='number' && (isNaN(num)||num<0||num>36)) return showMsg("Pick a number 0-36!");
+      coins -= bet;
+      updateStats();
+      spinning = true;
+      showMsg("Spinning the wheel...");
+      randomBanter();
+      // Spin Animation
+      let resultIdx = Math.floor(Math.random()*wheelNums.length);
+      let result = wheelNums[resultIdx];
+      let spins = 7+Math.floor(Math.random()*3);
+      let degPerNum = 360/wheelNums.length;
+      let endAngle = 360*spins + (360-resultIdx*degPerNum/wheelNums.length);
+      let wheel = document.getElementById('wheel');
+      // Ball animation
+      let ball = document.getElementById('ball');
+      ball.style.transition = "transform 2.2s cubic-bezier(.23,.69,.46,1.08)";
+      ball.style.transform = `translate(-50%,-102px) rotate(${360*spins+resultIdx*degPerNum}deg)`;
+      wheel.style.transform = `rotate(${endAngle}deg)`;
+      await new Promise(r=>setTimeout(r,2200));
+      wheel.style.transform = '';
+      ball.style.transition = ""; ball.style.transform = "translate(-50%,-102px)";
+      // Pay results
+      let win = false, payout = 0;
+      if(type==='number' && result.n === num) { win = true; payout = bet*35; }
+      else if(type==='zero' && result.n === 0) { win = true; payout = bet*35; }
+      else if(type==='red' && result.color==='red') { win = true; payout = bet; }
+      else if(type==='black' && result.color==='black') { win = true; payout = bet; }
+      else if(type==='even' && result.n!==0 && result.n%2===0) { win = true; payout = bet; }
+      else if(type==='odd' && result.n!==0 && result.n%2===1) { win = true; payout = bet; }
+      else if(type==='low' && result.n>=1 && result.n<=18) { win = true; payout = bet; }
+      else if(type==='high' && result.n>=19 && result.n<=36) { win = true; payout = bet; }
+      // Update stats
+      rollHistory.push(result);
+      if(win) {
+        coins += bet + payout;
+        stats.wins++; stats.streak++;
+        if(stats.streak>stats.maxStreak) stats.maxStreak=stats.streak;
+        showMsg(winLines[Math.floor(Math.random()*winLines.length)] + ` (+${payout} coins)`);
+      } else {
+        stats.losses++; stats.streak=0;
+        showMsg(loseLines[Math.floor(Math.random()*loseLines.length)]);
+      }
+      updateStats();
+      spinning = false;
+    };
+
+    // Enable fast Enter key play
+    document.getElementById('betAmount').onkeydown = function(e){
+      if(e.key==="Enter") document.getElementById('spinBtn').click();
+    };
+    document.getElementById('betNumber').onkeydown = function(e){
+      if(e.key==="Enter") document.getElementById('spinBtn').click();
+    };
+
+    // --- Init UI ---
+    updateStats();
+  </script>
+</body>
+</html>
