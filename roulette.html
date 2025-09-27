@@ -147,8 +147,8 @@
       const svg = document.getElementById('ballSVG');
       svg.innerHTML = '';
       const r = 105, cx = 135, cy = 135;
-      const rad = (angle)*Math.PI/180;
-      const bx = cx + r*Math.cos(rad), by = cy + r*Math.sin(rad);
+      const rad = (angle) * Math.PI / 180;
+      const bx = cx + r * Math.cos(rad), by = cy + r * Math.sin(rad);
       svg.innerHTML = `<circle cx="${bx}" cy="${by}" r="12" fill="url(#ballgrad)" filter="url(#ballshadow)"/>
         <defs>
           <radialGradient id="ballgrad"><stop offset="60%" stop-color="#fff"/><stop offset="100%" stop-color="#19f7d2"/></radialGradient>
@@ -212,15 +212,15 @@
       let seg = 360/wheelNums.length;
       let spins = 6+Math.floor(Math.random()*3);
 
-      // Ball must land at the **center** of the sector at the top (angle 270deg)
+      // Ball must land at the **center** of the segment at the top (angle -90deg)
       // So: zero is at -90deg, segment centers rotate clockwise
       let baseAngle = -90; // pointer at top
 
-      // Animation: t goes 0 to 1, ease out
+      // Animate
       for(let t=0;t<=1.02;t+=0.02) {
-        let ease = 1-Math.pow(1-t,2.5); // decelerate
+        let ease = 1-Math.pow(1-t,2.5);
         let a = baseAngle + (360*spins)*(1-ease) + (winningIndex*seg + seg/2)*ease;
-        drawBall(a%360);
+        drawBall(a % 360);
         await new Promise(r=>setTimeout(r,12));
       }
       drawBall((baseAngle + winningIndex*seg + seg/2)%360);
