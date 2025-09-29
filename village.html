@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Gavinbot Village</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Welcome to Gavinbot Village! Meet all the quirky bots and villagers.">
+  <meta name="description" content="Welcome to Gavinbot Village! Meet the Gavinbot family and friends.">
   <style>
     body {
       margin:0; padding:0;
@@ -28,6 +28,16 @@
       font-size: 1.2em;
       color: #ffe14b;
       text-shadow:0 0 10px #0ff;
+    }
+    .village-img {
+      text-align:center;
+      margin-bottom:2em;
+    }
+    .village-img img {
+      max-width:380px;
+      width:90%;
+      border-radius:18px;
+      box-shadow:0 0 28px #0ff,0 0 44px #fff200;
     }
     .village-map {
       display: flex;
@@ -96,6 +106,32 @@
       cursor:pointer;
     }
     .villager .btn:hover { background:linear-gradient(90deg,#fff200 30%,#0ff 100%);}
+    .bigger-village-img {
+      width: 140px !important;
+      height: 140px !important;
+      border-width: 4px;
+      box-shadow: 0 0 28px #fff200, 0 0 32px #0ff;
+      margin-bottom: 1em;
+    }
+    .return-home {
+      display: inline-block;
+      background: linear-gradient(90deg,#0ff 40%,#fff200 100%);
+      color: #1d315b;
+      font-weight: bold;
+      border: none;
+      border-radius: 9px;
+      padding: 0.6em 1.5em;
+      font-size: 1.06em;
+      margin-bottom: 1.3em;
+      text-decoration: none;
+      box-shadow: 0 0 10px #0ff, 0 0 18px #fff200;
+      transition: background .16s, color .16s;
+      cursor:pointer;
+    }
+    .return-home:hover {
+      background:linear-gradient(90deg,#fff200 30%,#0ff 100%);
+      color:#191b1b;
+    }
     footer {
       text-align:center;
       color:#ccc;
@@ -106,44 +142,43 @@
     @media (max-width:700px) {
       .village-map {flex-direction:column;align-items:center;}
       .villager {width:90vw;max-width:350px;}
+      .village-img img {max-width:96vw;}
     }
   </style>
 </head>
 <body>
-<header>
-  <h1>🏡 Gavinbot Village</h1>
-  <p>Meet the quirky bots and legendary villagers!</p>
-</header>
-<div style="text-align:center; margin-bottom:1.6em;">
-  <a href="index.html" style="
-    display: inline-block;
-    background: linear-gradient(90deg,#0ff 40%,#fff200 100%);
-    color: #1d315b;
-    font-weight: bold;
-    border: none;
-    border-radius: 9px;
-    padding: 0.6em 1.5em;
-    font-size: 1.06em;
-    margin-bottom: 0.8em;
-    text-decoration: none;
-    box-shadow: 0 0 10px #0ff, 0 0 18px #fff200;
-    transition: background .16s, color .16s;
-    cursor:pointer;
-  ">🏠 Return to Home Page</a>
-</div>
+  <header>
+    <h1>🏡 Gavinbot Village</h1>
+    <p>Meet the quirky bots and legendary villagers!</p>
+  </header>
+  <div style="text-align:center; margin-bottom:1.5em;">
+    <a href="index.html" class="return-home">🏠 Return to Home Page</a>
+  </div>
+  <div class="village-img">
+    <img src="gavinbot-village.png" alt="Gavinbot Village" />
+  </div>
   <section class="village-map">
     <div class="villager">
-      <img src="gavinbot.png" alt="Gavinbot" />
+      <img src="gavinbot.png" alt="Gavinbot" class="bigger-village-img" />
       <h2>Gavinbot</h2>
       <span class="role">Village Mayor & AI Tinkerer</span>
       <p>The cheekiest bot in the shed. Makes all the rules (and breaks them, too).</p>
       <a class="btn" href="index.html#chat">Chat</a>
     </div>
     <div class="villager">
-      <img src="gavinnot-pirate.png" alt="Captain Gavin Not" />
-      <h2>Captain Gavin Not</h2>
-      <span class="role">Pirate Dad</span>
-      <p>Runs the local tavern. Known for wild stories, karaoke, and mysterious inventions.</p>
+      <img src="gavinnot-hero.png" alt="Gavin Not: Village Hero" class="bigger-village-img" />
+      <h2>Gavin Not</h2>
+      <span class="role">Inventor, Explorer & Village Legend</span>
+      <p>
+        With a twinkle in his eye and a wrench in his hand, Gavin Not is the heart and spark of Gavinbot Village. Builder of wild contraptions, teller of epic tales, and leader of every great adventure. If there’s a mystery to solve, a gadget to fix, or a laugh to be had, you’ll find Gavin right in the middle of it!
+      </p>
+      <a class="btn" href="mailto:gavinnot@village.com">Say Hello</a>
+    </div>
+    <div class="villager">
+      <img src="gavinnot-&-gavinbot.png" alt="Gavin Not & Gavinbot" class="bigger-village-img" />
+      <h2>Gavin Not & Gavinbot</h2>
+      <span class="role">Dynamic Duo</span>
+      <p>The legendary pairing that keeps the village powered, clever, and a bit mischievous!</p>
     </div>
     <div class="villager">
       <img src="gavinnot-&-grace.png" alt="GraceBot" />
@@ -169,7 +204,6 @@
       <span class="role">Tea Master</span>
       <p>Supplies the best brews. Secretly controls more village politics than Gavinbot knows.</p>
     </div>
-    <!-- More Family Members -->
     <div class="villager">
       <img src="gavinnot-&-grace.png" alt="Grace" />
       <h2>Grace</h2>
@@ -224,7 +258,6 @@
       <span class="role">Tall Tale Teller</span>
       <p>Brings laughter to the village with his wild stories and magic tricks.</p>
     </div>
-    <!-- Add even more as needed! -->
   </section>
   <footer>
     &copy; 2025 Gavinbot Village | Powered by shed energy and mischief!
