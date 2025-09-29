@@ -2,116 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Gavinbot Village</title>
+  <title>Gavinbot Village – The Grand Map</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Welcome to Gavinbot Village! Meet the Gavinbot family and friends.">
+  <meta name="description" content="Welcome to the huge and hilarious Gavinbot Village! Explore pirate ships, karaoke, sword shops, and more!">
   <style>
     body {
       margin:0; padding:0;
       font-family: 'Trebuchet MS', Arial, sans-serif;
-      background: linear-gradient(135deg, #1d315b 0%, #6e7fff 100%);
+      background: linear-gradient(135deg, #0a1230 0%, #3a6fff 100%);
       color: #fff;
       min-height:100vh;
+      overflow-x:hidden;
     }
     header {
-      padding: 2em 0 0.5em 0;
+      padding: 2.3em 0 0.8em 0;
       text-align: center;
     }
     header h1 {
-      font-size: 2.7em;
+      font-size: 3em;
       margin: 0;
-      letter-spacing:2px;
+      letter-spacing:3px;
       text-shadow:0 0 18px #00ffe0, 0 0 24px #fff200;
     }
     header p {
       margin: 0.7em 0 0 0;
-      font-size: 1.2em;
+      font-size: 1.4em;
       color: #ffe14b;
       text-shadow:0 0 10px #0ff;
-    }
-    .village-img {
-      text-align:center;
-      margin-bottom:2em;
-    }
-    .village-img img {
-      max-width:380px;
-      width:90%;
-      border-radius:18px;
-      box-shadow:0 0 28px #0ff,0 0 44px #fff200;
-    }
-    .village-map {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2em;
-      padding: 2em 1em;
-      max-width:1100px;
-      margin:auto;
-    }
-    .villager {
-      background: rgba(20,24,55,0.92);
-      border-radius: 18px;
-      box-shadow: 0 0 22px #0ff, 0 0 14px #fff200;
-      padding: 1.5em 1.2em;
-      width: 250px;
-      text-align: center;
-      margin-bottom: 1em;
-      transition:transform .16s;
-      position:relative;
-    }
-    .villager:hover { transform: scale(1.045) rotate(-2deg);}
-    .villager img {
-      width: 82px;
-      height: 82px;
-      border-radius: 50%;
-      margin-bottom: 0.9em;
-      border: 3px solid #ffe14b;
-      background: #fff;
-      object-fit:cover;
-    }
-    .villager h2 {
-      margin: 0 0 0.3em 0;
-      font-size: 1.23em;
-      color: #fff200;
-      text-shadow:0 0 9px #0ff;
-      letter-spacing:0.5px;
-    }
-    .villager p {
-      font-size: 1em;
-      margin: 0 0 .4em 0;
-      color: #fff;
-      opacity: .92;
-    }
-    .villager .role {
-      font-size: 0.96em;
-      color: #0ff;
-      font-weight:bold;
-      margin-bottom:0.7em;
-      display:block;
-      text-shadow:0 0 7px #fff200;
-    }
-    .villager .btn {
-      display: inline-block;
-      background: linear-gradient(90deg,#0ff 40%,#fff200 100%);
-      color: #1d315b;
-      font-weight: bold;
-      border: none;
-      border-radius: 7px;
-      padding: 0.5em 1.2em;
-      margin-top:.3em;
-      text-decoration: none;
-      margin-bottom: 0.3em;
-      box-shadow: 0 0 8px #0ff;
-      transition: background .18s;
-      cursor:pointer;
-    }
-    .villager .btn:hover { background:linear-gradient(90deg,#fff200 30%,#0ff 100%);}
-    .bigger-village-img {
-      width: 140px !important;
-      height: 140px !important;
-      border-width: 4px;
-      box-shadow: 0 0 28px #fff200, 0 0 32px #0ff;
-      margin-bottom: 1em;
     }
     .return-home {
       display: inline-block;
@@ -119,10 +36,10 @@
       color: #1d315b;
       font-weight: bold;
       border: none;
-      border-radius: 9px;
-      padding: 0.6em 1.5em;
-      font-size: 1.06em;
-      margin-bottom: 1.3em;
+      border-radius: 11px;
+      padding: 0.7em 1.8em;
+      font-size: 1.15em;
+      margin-bottom: 1.6em;
       text-decoration: none;
       box-shadow: 0 0 10px #0ff, 0 0 18px #fff200;
       transition: background .16s, color .16s;
@@ -132,135 +49,233 @@
       background:linear-gradient(90deg,#fff200 30%,#0ff 100%);
       color:#191b1b;
     }
+    .village-map-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2em;
+    }
+    .village-map-img {
+      max-width: 760px;
+      width: 98vw;
+      margin-bottom: 2.5em;
+      border-radius: 20px;
+      box-shadow: 0 0 38px #0ff, 0 0 44px #fff200;
+      border: 4px solid #ffe14b;
+      background: #fff;
+    }
+    .grand-village {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 2.4em 2em;
+      padding: 2em 2vw 3em 2vw;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .building {
+      background: rgba(26, 30, 65, 0.97);
+      border-radius: 17px;
+      box-shadow: 0 0 16px #0ff, 0 0 17px #fff200;
+      padding: 2.1em 1.3em 1.6em 1.3em;
+      text-align: center;
+      position: relative;
+      min-height: 285px;
+      transition:transform .19s,box-shadow .19s;
+      border: 2px solid #ffe14b;
+    }
+    .building:hover {
+      transform: scale(1.035) rotate(-1deg);
+      box-shadow: 0 0 32px #fff200, 0 0 26px #0ff;
+      z-index:2;
+    }
+    .building img {
+      width: 96px;
+      height: 96px;
+      border-radius: 18px;
+      margin-bottom: 1em;
+      border: 3px solid #0ff;
+      background: #fff;
+      object-fit:cover;
+      box-shadow: 0 0 18px #0ff, 0 0 11px #fff200;
+    }
+    .building h2 {
+      font-size: 1.4em;
+      color: #ffe14b;
+      margin: 0 0 .4em 0;
+      letter-spacing:1px;
+      text-shadow:0 0 12px #0ff;
+    }
+    .building .emoji {
+      font-size: 2.2em;
+      margin-bottom: .3em;
+      display:block;
+    }
+    .building p {
+      font-size: 1.06em;
+      margin: 0.3em 0 0.6em 0;
+      color: #fff;
+      opacity: .93;
+    }
+    .building .btn {
+      display: inline-block;
+      background: linear-gradient(90deg,#0ff 40%,#fff200 100%);
+      color: #1d315b;
+      font-weight: bold;
+      border: none;
+      border-radius: 7px;
+      padding: 0.5em 1.2em;
+      text-decoration: none;
+      margin-top: .6em;
+      margin-bottom: 0.2em;
+      box-shadow: 0 0 8px #0ff;
+      transition: background .18s;
+      cursor:pointer;
+    }
+    .building .btn:hover { background:linear-gradient(90deg,#fff200 30%,#0ff 100%);}
+    .villager-sign {
+      margin:3.2em auto 0 auto;
+      color:#fff200;
+      text-align:center;
+      font-size:1.3em;
+      letter-spacing:1.2px;
+      text-shadow:0 0 13px #0ff,0 0 23px #fff200;
+    }
     footer {
       text-align:center;
       color:#ccc;
       margin:2.5em 0 1em 0;
-      font-size:.97em;
+      font-size:.99em;
       opacity:0.7;
     }
-    @media (max-width:700px) {
-      .village-map {flex-direction:column;align-items:center;}
-      .villager {width:90vw;max-width:350px;}
-      .village-img img {max-width:96vw;}
+    @media (max-width:900px) {
+      .grand-village {grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));}
+      .village-map-img {max-width:98vw;}
+    }
+    @media (max-width:540px) {
+      .building{padding:1.2em .4em 1em .4em;}
+      .building img{width:70px;height:70px;}
+      .grand-village{gap:1.2em;}
     }
   </style>
 </head>
 <body>
   <header>
     <h1>🏡 Gavinbot Village</h1>
-    <p>Meet the quirky bots and legendary villagers!</p>
+    <p>The wildest, most amazing village in the world!</p>
   </header>
   <div style="text-align:center; margin-bottom:1.5em;">
     <a href="index.html" class="return-home">🏠 Return to Home Page</a>
   </div>
-  <div class="village-img">
-    <img src="gavinbot-village.png" alt="Gavinbot Village" />
+  <div class="village-map-container">
+    <img src="gavinbot-village.png" alt="The Grand Map of Gavinbot Village" class="village-map-img" />
+    <div class="villager-sign">
+      Explore the wonders of Gavinbot Village – from pirate ships to crypto labs!
+    </div>
   </div>
-  <section class="village-map">
-    <div class="villager">
-      <img src="gavinbot.png" alt="Gavinbot" class="bigger-village-img" />
-      <h2>Gavinbot</h2>
-      <span class="role">Village Mayor & AI Tinkerer</span>
-      <p>The cheekiest bot in the shed. Makes all the rules (and breaks them, too).</p>
-      <a class="btn" href="index.html#chat">Chat</a>
-    </div>
-    <div class="villager">
-      <img src="gavinnot-hero.png" alt="Gavin Not: Village Hero" class="bigger-village-img" />
-      <h2>Gavin Not</h2>
-      <span class="role">Inventor, Explorer & Village Legend</span>
+  <section class="grand-village">
+    <div class="building">
+      <span class="emoji">🏴‍☠️</span>
+      <img src="pirate-ship.png" alt="Pirate Ship" />
+      <h2>Pirate Ship in the Garden</h2>
       <p>
-        With a twinkle in his eye and a wrench in his hand, Gavin Not is the heart and spark of Gavinbot Village. Builder of wild contraptions, teller of epic tales, and leader of every great adventure. If there’s a mystery to solve, a gadget to fix, or a laugh to be had, you’ll find Gavin right in the middle of it!
+        A full-size pirate galleon moored in the back garden! Climb aboard for treasure hunts, cannon practice, and real pirate banter. Parrots and sea shanties provided.
       </p>
-      <a class="btn" href="mailto:gavinnot@village.com">Say Hello</a>
+      <a class="btn" href="#">Board Ship</a>
     </div>
-    <div class="villager">
-      <img src="gavinnot-&-gavinbot.png" alt="Gavin Not & Gavinbot" class="bigger-village-img" />
-      <h2>Gavin Not & Gavinbot</h2>
-      <span class="role">Dynamic Duo</span>
-      <p>The legendary pairing that keeps the village powered, clever, and a bit mischievous!</p>
+    <div class="building">
+      <span class="emoji">🍻</span>
+      <img src="bar.png" alt="Village Bar" />
+      <h2>The Village Bar</h2>
+      <p>
+        The friendliest bar in town. Try Gavin's famous lemonade, challenge a villager to darts, or swap stories with the local legends.
+      </p>
+      <a class="btn" href="#">Order a Drink</a>
     </div>
-    <div class="villager">
-      <img src="gavinnot-&-grace.png" alt="GraceBot" />
-      <h2>GraceBot</h2>
-      <span class="role">Village Scribe</span>
-      <p>Writes the newsletter and keeps the history scrolls safe from mischievous bots.</p>
+    <div class="building">
+      <span class="emoji">🎤</span>
+      <img src="karaoke.png" alt="Karaoke Church" />
+      <h2>Karaoke Church</h2>
+      <p>
+        Every Sunday is karaoke night! Sing your heart out under stained glass disco lights. All faiths and all voices welcome (especially out-of-tune ones).
+      </p>
+      <a class="btn" href="#">Sing Now</a>
     </div>
-    <div class="villager">
-      <img src="gavinnot-&-barney.png" alt="BarneyBot" />
-      <h2>BarneyBot</h2>
-      <span class="role">Chief Prankster</span>
-      <p>Loves practical jokes. Once replaced all the village wine with grape juice.</p>
+    <div class="building">
+      <span class="emoji">⚔️</span>
+      <img src="sword-shop.png" alt="Sword Shop" />
+      <h2>The Sword Shop</h2>
+      <p>
+        Browse legendary blades, practice your pirate stance, or sign up for fencing lessons with the mysterious Swordmaster Bob.
+      </p>
+      <a class="btn" href="#">View Swords</a>
     </div>
-    <div class="villager">
-      <img src="gavinnot-&-young.png" alt="OreoBot" />
-      <h2>OreoBot</h2>
-      <span class="role">Guinea Pig Guardian</span>
-      <p>Small, fluffy, but fierce. Protects the village snacks at all costs.</p>
+    <div class="building">
+      <span class="emoji">🐟🍟</span>
+      <img src="fish-chips.png" alt="Fish & Chip Shop" />
+      <h2>Fish & Chip Shop</h2>
+      <p>
+        The best chippy in the region! Secret recipe batter, fresh chips, and mushy peas. Mind the seagulls.
+      </p>
+      <a class="btn" href="#">Order Food</a>
     </div>
-    <div class="villager">
-      <img src="gavinnot-character.png" alt="WendyBot" />
-      <h2>WendyBot</h2>
-      <span class="role">Tea Master</span>
-      <p>Supplies the best brews. Secretly controls more village politics than Gavinbot knows.</p>
+    <div class="building">
+      <span class="emoji">🕹️</span>
+      <img src="games-room.png" alt="Games Room" />
+      <h2>Games Room</h2>
+      <p>
+        Arcade classics, VR, retro consoles, and a foosball table that never loses. Host tournaments or just chill with friends!
+      </p>
+      <a class="btn" href="#">Play Games</a>
     </div>
-    <div class="villager">
-      <img src="gavinnot-&-grace.png" alt="Grace" />
-      <h2>Grace</h2>
-      <span class="role">Chief Creator</span>
-      <p>Master of crafts, baker of cakes, champion of creativity in the village.</p>
+    <div class="building">
+      <span class="emoji">🏎️</span>
+      <img src="f1-museum.png" alt="F1 Museum" />
+      <h2>F1 Museum</h2>
+      <p>
+        Marvel at legendary F1 cars, race simulators, and memorabilia from every era. Try not to break the speed limit indoors!
+      </p>
+      <a class="btn" href="#">Lap the Track</a>
     </div>
-    <div class="villager">
-      <img src="gavinnot-&-barney.png" alt="Barney" />
-      <h2>Barney</h2>
-      <span class="role">Joke Teller</span>
-      <p>The village's number one joke teller and animal whisperer.</p>
+    <div class="building">
+      <span class="emoji">🎰</span>
+      <img src="casino.png" alt="Village Casino" />
+      <h2>Casino Royale</h2>
+      <p>
+        Roulette, blackjack, slot machines, and the mysterious “Gavinbot’s Gamble.” All for fun and village glory!
+      </p>
+      <a class="btn" href="#">Try Your Luck</a>
     </div>
-    <div class="villager">
-      <img src="gavinnot-&-young.png" alt="Young Gavin" />
-      <h2>Young Gavin</h2>
-      <span class="role">Future Mayor</span>
-      <p>Loves adventures, inventing, and causing a little mischief under the watchful eye of Gavinbot.</p>
+    <div class="building">
+      <span class="emoji">🪙</span>
+      <img src="crypto-lab.png" alt="Crypto Lab" />
+      <h2>Crypto Lab</h2>
+      <p>
+        Mine virtual coins, trade digital parrots, and learn the secrets of blockchain. Free WiFi for all villagers!
+      </p>
+      <a class="btn" href="#">Enter Lab</a>
     </div>
-    <div class="villager">
-      <img src="gavinnot-pirate.png" alt="Pirate Dad" />
-      <h2>Pirate Dad</h2>
-      <span class="role">Village Explorer</span>
-      <p>Expert in map reading, time travel theories, and finding lost things in the shed.</p>
+    <div class="building">
+      <span class="emoji">💡</span>
+      <img src="tech-centre.png" alt="Technology Centre" />
+      <h2>Technology Centre</h2>
+      <p>
+        Tinker with robots, print 3D inventions, and attend “Ask Gavinbot Anything” evenings. Home of the village’s biggest ideas!
+      </p>
+      <a class="btn" href="#">Tinker</a>
     </div>
-    <div class="villager">
-      <img src="gavinnot-character.png" alt="Mum" />
-      <h2>Mum</h2>
-      <span class="role">Village Heart</span>
-      <p>Holds the family and the village together with wisdom and kindness.</p>
-    </div>
-    <div class="villager">
-      <img src="gavinnot-character.png" alt="Grandma" />
-      <h2>Grandma</h2>
-      <span class="role">Biscuit Queen</span>
-      <p>Supplies the village with legendary biscuits and bedtime stories.</p>
-    </div>
-    <div class="villager">
-      <img src="gavinnot-character.png" alt="Grandad" />
-      <h2>Grandad</h2>
-      <span class="role">Shed Guru</span>
-      <p>Knows every tool and every secret in the shed. Official fixer of all things.</p>
-    </div>
-    <div class="villager">
-      <img src="gavinnot-character.png" alt="Auntie Sarah" />
-      <h2>Auntie Sarah</h2>
-      <span class="role">Adventure Instigator</span>
-      <p>Arrives with a suitcase full of fun and always up for a new quest.</p>
-    </div>
-    <div class="villager">
-      <img src="gavinnot-character.png" alt="Uncle Dave" />
-      <h2>Uncle Dave</h2>
-      <span class="role">Tall Tale Teller</span>
-      <p>Brings laughter to the village with his wild stories and magic tricks.</p>
+    <div class="building">
+      <span class="emoji">🔧</span>
+      <img src="tech-workshop.png" alt="Tech Workshop" />
+      <h2>Tech Workshop</h2>
+      <p>
+        From coding to carpentry, this is the shed of dreams. Borrow tools, join a hackathon, or just smell the sawdust.
+      </p>
+      <a class="btn" href="#">Build Something</a>
     </div>
   </section>
   <footer>
-    &copy; 2025 Gavinbot Village | Powered by shed energy and mischief!
+    &copy; 2025 Gavinbot Village | Built with tech, laughter, and a little pirate spirit!
   </footer>
 </body>
 </html>
