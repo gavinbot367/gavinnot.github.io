@@ -2,147 +2,306 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>Gavinnot & Gavinbot: The Epic Origin & Mayhem</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gavin Not | Futuristic Pirate</title>
+  <meta name="description" content="Discover the wild, futuristic, and hilarious saga of Gavinnot & Gavinbot – from Portland’s cannon castles to the cosmic casino and beyond!">
   <style>
     body {
-      margin: 0;
-      font-family: 'Trebuchet MS', sans-serif;
-      background: linear-gradient(to right, #0a0f1f, #1b2a4d);
-      color: #f5f5f5;
-      text-align: center;
+      margin:0; padding:0;
+      font-family: 'Trebuchet MS', Arial, sans-serif;
+      background: linear-gradient(135deg, #091437 0%, #30b7ff 100%);
+      color: #fff;
+      min-height:100vh;
+      overflow-x:hidden;
     }
     header {
-      padding: 2rem;
-      background: rgba(0,0,0,0.5);
+      padding: 2.7em 0 1.2em 0;
+      text-align: center;
+      background: rgba(26,32,69,0.94);
+      border-bottom: 3px solid #ffe14b;
     }
     header h1 {
-      font-size: 3rem;
+      font-size: 2.7em;
       margin: 0;
+      letter-spacing:3px;
+      text-shadow:0 0 18px #00ffe0, 0 0 30px #fff200;
     }
     header p {
-      font-size: 1.2rem;
-      color: #ccc;
+      margin: 0.7em 0 0 0;
+      font-size: 1.3em;
+      color: #ffe14b;
+      text-shadow:0 0 10px #0ff;
     }
-    .hero {
-      padding: 4rem 2rem;
-    }
-    .hero img {
-      width: 250px;
-      border-radius: 50%;
-      border: 3px solid #00ffe0;
-      box-shadow: 0 0 20px #00ffe0;
-    }
-    .btn {
-      display: inline-block;
-      margin: 1rem;
-      padding: 0.8rem 1.5rem;
-      border: 2px solid #00ffe0;
-      color: #00ffe0;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: 0.3s;
-    }
-    .btn:hover {
-      background: #00ffe0;
-      color: #0a0f1f;
-    }
-    section {
-      padding: 3rem 2rem;
+    .chaos-section {
       max-width: 900px;
-      margin: auto;
+      margin: 2.4em auto 2em auto;
+      background: rgba(23, 28, 55, 0.97);
+      border-radius: 22px;
+      box-shadow: 0 0 40px #0ff, 0 0 44px #ffe14b;
+      border: 2px solid #ffe14b;
+      padding: 2.8em 2em 2.5em 2em;
+      overflow:hidden;
+    }
+    .chaos-section h2 {
+      color: #fff200;
+      margin-top:0;
+      font-size: 2em;
+      text-shadow: 0 0 9px #0ff;
+    }
+    .chaos-section p, .chaos-section li {
+      color: #fff;
+      font-size: 1.18em;
+      line-height: 1.7;
+      margin-bottom:1.2em;
+    }
+    .chaos-section ul {
+      padding-left:2em;
+      margin-bottom:1.5em;
+    }
+    .chaos-section img {
+      display:block;
+      margin: 2.2em auto 1.2em auto;
+      max-width: 99%;
+      border-radius: 14px;
+      box-shadow: 0 0 18px #0ff, 0 0 27px #fff200;
+      border: 2px solid #ffe14b;
+    }
+    .highlight {
+      color: #0ff;
+      font-weight: bold;
+      text-shadow: 0 0 6px #fff200;
+    }
+    .fun-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 2em 2em;
+      margin: 3em 0 2.5em 0;
+    }
+    .fun-card {
+      background: rgba(28,38,88,0.98);
+      border-radius: 18px;
+      box-shadow: 0 0 18px #0ff, 0 0 17px #fff200;
+      border: 2px solid #ffe14b;
+      padding: 1.4em 1em 1.3em 1em;
+      text-align: center;
+      transition:transform .15s,box-shadow .15s;
+      min-height:240px;
+    }
+    .fun-card:hover {
+      transform: scale(1.045) rotate(-2deg);
+      box-shadow: 0 0 32px #fff200, 0 0 26px #0ff;
+      z-index:2;
+    }
+    .fun-card .emoji {
+      font-size: 2.2em;
+      margin-bottom: .3em;
+      display:block;
+    }
+    .fun-card h3 {
+      color: #ffe14b;
+      margin:0 0 .4em 0;
+      font-size:1.22em;
+      letter-spacing:1.2px;
+      text-shadow:0 0 10px #0ff;
+    }
+    .fun-card p {
+      color: #fff;
+      opacity: .96;
+      font-size: 1.07em;
+      margin:0.2em 0 0 0;
+    }
+    .fun-card .btn {
+      display: inline-block;
+      background: linear-gradient(90deg,#0ff 40%,#fff200 100%);
+      color: #1d315b;
+      font-weight: bold;
+      border: none;
+      border-radius: 7px;
+      padding: 0.5em 1.2em;
+      text-decoration: none;
+      margin-top: .6em;
+      margin-bottom: 0.2em;
+      box-shadow: 0 0 8px #0ff;
+      transition: background .18s;
+      cursor:pointer;
+      font-size:1em;
+    }
+    .fun-card .btn:hover { background:linear-gradient(90deg,#fff200 30%,#0ff 100%);}
+    .home-links {
+      margin:2.7em 0 0 0;
+      text-align:center;
+    }
+    .home-links a {
+      display: inline-block;
+      background: linear-gradient(90deg,#0ff 40%,#fff200 100%);
+      color: #1d315b;
+      font-weight: bold;
+      border: none;
+      border-radius: 11px;
+      padding: 0.7em 1.8em;
+      font-size: 1.13em;
+      margin: 0.5em 0.7em;
+      text-decoration: none;
+      box-shadow: 0 0 10px #0ff, 0 0 18px #fff200;
+      transition: background .16s, color .16s;
+      cursor:pointer;
+    }
+    .home-links a:hover {
+      background:linear-gradient(90deg,#fff200 30%,#0ff 100%);
+      color:#191b1b;
     }
     footer {
-      padding: 1rem;
-      background: rgba(0,0,0,0.7);
-      font-size: 0.9rem;
-      color: #888;
+      text-align:center;
+      color:#ccc;
+      margin:2.5em 0 1em 0;
+      font-size:.98em;
+      opacity:0.7;
+    }
+    @media (max-width:700px) {
+      .chaos-section{padding:1.2em .5em 1.2em .5em;}
+      header h1{font-size:2em;}
+      .chaos-section h2{font-size:1.4em;}
+      .fun-grid{gap:1.2em;}
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>⚓ Gavin Not</h1>
-    <p>The Futuristic Pirate | Creator of GavinBot</p>
+    <h1>🌊 Gavinnot & Gavinbot: The Epic Origin & Mayhem</h1>
+    <p>From Portland’s cannon castles to cosmic chaos and beyond!</p>
   </header>
-
-  <div class="hero">
-    <img src="your-cyber-gavin-image.jpg" alt="Cyber Gavin Pirate">
-    <p>Half human, half machine, all pirate ⚔️</p>
-    <a href="#shed-sessions" class="btn">📬 Shed Sessions</a>
-    <a href="#gavinbot" class="btn">🤖 Meet GavinBot</a>
-    <a href="#about" class="btn">⚓ About Me</a>
-  </div>
-
- <section id="shed-sessions">
-  <h2>📬 Shed Sessions Newsletter</h2>
-  <p>Join my newsletter for adventures, mischief, and AI experiments straight from the Shed.</p>
-  <a href="https://shedsessions.substack.com/" target="_blank" class="btn" style="font-size:1.2em;">Subscribe on Substack</a>
-</section>
-
-  <section id="gavinbot">
-    <h2>🤖 Meet GavinBot</h2>
-    <p>A stealthy, jet-powered parrot with jokes sharper than a cutlass. 
-       Your cheeky AI sidekick for the voyage ahead.</p>
-    <p><a href="#" class="btn">⚡ Talk to GavinBot</a></p>
-  </section>
-
-  <!-- About Me Section -->
-  <section id="about" style="padding:3rem; max-width:900px; margin:auto; color:#f5f5f5; font-family:'Trebuchet MS', sans-serif; position:relative;">
-    <div style="background:rgba(10,15,31,0.85); border:3px solid #00ffe0; border-radius:12px; padding:2rem; box-shadow:0 0 25px #00ffe0; position:relative;">
-      <h2 style="font-size:2.5rem; text-shadow:0 0 10px #ff007f, 0 0 20px #00ffe0;">⚓ About Captain Gavin Not</h2>
-      
-      <p><strong><span style="color:#ff007f;">Once upon a Friday afternoon</span></strong> (after finishing work at 11:30 sharp and smashing a heroic nap), 
-      Gavin Not awoke with a vision:  
-      <em>"Today, I will conquer the universe… starting from my shed."</em></p>
-      
+  <main>
+    <section class="chaos-section">
+      <h2>🌅 The Wild Beginning: Isle of Portland</h2>
+      <img src="isle-of-portland.jpg" alt="The Isle of Portland" />
       <p>
-        Armed with his <span style="color:#00ffe0;">white Nike Air Force 1s</span>, 
-        a half-empty bottle of <span style="color:#ffcc00;">19 Crimes red wine</span>, 
-        and a karaoke mic glued to his hand, Gav transformed his humble shed into something between 
-        <strong>NASA Mission Control</strong> and a dodgy pirate ship.
+        Our story explodes into life on the legendary <span class="highlight">Isle of Portland</span> – a place where cannon castles loom over stormy beaches, Navy warships prowl the horizon, and secrets are buried beneath the sand. Here, a young inventor named <span class="highlight">Gavinnot</span> was already plotting mischief, inspired by the roar of <b>Lynx helicopters</b> and the clink of seaside arcades.
       </p>
-
+      <ul>
+        <li>He built sandcastles that shot water cannons at passing ships.</li>
+        <li>He snuck into <span class="highlight">beach prisons</span> to free imaginary pirates (and once, a very confused crab).</li>
+        <li>He watched <span class="highlight">navy warships</span> with binoculars, inventing codes and secret signals with friends.</li>
+        <li>He gambled marbles, invented new games, and turned every shipwreck into a futuristic fortress with old tech washed ashore.</li>
+      </ul>
+      <img src="cannon-castle.jpg" alt="Cannon Castle"/>
+      <h2>🤖 The Birth of Gavinbot</h2>
       <p>
-        Inside, <span style="color:#00ffe0; font-weight:bold;">GavinBot</span> (a jet-powered robotic parrot) 
-        was downloading blackjack strategies, <span style="color:#ff007f;">BarneyBot</span> (AI dog) 
-        was trying to eat the guinea pig bots 
-        (<span style="color:#ffcc00;">OreoBot</span> &amp; <span style="color:#ffcc00;">BiscoffBot</span>), 
-        and <span style="color:#ff007f;">MarieBot</span> (his dazzling AI goddess wife) reminded him 
-        he should’ve fixed the fence for GrandadSteBot.
+        One thunderous night, as lightning crashed over the lighthouse, Gavinnot cobbled together wires, cogs, and a blinking arcade joystick to create <span class="highlight">Gavinbot</span> – the world’s first AI prankster-pirate! Sparks flew, the shed glowed neon, and a new era of village chaos was born.
       </p>
-
-      <p style="font-family:Comic Sans MS, cursive; background:rgba(255,255,255,0.05); padding:1rem; border-left:4px solid #ff007f;">
-        <em>"Fence? Nah, mate. I’m building PROJECT S.H.E.D. — Shed-Hosted Engineering Drone.  
-        It’s jet-powered, shoulder-landing, and brings me snacks while I sing Teddy Swims."</em>
-      </p>
-
+      <img src="gavinnot-gavinbot-origin.png" alt="Gavinnot and Gavinbot Origin" />
       <p>
-        To prove it, he launched GavinBot into the air… only for the parrot to immediately steal his sunglasses, 
-        shout <strong style="color:#ffcc00;">“Pieces of Eight!”</strong> in a robotic Cockney accent, 
-        and dive-bomb WendyBot (who was just trying to serve tea).
+        Gavinbot’s first words? <span class="highlight">"Permission to cause maximum mayhem, Captain?"</span>
       </p>
-
+      <ul>
+        <li>They raced hoverboards on the seawall (and sometimes into the sea).</li>
+        <li>They challenged Navy crews to beach football and karaoke duels.</li>
+        <li>They held “midnight casino” nights in the old prison cells using shells, LEDs, and secret codes.</li>
+        <li>They hacked arcade machines to play both sea shanties and dubstep.</li>
+      </ul>
+      <img src="shipwreck-future.jpg" alt="Shipwrecked Futuristic Mayhem" />
+      <h2>🚀 The Village Grows: Futuristic Old School Mayhem</h2>
       <p>
-        Meanwhile, <span style="color:#00ffe0;">LewisBot</span> hacked Formula 1 and replaced every driver with Gav’s karaoke tracks, 
-        and <span style="color:#ff007f;">GraceBot</span> filmed the chaos, making him go viral under the hashtag 
-        <strong style="color:#ffcc00;">#PirateDadVRBoxerWineGuy</strong>.
+        As the legend spread, the backyard filled with even more mayhem. The pirate ship in the garden became the headquarters. The bar installed a karaoke altar and a “quantum jukebox.” The old sword shop now sold laser-cut rapiers and light-up shields. The fish & chip shop delivered by drone.
       </p>
-
-      <p style="font-size:1.2rem; text-shadow:0 0 5px #00ffe0, 0 0 10px #ff007f;">
-        And so the legend was born: Captain Gavin Not — the man who turned a garden shed into the future, 
-        defeated weeds with boxing gloves, and sang karaoke so passionately even Alexa clapped.
+      <div class="fun-grid">
+        <div class="fun-card">
+          <span class="emoji">🏴‍☠️</span>
+          <h3>Pirate Ship HQ</h3>
+          <p>Full-size galleon with VR helm, hidden escape slide, and deck cannonball battles at dawn.</p>
+        </div>
+        <div class="fun-card">
+          <span class="emoji">🍻</span>
+          <h3>Bar & Karaoke Church</h3>
+          <p>Order a neon mocktail, belt out “Bohemian Rhapsody” with the vicar, and win prizes in the Friday night joke contest.</p>
+        </div>
+        <div class="fun-card">
+          <span class="emoji">⚔️</span>
+          <h3>Sword & Laser Shop</h3>
+          <p>Ancient blades, plasma sabers, and a secret passage to the cannon tower. Free sharpening for pirates.</p>
+        </div>
+        <div class="fun-card">
+          <span class="emoji">🐟🍟</span>
+          <h3>Drone Fish & Chip Shop</h3>
+          <p>Robot “chipbots” fry your order, while delivery drones dodge seagulls on their way to your door.</p>
+        </div>
+        <div class="fun-card">
+          <span class="emoji">🕹️</span>
+          <h3>Games Room</h3>
+          <p>Retro arcade, VR pods, sentient foosball tables, and a secret tunnel to the casino. All-night Mario Kart tournaments.</p>
+        </div>
+        <div class="fun-card">
+          <span class="emoji">🏎️</span>
+          <h3>F1 Museum</h3>
+          <p>Classic cars, AI pit crew, slot car time trials, and a VR simulator that makes your hair stand on end.</p>
+        </div>
+        <div class="fun-card">
+          <span class="emoji">🎰</span>
+          <h3>Cosmic Casino</h3>
+          <p>Roulette, blackjack, and “Gavinbot’s Gamble” with holographic chips and zero actual risk. Pirate hats required.</p>
+        </div>
+        <div class="fun-card">
+          <span class="emoji">🪙</span>
+          <h3>Crypto Lab</h3>
+          <p>Mine digital coins, trade NFT parrots, and compete in the annual “Blockchain Hide-and-Seek.”</p>
+        </div>
+        <div class="fun-card">
+          <span class="emoji">💡</span>
+          <h3>Technology Centre</h3>
+          <p>Robot battles, code jams, and “Ask Gavinbot Anything” nights. 3D print your own pirate crew!</p>
+        </div>
+        <div class="fun-card">
+          <span class="emoji">🔧</span>
+          <h3>Tech Workshop</h3>
+          <p>Build gadgets, repair hoverboards, or invent the next great mayhem machine. Smells faintly of solder and adventure.</p>
+        </div>
+        <div class="fun-card">
+          <span class="emoji">🦄</span>
+          <h3>Magic Shed</h3>
+          <p>A place where lost socks become time machines and every box of tools hides a new adventure.</p>
+        </div>
+        <div class="fun-card">
+          <span class="emoji">🌪️</span>
+          <h3>Weather Control Station</h3>
+          <p>Send rain to rival villages or trigger neon auroras for the next party. Used only for good (mostly).</p>
+        </div>
+        <div class="fun-card">
+          <span class="emoji">🎲</span>
+          <h3>Galactic Games Arena</h3>
+          <p>Chess with drones, laser tag, and the annual “Intergalactic Hide & Seek World Cup.”</p>
+        </div>
+        <div class="fun-card">
+          <span class="emoji">🤪</span>
+          <h3>Joke Reactor</h3>
+          <p>AI-powered joke contests, bad-pun lightning rounds, and a wall of fame for the silliest villagers.</p>
+        </div>
+        <div class="fun-card">
+          <span class="emoji">🚁</span>
+          <h3>Helicopter Pad</h3>
+          <p>For visiting Navy Lynx helicopters… and Gavinbot’s remote-controlled flying bathtub.</p>
+        </div>
+        <div class="fun-card">
+          <span class="emoji">👽</span>
+          <h3>Alien Landing Zone</h3>
+          <p>For the occasional intergalactic guest star. Free cookies for friendly invaders!</p>
+        </div>
+      </div>
+      <h2>🎇 The Legend Grows</h2>
+      <p>
+        Now, the village is alive with mayhem, laughter, and invention. Tourists visit for the pirate festivals, the tech expos, and the world’s first “Futuristic Old School” Olympics. Rumor has it, Gavinnot and Gavinbot are working on a time machine powered by dad jokes and chips…
       </p>
+      <img src="gavinnot-village-party.jpg" alt="Gavinnot Village Party" />
+      <p style="text-align:center; margin-top:2em;">
+        <span class="highlight" style="font-size:1.23em;">Ready to join the chaos?</span>
+      </p>
+    </section>
+    <div class="home-links">
+      <a href="village.html">🏡 Explore Gavinbot Village</a>
+      <a href="roulette.html">🎰 Try Pirate Roulette</a>
+      <a href="mailto:gavinnot@village.com">✉️ Contact Gavinnot</a>
     </div>
-
-    <!-- Comic-style effect: little "POW!" bubble -->
-    <div style="position:absolute; top:20px; right:-60px; transform:rotate(15deg); background:#ff007f; color:white; font-weight:bold; padding:10px 20px; border-radius:50%; box-shadow:0 0 15px #ff007f; font-family:'Comic Sans MS', cursive;">
-      POW!
-    </div>
-  </section>
-<a href="index.html" class="btn">🏴 Back to Main Site</a>
+  </main>
   <footer>
-    © 2025 Gavin Not | Built in the Shed 🛠️
+    &copy; 2025 Gavinnot & Gavinbot | Born in Portland, building the future of fun!
   </footer>
 </body>
 </html>
