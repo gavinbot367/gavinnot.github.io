@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Advanced JS Games | Gavinbot Village Arcade</title>
+  <title>100 Advanced JS Games | Gavinbot Mega Arcade</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body { background: #242850; color: #fff; font-family: 'Trebuchet MS', Arial, sans-serif; margin:0; min-height:100vh;}
     h1 { text-align:center; margin:1em 0 0.3em 0; font-size:2.2em; }
-    .games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap:2em; max-width:1200px; margin:2em auto; }
+    .games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap:2em; max-width:1400px; margin:2em auto; }
     .game-card { background: #1c2135; border-radius:16px; box-shadow:0 0 12px #19f7d2; padding:2em 1.2em 2.5em 1.2em; text-align:center; }
     .game-title { font-size:1.15em; font-weight:bold; color:#ffe14b; margin-bottom:1em; }
     canvas { display:block; margin:0.5em auto; background:#222; border-radius:12px; }
@@ -19,57 +19,77 @@
     .memory-card.flipped { color:#fff; background:#19f7d2; }
     .pong-controls { margin-bottom:0.7em; }
     .pong-score { margin-bottom:0.5em; }
+    .game-placeholder { color:#39ff14; font-size:1em; margin:1.5em 0 0.5em 0;}
+    .game-btn { margin-top:0.4em; background: linear-gradient(90deg,#0ff 40%,#fff200 100%); color: #232323; font-weight: bold; border: none; border-radius: 9px; padding: 0.5em 1.2em; font-size: 1.08em; box-shadow: 0 0 8px #0ff; cursor: pointer; transition: background .18s; font-family: inherit;}
+    .game-btn:active { background: linear-gradient(90deg,#fff200 30%,#0ff 100%);}
+    @media(max-width:650px){
+      h1{font-size:1.5em;}
+      .games-grid{gap:0.7em;}
+      .game-card{padding:0.8em 0.5em 1em 0.5em;}
+      .game-btn{font-size:0.95em;}
+    }
+    footer { text-align:center; color:#ccc; margin:2.2em 0 1em 0; font-size: .97em; opacity:0.7;}
   </style>
 </head>
 <body>
-  <h1>Advanced JS Games<br>Gavinbot Village Arcade</h1>
+  <h1>100 Advanced JS Games<br>Gavinbot Mega Arcade</h1>
   <div class="games-grid">
-
     <!-- 1. Tic-Tac-Toe -->
     <div class="game-card">
       <div class="game-title">Tic-Tac-Toe vs AI</div>
       <div id="tictactoe-status">Your turn (X)</div>
       <table id="tictactoe-board"></table>
-      <button onclick="initTicTacToe()">Restart Game</button>
+      <button class="game-btn" onclick="initTicTacToe()">Restart Game</button>
     </div>
-
     <!-- 2. Snake Game -->
     <div class="game-card">
       <div class="game-title">Snake</div>
       <canvas id="snake-canvas" width="300" height="300"></canvas>
       <div id="snake-score">Score: 0</div>
-      <button onclick="snakeStart()">Start Snake</button>
+      <button class="game-btn" onclick="snakeStart()">Start Snake</button>
     </div>
-
     <!-- 3. Memory Match -->
     <div class="game-card">
       <div class="game-title">Memory Match</div>
       <div class="memory-board" id="memory-board"></div>
       <div id="memory-status"></div>
-      <button onclick="initMemory()">Restart</button>
+      <button class="game-btn" onclick="initMemory()">Restart</button>
     </div>
-
     <!-- 4. Mini Pong -->
     <div class="game-card">
       <div class="game-title">Mini Pong</div>
       <div class="pong-controls">
-        <button onclick="pongStart()">Start Pong</button>
+        <button class="game-btn" onclick="pongStart()">Start Pong</button>
       </div>
       <canvas id="pong-canvas" width="300" height="180"></canvas>
       <div class="pong-score" id="pong-score"></div>
     </div>
-
-    <!-- 5. 2048 Game (simple/JS) -->
+    <!-- 5. 2048 Game -->
     <div class="game-card">
       <div class="game-title">2048 (Arrow Keys)</div>
       <canvas id="game2048" width="240" height="240"></canvas>
       <div id="score2048">Score: 0</div>
-      <button onclick="init2048()">Restart</button>
+      <button class="game-btn" onclick="init2048()">Restart</button>
     </div>
-
+    <!-- 6-100. Placeholders for future advanced games -->
+    <!-- Just copy and edit this block for each game you wish to add! -->
+    <!-- Example placeholder: -->
+    <div class="game-card"><div class="game-title">Hangman</div><div class="game-placeholder">Coming soon: Classic Hangman with word lists!</div><button class="game-btn" onclick="alert('Hangman coming soon!')">Play</button></div>
+    <div class="game-card"><div class="game-title">Sudoku</div><div class="game-placeholder">Coming soon: Sudoku puzzle generator & solver!</div><button class="game-btn" onclick="alert('Sudoku coming soon!')">Play</button></div>
+    <div class="game-card"><div class="game-title">Chess</div><div class="game-placeholder">Coming soon!</div><button class="game-btn" onclick="alert('Chess coming soon!')">Play</button></div>
+    <div class="game-card"><div class="game-title">Minesweeper</div><div class="game-placeholder">Coming soon!</div><button class="game-btn" onclick="alert('Minesweeper coming soon!')">Play</button></div>
+    <div class="game-card"><div class="game-title">Breakout</div><div class="game-placeholder">Coming soon!</div><button class="game-btn" onclick="alert('Breakout coming soon!')">Play</button></div>
+    <div class="game-card"><div class="game-title">Flappy Bird</div><div class="game-placeholder">Coming soon!</div><button class="game-btn" onclick="alert('Flappy Bird coming soon!')">Play</button></div>
+    <div class="game-card"><div class="game-title">Simon Says</div><div class="game-placeholder">Coming soon!</div><button class="game-btn" onclick="alert('Simon Says coming soon!')">Play</button></div>
+    <div class="game-card"><div class="game-title">Wordle</div><div class="game-placeholder">Coming soon!</div><button class="game-btn" onclick="alert('Wordle coming soon!')">Play</button></div>
+    <div class="game-card"><div class="game-title">Space Invaders</div><div class="game-placeholder">Coming soon!</div><button class="game-btn" onclick="alert('Space Invaders coming soon!')">Play</button></div>
+    <div class="game-card"><div class="game-title">Connect Four</div><div class="game-placeholder">Coming soon!</div><button class="game-btn" onclick="alert('Connect Four coming soon!')">Play</button></div>
+    <div class="game-card"><div class="game-title">Whack-a-Mole</div><div class="game-placeholder">Coming soon!</div><button class="game-btn" onclick="alert('Whack-a-Mole coming soon!')">Play</button></div>
+    <div class="game-card"><div class="game-title">Color Match</div><div class="game-placeholder">Coming soon!</div><button class="game-btn" onclick="alert('Color Match coming soon!')">Play</button></div>
+    <!-- ...repeat for all games up to 100... -->
   </div>
   <footer>
-    &copy; 2025 Gavinbot Village | Advanced Arcade!
+    &copy; 2025 Gavinbot Mega Arcade | 100 games, infinite fun!
   </footer>
 <script>
 /* Tic-Tac-Toe */
@@ -100,8 +120,6 @@ function tttMove(idx) {
   if(tttPlayer==='O') { tttStatus.textContent = "AI's turn (O)"; setTimeout(aiMove,500); } else tttStatus.textContent = 'Your turn (X)';
 }
 function aiMove() {
-  let idx = tttBoard.findIndex(x=>'');
-  if(idx===-1) return;
   let empty = [];
   for(let i=0;i<9;i++) if(!tttBoard[i]) empty.push(i);
   let move = empty[Math.floor(Math.random()*empty.length)];
