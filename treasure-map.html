@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gavinbot's Advanced Interactive Treasure Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: linear-gradient(135deg, #1e2f3a 0%, #5f968c 100%);
+      margin: 0;
+      color: #fff;
+      font-family: 'Trebuchet MS', Arial, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.3em;
+      color: #ffd700;
+      text-shadow: 0 0 14px #0ff, 0 0 44px #ffd700;
+      margin: 1em 0 0.2em 0;
+      letter-spacing: 1.5px;
+    }
+    .map-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 2em 0 0 0;
+      position: relative;
+    }
+    #treasureMapCanvas {
+      border: 6px solid #ffd700;
+      border-radius: 26px;
+      box-shadow: 0 0 36px #ffd700, 0 0 32px #0ff;
+      background: #ffe9be;
+      width: 830px;
+      max-width: 98vw;
+      height: 540px;
+      display: block;
+    }
+    .instructions {
+      text-align: center;
+      font-size: 1.15em;
+      color: #fff;
+      margin: 0.7em auto 1.5em auto;
+      max-width: 700px;
+      background: rgba(40,40,70,0.32);
+      border-radius: 14px;
+      padding: 0.8em 1em;
+      box-shadow: 0 0 8px #ffd70044;
+    }
+    #popup {
+      position: absolute;
+      background: #222d;
+      color: #ffd700;
+      border: 2px solid #0ff;
+      border-radius: 14px;
+      padding: 1em 1.3em;
+      font-size: 1.12em;
+      max-width: 340px;
+      box-shadow: 0 0 18px #0ff, 0 0 20px #ffd700;
+      display: none;
+      z-index: 99;
+      pointer-events: none;
+    }
+    .legend {
+      margin: 2.5em auto 1em auto;
+      text-align: center;
+      font-size: 1.07em;
+      color: #ffd700;
+      background: rgba(32,40,65,0.22);
+      border-radius: 12px;
+      display: inline-block;
+      padding: 0.6em 2em;
+      box-shadow: 0 0 8px #ffd70044;
+    }
+    .legend span {
+      margin: 0 1.4em;
+    }
+    .legend .icon {
+      font-size: 1.3em;
+      margin-right: 0.3em;
+      vertical-align: middle;
+    }
+    .btn {
+      background: linear-gradient(90deg,#0ff 40%,#ffd700 100%);
+      color: #1e2f3a;
+      font-weight: bold;
+      border: none;
+      border-radius: 9px;
+      padding: 0.7em 1.7em;
+      font-size: 1.09em;
+      box-shadow: 0 0 10px #0ff, 0 0 18px #ffd700;
+      cursor: pointer;
+      transition: background .18s;
+      margin: 1.5em auto 2em auto;
+      display: block;
+    }
+    .btn:active { background: linear-gradient(90deg,#ffd700 30%,#0ff 100%);}
+    footer {
+      text-align:center;
+      color:#ccc;
+      margin:2.2em 0 1em 0;
+      font-size: .97em;
+      opacity:0.7;
+      letter-spacing:1px;
+    }
+    @media (max-width:950px) {
+      #treasureMapCanvas { width:99vw; height:55vw; min-height:280px;}
+    }
+    @media (max-width:600px) {
+      #treasureMapCanvas { min-height:220px;}
+      .legend { font-size:0.97em; padding:0.4em 0.6em;}
+      .instructions { font-size:1em; padding:0.7em 0.3em;}
+    }
+  </style>
+</head>
+<body>
+  <h1>Gavinbot's Ultimate Treasure Map 🗺️</h1>
+  <div class="instructions">
+    Tap or click locations to reveal clues, secrets, and treasures!<br>
+    Find all the hidden pirate loot, decode riddles, and unlock magical events.<br>
+    <b>Legend:</b> <span class="icon">🏴‍☠️</span> Pirate Ship & Hideouts <span class="icon">🏰</span> Castles <span class="icon">🏝️</span> Islands <span class="icon">🌲</span> Forests <span class="icon">🦜</span> Parrot Secret <span class="icon">💎</span> Treasure <span class="icon">🕳️</span> Trap Door <span class="icon">🧭</span> Portal
+  </div>
+  <div class="map-container" id="mapContainer">
+    <canvas id="treasureMapCanvas" width="830" height="540"></canvas>
+    <div id="popup"></div>
+  </div>
+  <div class="legend">
+    <span><span class="icon">🏴‍☠️</span>Pirate Ship</span>
+    <span><span class="icon">🏰</span>Cannon Castle</span>
+    <span><span class="icon">🏝️</span>Mystic Isle</span>
+    <span><span class="icon">🌲</span>Forest</span>
+    <span><span class="icon">💎</span>Treasure</span>
+    <span><span class="icon">🦜</span>Parrot Secret</span>
+    <span><span class="icon">🕳️</span>Trap Door</span>
+    <span><span class="icon">🧭</span>Portal</span>
+  </div>
+  <button class="btn" onclick="resetMap()">Reset Map & Clues</button>
+  <footer>
+    &copy; 2025 Gavinbot Village | Pirate secrets, lost treasures, and advanced map magic!
+  </footer>
+  <script>
+    // --- Interactive Treasure Map DATA ---
+    const locations = [
+      {
+        name: "Pirate Ship",
+        x: 110, y: 320,
+        icon: "🏴‍☠️",
+        clue: "Captain Gavinbot's ship. Look inside for the master key to all riddles!",
+        treasure: "You found the Pirate's Key! Use it to unlock other locations.",
+        event: "key"
+      },
+      {
+        name: "Cannon Castle",
+        x: 390, y: 80,
+        icon: "🏰",
+        clue: "Ancient fortress. Solve the riddle to unlock the dungeon.",
+        riddle: "I have walls but no doors. What am I?",
+        answer: "castle",
+        treasure: "Dungeon unlocked! Hidden gold revealed."
+      },
+      {
+        name: "Mystic Isle",
+        x: 710, y: 420,
+        icon: "🏝️",
+        clue: "The foggy isle. Find the magic compass to reveal the hidden path.",
+        treasure: "You found the Magic Compass! Try it on the Portal.",
+        event: "compass"
+      },
+      {
+        name: "Forest of Whispers",
+        x: 640, y: 180,
+        icon: "🌲",
+        clue: "Tall trees hide a secret parrot. Listen for clues.",
+        treasure: "Parrot clue: 'Seek the trap door near the waterfall!'",
+        event: "parrot"
+      },
+      {
+        name: "Treasure Chest",
+        x: 320, y: 430,
+        icon: "💎",
+        clue: "Buried chest. Requires Pirate's Key to open.",
+        treasure: "Congratulations! You found 100 gold coins and a secret map piece.",
+        requires: "key"
+      },
+      {
+        name: "Trap Door",
+        x: 220, y: 250,
+        icon: "🕳️",
+        clue: "A hidden entrance. Only the parrot knows the password.",
+        treasure: "Trap door opens! You descend into the secret cave.",
+        requires: "parrot"
+      },
+      {
+        name: "Portal",
+        x: 730, y: 60,
+        icon: "🧭",
+        clue: "Mysterious portal. Needs the Magic Compass to activate.",
+        treasure: "The portal glows! You teleport to a bonus mini-game!",
+        requires: "compass"
+      }
+    ];
+
+    // --- Player Inventory ---
+    let inventory = {};
+
+    // --- Draw Map & Locations ---
+    const canvas = document.getElementById('treasureMapCanvas');
+    const ctx = canvas.getContext('2d');
+    function drawMap() {
+      // Draw background
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      // Water
+      ctx.fillStyle = "#9eeaff";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      // Sand
+      ctx.beginPath();
+      ctx.moveTo(0,canvas.height-170);
+      ctx.bezierCurveTo(160,canvas.height-150,500,canvas.height-140,canvas.width,canvas.height-110);
+      ctx.lineTo(canvas.width,canvas.height);
+      ctx.lineTo(0,canvas.height);
+      ctx.closePath();
+      ctx.fillStyle = "#ffe9be";
+      ctx.fill();
+      // Forest
+      ctx.beginPath();
+      ctx.arc(630,160,60,0,Math.PI*2);
+      ctx.fillStyle="#257144";
+      ctx.fill();
+      // Draw locations
+      locations.forEach(loc=>{
+        ctx.font = "2.3em serif";
+        ctx.textAlign = 'center';
+        ctx.fillText(loc.icon,loc.x,loc.y);
+        ctx.font = "bold 1em Trebuchet MS";
+        ctx.fillStyle = "#1e2f3a";
+        ctx.fillText(loc.name,loc.x,loc.y+32);
+      });
+      // Draw extra clues if unlocked
+      if (inventory.key) {
+        ctx.font = "1em Trebuchet MS";
+        ctx.fillStyle = "#ffd700";
+        ctx.fillText("Pirate's Key: Unlocked!", 110, 310);
+      }
+      if (inventory.compass) {
+        ctx.font = "1em Trebuchet MS";
+        ctx.fillStyle = "#ffd700";
+        ctx.fillText("Magic Compass: Ready!", 710, 410);
+      }
+      if (inventory.parrot) {
+        ctx.font = "1em Trebuchet MS";
+        ctx.fillStyle = "#ffd700";
+        ctx.fillText("Parrot clue: Seek Trap Door!", 640, 170);
+      }
+    }
+    drawMap();
+
+    // --- Popup logic ---
+    const popup = document.getElementById('popup');
+    function showPopup(html,x,y) {
+      popup.innerHTML = html;
+      popup.style.left = (x+30)+"px";
+      popup.style.top = (y-20)+"px";
+      popup.style.display = "block";
+      setTimeout(()=>popup.style.display="none", 5000);
+    }
+
+    // --- Click events ---
+    canvas.addEventListener('click', function(e){
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+      let found = false;
+      locations.forEach(loc=>{
+        let dx = mouseX - loc.x;
+        let dy = mouseY - loc.y;
+        if (dx*dx + dy*dy < 40*40) {
+          found = true;
+          let html = `<b>${loc.icon} ${loc.name}</b><br>`;
+          html += `<span>${loc.clue}</span><br>`;
+          if (loc.riddle && !inventory[loc.event]) {
+            html += `<br><i>Riddle:</i> ${loc.riddle}<br>`;
+            html += `<button style="margin-top:5px;padding:4px 12px;border-radius:6px;background:#ffd700;color:#1e2f3a;" onclick="solveRiddle('${loc.answer}','${loc.event}','${loc.treasure}')">Answer</button>`;
+          } else if (loc.treasure && !loc.requires) {
+            if (!inventory[loc.event]) {
+              html += `<br><button style="margin-top:8px;padding:6px 16px;border-radius:8px;background:#ffd700;color:#1e2f3a;"
+                onclick="collectItem('${loc.event}','${loc.treasure}')">Collect</button>`;
+            } else {
+              html += `<br><span style="color:#0ff;">Already collected.</span>`;
+            }
+          } else if (loc.treasure && loc.requires) {
+            if (inventory[loc.requires]) {
+              html += `<br><button style="margin-top:8px;padding:6px 16px;border-radius:8px;background:#ffd700;color:#1e2f3a;"
+                onclick="collectItem('${loc.event||loc.requires}','${loc.treasure}')">Unlock Treasure</button>`;
+            } else {
+              html += `<br><span style="color:#ff445b;">You need ${loc.requires === 'key' ? "the Pirate's Key" : loc.requires === 'compass' ? "the Magic Compass" : "the Parrot clue"}!</span>`;
+            }
+          }
+          showPopup(html,loc.x,loc.y);
+        }
+      });
+      if (!found) popup.style.display="none";
+    });
+
+    // --- Collect items ---
+    function collectItem(item, message) {
+      inventory[item] = true;
+      drawMap();
+      popup.innerHTML += `<br><span style="color:#39ff14;">${message}</span>`;
+    }
+
+    // --- Solve Riddle ---
+    window.solveRiddle = function(answer,event,treasure) {
+      let user = prompt("Type your answer:");
+      if (!user) return;
+      if (user.trim().toLowerCase() === answer) {
+        popup.innerHTML += `<br><span style="color:#39ff14;">${treasure}</span>`;
+        inventory[event] = true;
+        drawMap();
+      } else {
+        popup.innerHTML += `<br><span style="color:#ff445b;">Incorrect! Try again.</span>`;
+      }
+    }
+
+    // --- Reset Map ---
+    function resetMap() {
+      inventory = {};
+      drawMap();
+      popup.style.display = "none";
+      document.getElementById('gameover')?.remove();
+    }
+  </script>
+</body>
+</html>
