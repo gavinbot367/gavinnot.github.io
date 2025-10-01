@@ -2,317 +2,224 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Neon Futuristic Old School Pirate Treasure Map</title>
+  <title>Pirate Treasure Map</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
     body {
-      background: radial-gradient(ellipse at center, #07152e 0%, #1e2f3a 100%);
-      color: #fff;
-      font-family: 'Orbitron', 'Trebuchet MS', Arial, sans-serif;
+      background: radial-gradient(ellipse at top left, #f5deb3 0%, #c1a063 100%);
       margin: 0;
       min-height: 100vh;
-      overflow-x: hidden;
+      font-family: 'Trebuchet MS', Arial, sans-serif;
+      color: #3e2505;
     }
     h1 {
       text-align: center;
-      font-size: 2.8em;
-      color: #0ff;
-      text-shadow: 0 0 28px #0ff, 0 0 44px #ffe14b;
+      font-size: 2.7em;
+      margin: 1.2em 0 0.2em 0;
+      color: #3e2505;
+      text-shadow: 0 0 11px #fff8dc, 0 0 24px #d3b46e;
       letter-spacing: 2px;
-      margin: 1.6em 0 0.4em 0;
     }
     .desc {
       text-align: center;
-      font-size: 1.3em;
-      color: #ffe14b;
+      font-size: 1.22em;
+      color: #66430e;
       margin: 0.7em auto 2em auto;
       max-width: 700px;
-      background: rgba(40,40,70,0.44);
+      background: rgba(222,184,135,0.22);
       border-radius: 18px;
       padding: 1em 1.2em;
-      box-shadow: 0 0 14px #0ff44;
-      font-family: 'Trebuchet MS', Arial, sans-serif;
+      box-shadow: 0 0 8px #d3b46e44;
     }
     .map-wrap {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 2.5em 0 0 0;
-      position: relative;
+      margin: 2em 0 0 0;
       min-height: 540px;
     }
-    #neonMap {
-      border-radius: 32px;
-      border: 8px solid #0ff;
-      box-shadow: 0 0 60px #0ff, 0 0 60px #ffe14b;
-      background: #222;
-      width: 900px;
-      max-width: 99vw;
+    #mapCanvas {
+      border-radius: 26px;
+      border: 6px solid #d3b46e;
+      box-shadow: 0 0 36px #d3b46e, 0 0 32px #fff8dc;
+      background: #fdf5e6;
+      width: 820px;
+      max-width: 98vw;
       height: 540px;
       display: block;
     }
     .legend {
-      margin: 2em auto 1em auto;
+      margin: 2.5em auto 1em auto;
       text-align: center;
-      font-size: 1.19em;
-      color: #fff;
-      background: rgba(32,40,65,0.24);
-      border-radius: 16px;
+      font-size: 1.08em;
+      color: #66430e;
+      background: rgba(222,184,135,0.15);
+      border-radius: 15px;
       display: inline-block;
-      padding: 0.9em 2em;
-      box-shadow: 0 0 10px #0ff44;
-      font-family: 'Orbitron', 'Trebuchet MS', Arial, sans-serif;
+      padding: 0.7em 2em;
+      box-shadow: 0 0 8px #d3b46e44;
       letter-spacing: 1px;
     }
     .legend span {
-      margin: 0 1.1em;
+      margin: 0 1em;
     }
-    .legend .icon {
-      font-size: 1.35em;
+    .icon {
+      font-size: 1.3em;
       margin-right: 0.3em;
       vertical-align: middle;
     }
     footer {
       text-align:center;
-      color:#ccc;
+      color:#a57c1b;
       margin:2.5em 0 1em 0;
       font-size: 1em;
       opacity:0.7;
       letter-spacing:1px;
-      font-family: 'Trebuchet MS', Arial, sans-serif;
     }
     @media (max-width:950px) {
-      #neonMap { width:99vw; height:55vw; min-height:270px;}
+      #mapCanvas { width:99vw; height:55vw; min-height:250px;}
     }
     @media (max-width:600px) {
-      #neonMap { min-height:160px;}
-      .legend { font-size:1em; padding:0.7em 0.4em;}
-      .desc { font-size:1em; padding:0.7em 0.3em;}
+      #mapCanvas { min-height:140px;}
+      .legend { font-size:0.93em; padding:0.7em 0.4em;}
+      .desc { font-size:1em; padding:0.7em 0.2em;}
     }
   </style>
 </head>
 <body>
-  <h1>NEON PIRATE TREASURE MAP 🗺️</h1>
+  <h1>Pirate Treasure Map 🗺️</h1>
   <div class="desc">
-    A wild blend of neon lights, old-school pirate magic, and futuristic adventure.<br>
-    Explore the glowing seas, mysterious islands, and legendary loot. <br>
-    Follow the neon clues—and beware of the techno kraken!
+    An old-school pirate treasure map: X marks the spot!<br>
+    Sail past the islands, avoid the kraken, and hunt for the legendary gold.
   </div>
   <div class="map-wrap">
-    <canvas id="neonMap" width="900" height="540"></canvas>
+    <canvas id="mapCanvas" width="820" height="540"></canvas>
   </div>
   <div class="legend">
-    <span><span class="icon">🌊</span>Neon Sea</span>
     <span><span class="icon">🏴‍☠️</span>Pirate Ship</span>
-    <span><span class="icon">🏝️</span>Glowing Island</span>
+    <span><span class="icon">🏝️</span>Island</span>
     <span><span class="icon">💎</span>Treasure</span>
     <span><span class="icon">🦜</span>Parrot</span>
-    <span><span class="icon">⚡</span>Techno Kraken</span>
-    <span><span class="icon">🧭</span>Secret Portal</span>
+    <span><span class="icon">🦑</span>Kraken</span>
+    <span><span class="icon">❌</span>X Marks the Spot</span>
   </div>
   <footer>
-    &copy; 2025 Gavinbot Village | Neon pirate magic, futuristic mayhem, and legendary loot!
+    &copy; 2025 Gavinbot Village | The adventure begins!
   </footer>
   <script>
-    // Draw Neon Futuristic Pirate Treasure Map
-    const canvas = document.getElementById('neonMap');
+    const canvas = document.getElementById('mapCanvas');
     const ctx = canvas.getContext('2d');
 
-    function drawNeonMap() {
+    function drawMap() {
       ctx.clearRect(0,0,canvas.width,canvas.height);
 
-      // Neon Sea (radial gradient)
-      let seaGrad = ctx.createRadialGradient(450, 450, 120, 450, 450, 440);
-      seaGrad.addColorStop(0, "#19f7d2");
-      seaGrad.addColorStop(0.55, "#07152e");
-      seaGrad.addColorStop(0.8, "#07152e");
-      seaGrad.addColorStop(1, "#222");
-      ctx.fillStyle = seaGrad;
-      ctx.fillRect(0, 310, canvas.width, canvas.height-310);
+      // Draw old paper effect
+      let paperGrad = ctx.createRadialGradient(410,270,180,410,270,430);
+      paperGrad.addColorStop(0, "#fdf5e6");
+      paperGrad.addColorStop(1, "#f5deb3");
+      ctx.fillStyle = paperGrad;
+      ctx.fillRect(0,0,canvas.width,canvas.height);
 
-      // Neon Waves
-      for(let i=0;i<7;i++) {
-        ctx.beginPath();
-        ctx.moveTo(0, 320+i*22);
-        ctx.bezierCurveTo(180+42*i, 320+18*i, 700-33*i,340+12*i,canvas.width, 330+18*i);
-        ctx.strokeStyle = "rgba(0,255,255,"+(0.13+0.07*i)+")";
-        ctx.lineWidth = 7;
-        ctx.shadowColor = "#0ff";
-        ctx.shadowBlur = 18;
-        ctx.stroke();
-        ctx.shadowBlur = 0;
-      }
-
-      // Glowing Island
+      // Draw sea
       ctx.save();
-      ctx.shadowColor = "#ffe14b";
-      ctx.shadowBlur = 44;
+      ctx.globalAlpha=0.14;
+      ctx.fillStyle = "#3997e3";
       ctx.beginPath();
-      ctx.ellipse(765,420,72,36,Math.PI/7,0,2*Math.PI);
-      ctx.fillStyle = "#222d";
-      ctx.globalAlpha=0.94;
+      ctx.arc(210,390,170,0,2*Math.PI);
       ctx.fill();
-      ctx.restore();
-
-      // Treasure glow
-      ctx.save();
-      ctx.shadowColor = "#fff";
-      ctx.shadowBlur = 32;
-      ctx.beginPath();
-      ctx.ellipse(520,460,30,18,Math.PI/8,0,2*Math.PI);
-      ctx.fillStyle = "#fff";
-      ctx.globalAlpha=0.13;
-      ctx.fill();
-      ctx.restore();
       ctx.globalAlpha=1;
-
-      // Techno Kraken (neon tentacles)
-      for(let k=0;k<5;k++) {
-        ctx.save();
-        ctx.beginPath();
-        ctx.moveTo(200, 490);
-        ctx.bezierCurveTo(220+40*k, 490-60*k, 320+30*k, 500-70*k, 400+46*k, 390-35*k);
-        ctx.strokeStyle = "rgba(255,255,0,0.26)";
-        ctx.lineWidth = 9;
-        ctx.shadowColor = "#ffe14b";
-        ctx.shadowBlur = 28;
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      // Secret Portal (neon swirl)
-      ctx.save();
-      ctx.shadowColor = "#39ff14";
-      ctx.shadowBlur = 34;
-      ctx.beginPath();
-      ctx.arc(860,80,32,0,2*Math.PI);
-      ctx.strokeStyle = "#0ff";
-      ctx.lineWidth = 7;
-      ctx.globalAlpha=0.85;
-      ctx.stroke();
       ctx.restore();
 
-      // Draw Pirate Ship (neon outline)
+      // Draw islands
       ctx.save();
-      ctx.shadowColor = "#0ff";
-      ctx.shadowBlur = 44;
+      ctx.fillStyle = "#e2c078";
       ctx.beginPath();
-      ctx.moveTo(210, 410);
-      ctx.lineTo(270, 390);
-      ctx.lineTo(290, 420);
-      ctx.lineTo(250, 430);
-      ctx.closePath();
-      ctx.fillStyle="#07152e";
-      ctx.globalAlpha=0.9;
+      ctx.ellipse(650,430,60,33,Math.PI/9,0,2*Math.PI);
       ctx.fill();
-      ctx.strokeStyle="#0ff";
-      ctx.lineWidth=5;
-      ctx.stroke();
+      ctx.beginPath();
+      ctx.ellipse(610,180,40,19,Math.PI/6,0,2*Math.PI);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(180,120,42,22,Math.PI/2,0,2*Math.PI);
+      ctx.fill();
       ctx.restore();
 
-      // Mast
+      // Draw path (dashed)
       ctx.save();
+      ctx.setLineDash([10,12]);
+      ctx.strokeStyle = "#a57c1b";
+      ctx.lineWidth = 2.6;
       ctx.beginPath();
-      ctx.moveTo(250,410);
-      ctx.lineTo(250,370);
-      ctx.strokeStyle="#ffe14b";
-      ctx.lineWidth=5;
-      ctx.shadowColor = "#ffe14b";
-      ctx.shadowBlur = 22;
+      ctx.moveTo(60,500);
+      ctx.bezierCurveTo(180,390,310,220,510,450);
+      ctx.bezierCurveTo(610,480,650,180,180,120);
+      ctx.bezierCurveTo(320,70,700,300,650,430);
       ctx.stroke();
+      ctx.setLineDash([]);
       ctx.restore();
 
-      // Sail
+      // Draw Pirate Ship
+      ctx.font = "2.8em serif";
+      ctx.fillText("🏴‍☠️", 60, 510);
+
+      // Draw Kraken
+      ctx.font = "2em serif";
+      ctx.fillText("🦑", 240, 440);
+
+      // Draw Parrot
+      ctx.font = "2em serif";
+      ctx.fillText("🦜", 200, 100);
+
+      // Draw Islands
+      ctx.font = "2.8em serif";
+      ctx.fillText("🏝️", 650, 430);
+      ctx.fillText("🏝️", 610, 180);
+      ctx.fillText("🏝️", 180, 120);
+
+      // Draw Treasure
+      ctx.font = "2.6em serif";
+      ctx.fillText("💎", 510, 450);
+
+      // Draw X marks the spot
       ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(250,370);
-      ctx.lineTo(235,395);
-      ctx.lineTo(250,395);
-      ctx.closePath();
-      ctx.fillStyle="#0ff";
+      ctx.font = "3.5em Arial";
+      ctx.strokeStyle="#a57c1b";
+      ctx.lineWidth=3;
       ctx.globalAlpha=0.7;
-      ctx.shadowColor = "#0ff";
-      ctx.shadowBlur = 8;
-      ctx.fill();
-      ctx.restore();
-
-      // Pirate flag
-      ctx.save();
-      ctx.font = "2.3em serif";
-      ctx.shadowColor = "#0ff";
-      ctx.shadowBlur = 18;
+      ctx.strokeText("❌", 720, 410);
       ctx.globalAlpha=1;
-      ctx.fillText("🏴‍☠️", 246, 370);
+      ctx.fillStyle = "#b22222";
+      ctx.fillText("❌", 720, 410);
       ctx.restore();
 
-      // Draw icons
-      // Pirate Ship
-      ctx.font = "3em serif";
-      ctx.shadowColor = "#0ff";
-      ctx.shadowBlur = 18;
-      ctx.fillText("🏴‍☠️",250,415);
-
-      // Glowing Island
-      ctx.font = "3em serif";
-      ctx.shadowColor = "#ffe14b";
-      ctx.shadowBlur = 24;
-      ctx.fillText("🏝️",765,429);
-
-      // Treasure
-      ctx.font = "3em serif";
-      ctx.shadowColor = "#fff";
-      ctx.shadowBlur = 18;
-      ctx.fillText("💎",520,470);
-
-      // Parrot
-      ctx.font = "2.3em serif";
-      ctx.shadowColor = "#ff3c9b";
-      ctx.shadowBlur = 18;
-      ctx.fillText("🦜",320,120);
-
-      // Techno Kraken
-      ctx.font = "2.3em serif";
-      ctx.shadowColor = "#ffe14b";
-      ctx.shadowBlur = 18;
-      ctx.fillText("⚡",200,490);
-
-      // Portal
-      ctx.font = "2.3em serif";
-      ctx.shadowColor = "#39ff14";
-      ctx.shadowBlur = 18;
-      ctx.fillText("🧭",860,80);
-
-      // Map Title (faded)
+      // Draw compass rose
       ctx.save();
-      ctx.font = "2.5em Orbitron, Arial";
-      ctx.globalAlpha=0.07;
-      ctx.textAlign="center";
-      ctx.fillStyle="#ffe14b";
-      ctx.fillText("Gavinbot's Neon Pirate Map",canvas.width/2,canvas.height/2);
+      ctx.translate(780,60);
+      ctx.rotate(Math.PI/7);
+      ctx.strokeStyle = "#a57c1b";
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      for(let i=0;i<8;i++){
+        ctx.moveTo(0,0);
+        ctx.lineTo(0,32);
+        ctx.rotate(Math.PI/4);
+      }
+      ctx.stroke();
+      ctx.font = "1.4em serif";
+      ctx.fillStyle="#66430e";
+      ctx.fillText("🧭", -14,11);
       ctx.restore();
 
-      // Neon grid overlay for futuristic vibe
+      // Old map border
       ctx.save();
-      ctx.globalAlpha=0.11;
-      ctx.strokeStyle="#0ff";
-      ctx.lineWidth=1;
-      for(let x=0;x<canvas.width;x+=60){
-        ctx.beginPath();
-        ctx.moveTo(x,0);
-        ctx.lineTo(x,canvas.height);
-        ctx.stroke();
-      }
-      for(let y=0;y<canvas.height;y+=60){
-        ctx.beginPath();
-        ctx.moveTo(0,y);
-        ctx.lineTo(canvas.width,y);
-        ctx.stroke();
-      }
+      ctx.lineWidth = 10;
+      ctx.strokeStyle = "#d3b46e";
+      ctx.globalAlpha=0.60;
+      ctx.strokeRect(0,0,canvas.width,canvas.height);
       ctx.restore();
     }
 
-    drawNeonMap();
+    drawMap();
   </script>
 </body>
 </html>
