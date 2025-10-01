@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Pirate Treasure Map</title>
+  <title>Pirate Treasure Map - Classic SVG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      background: radial-gradient(ellipse at top left, #f5deb3 0%, #c1a063 100%);
+      background: radial-gradient(ellipse at center, #f5deb3 0%, #c1a063 100%);
       margin: 0;
       min-height: 100vh;
       font-family: 'Trebuchet MS', Arial, sans-serif;
@@ -31,22 +31,12 @@
       padding: 1em 1.2em;
       box-shadow: 0 0 8px #d3b46e44;
     }
-    .map-wrap {
+    .svg-wrap {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 2em 0 0 0;
+      margin: 2em 0 2em 0;
       min-height: 540px;
-    }
-    #mapCanvas {
-      border-radius: 26px;
-      border: 6px solid #d3b46e;
-      box-shadow: 0 0 36px #d3b46e, 0 0 32px #fff8dc;
-      background: #fdf5e6;
-      width: 820px;
-      max-width: 98vw;
-      height: 540px;
-      display: block;
     }
     .legend {
       margin: 2.5em auto 1em auto;
@@ -77,10 +67,10 @@
       letter-spacing:1px;
     }
     @media (max-width:950px) {
-      #mapCanvas { width:99vw; height:55vw; min-height:250px;}
+      .svg-wrap { min-width: 99vw; min-height: 250px;}
+      svg { width: 99vw !important; height: 55vw !important;}
     }
     @media (max-width:600px) {
-      #mapCanvas { min-height:140px;}
       .legend { font-size:0.93em; padding:0.7em 0.4em;}
       .desc { font-size:1em; padding:0.7em 0.2em;}
     }
@@ -89,11 +79,69 @@
 <body>
   <h1>Pirate Treasure Map 🗺️</h1>
   <div class="desc">
-    An old-school pirate treasure map: X marks the spot!<br>
-    Sail past the islands, avoid the kraken, and hunt for the legendary gold.
+    An elegant old-school treasure map. Sail past the islands, avoid the kraken, and hunt for the legendary gold!
   </div>
-  <div class="map-wrap">
-    <canvas id="mapCanvas" width="820" height="540"></canvas>
+  <div class="svg-wrap">
+    <svg width="820" height="540" viewBox="0 0 820 540">
+      <!-- Parchment background -->
+      <defs>
+        <radialGradient id="parchment" cx="50%" cy="50%" r="80%">
+          <stop offset="0%" stop-color="#fdf5e6"/>
+          <stop offset="100%" stop-color="#e5c085"/>
+        </radialGradient>
+        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#d3b46e" />
+        </filter>
+      </defs>
+      <rect x="0" y="0" width="820" height="540" rx="32" fill="url(#parchment)" filter="url(#shadow)" />
+
+      <!-- Compass Rose -->
+      <g transform="translate(760,60)">
+        <circle r="28" fill="#e5c085" stroke="#ad8f55" stroke-width="2"/>
+        <g>
+          <line x1="0" y1="-28" x2="0" y2="28" stroke="#ad8f55" stroke-width="3"/>
+          <line x1="-28" y1="0" x2="28" y2="0" stroke="#ad8f55" stroke-width="3"/>
+          <line x1="-20" y1="-20" x2="20" y2="20" stroke="#ad8f55" stroke-width="2"/>
+          <line x1="20" y1="-20" x2="-20" y2="20" stroke="#ad8f55" stroke-width="2"/>
+        </g>
+        <text x="0" y="8" font-size="1.2em" text-anchor="middle" fill="#66430e" font-family="serif">🧭</text>
+      </g>
+
+      <!-- Sea -->
+      <ellipse cx="230" cy="410" rx="170" ry="70" fill="#b7e3f5" opacity="0.18"/>
+
+      <!-- Islands -->
+      <ellipse cx="650" cy="430" rx="60" ry="30" fill="#ecd08f" stroke="#ad8f55" stroke-width="3"/>
+      <ellipse cx="610" cy="180" rx="34" ry="14" fill="#ecd08f" stroke="#ad8f55" stroke-width="3"/>
+      <ellipse cx="180" cy="120" rx="38" ry="18" fill="#ecd08f" stroke="#ad8f55" stroke-width="3"/>
+
+      <!-- Path (dashed line) -->
+      <path d="M70,500 C180,390 310,220 510,450 C610,480 650,180 180,120 C320,70 700,300 650,430"
+            stroke="#ad8f55" stroke-width="3" fill="none" stroke-dasharray="16,14" />
+
+      <!-- Pirate Ship -->
+      <text x="70" y="510" font-size="2.8em" font-family="serif">🏴‍☠️</text>
+
+      <!-- Kraken -->
+      <text x="250" y="440" font-size="2.2em" font-family="serif">🦑</text>
+
+      <!-- Parrot -->
+      <text x="200" y="100" font-size="2em" font-family="serif">🦜</text>
+
+      <!-- Islands -->
+      <text x="650" y="435" font-size="2.5em" font-family="serif">🏝️</text>
+      <text x="610" y="185" font-size="2.5em" font-family="serif">🏝️</text>
+      <text x="180" y="125" font-size="2.5em" font-family="serif">🏝️</text>
+
+      <!-- Treasure -->
+      <text x="510" y="455" font-size="2.4em" font-family="serif">💎</text>
+
+      <!-- X marks the spot -->
+      <text x="720" y="410" font-size="3.2em" font-family="Arial" fill="#b22222" stroke="#ad8f55" stroke-width="2">❌</text>
+
+      <!-- Decorative border (old scroll look) -->
+      <rect x="8" y="8" width="804" height="524" rx="24" fill="none" stroke="#ad8f55" stroke-width="9" opacity="0.6"/>
+    </svg>
   </div>
   <div class="legend">
     <span><span class="icon">🏴‍☠️</span>Pirate Ship</span>
@@ -102,124 +150,10 @@
     <span><span class="icon">🦜</span>Parrot</span>
     <span><span class="icon">🦑</span>Kraken</span>
     <span><span class="icon">❌</span>X Marks the Spot</span>
+    <span><span class="icon">🧭</span>Compass</span>
   </div>
   <footer>
     &copy; 2025 Gavinbot Village | The adventure begins!
   </footer>
-  <script>
-    const canvas = document.getElementById('mapCanvas');
-    const ctx = canvas.getContext('2d');
-
-    function drawMap() {
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-
-      // Draw old paper effect
-      let paperGrad = ctx.createRadialGradient(410,270,180,410,270,430);
-      paperGrad.addColorStop(0, "#fdf5e6");
-      paperGrad.addColorStop(1, "#f5deb3");
-      ctx.fillStyle = paperGrad;
-      ctx.fillRect(0,0,canvas.width,canvas.height);
-
-      // Draw sea
-      ctx.save();
-      ctx.globalAlpha=0.14;
-      ctx.fillStyle = "#3997e3";
-      ctx.beginPath();
-      ctx.arc(210,390,170,0,2*Math.PI);
-      ctx.fill();
-      ctx.globalAlpha=1;
-      ctx.restore();
-
-      // Draw islands
-      ctx.save();
-      ctx.fillStyle = "#e2c078";
-      ctx.beginPath();
-      ctx.ellipse(650,430,60,33,Math.PI/9,0,2*Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.ellipse(610,180,40,19,Math.PI/6,0,2*Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.ellipse(180,120,42,22,Math.PI/2,0,2*Math.PI);
-      ctx.fill();
-      ctx.restore();
-
-      // Draw path (dashed)
-      ctx.save();
-      ctx.setLineDash([10,12]);
-      ctx.strokeStyle = "#a57c1b";
-      ctx.lineWidth = 2.6;
-      ctx.beginPath();
-      ctx.moveTo(60,500);
-      ctx.bezierCurveTo(180,390,310,220,510,450);
-      ctx.bezierCurveTo(610,480,650,180,180,120);
-      ctx.bezierCurveTo(320,70,700,300,650,430);
-      ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.restore();
-
-      // Draw Pirate Ship
-      ctx.font = "2.8em serif";
-      ctx.fillText("🏴‍☠️", 60, 510);
-
-      // Draw Kraken
-      ctx.font = "2em serif";
-      ctx.fillText("🦑", 240, 440);
-
-      // Draw Parrot
-      ctx.font = "2em serif";
-      ctx.fillText("🦜", 200, 100);
-
-      // Draw Islands
-      ctx.font = "2.8em serif";
-      ctx.fillText("🏝️", 650, 430);
-      ctx.fillText("🏝️", 610, 180);
-      ctx.fillText("🏝️", 180, 120);
-
-      // Draw Treasure
-      ctx.font = "2.6em serif";
-      ctx.fillText("💎", 510, 450);
-
-      // Draw X marks the spot
-      ctx.save();
-      ctx.font = "3.5em Arial";
-      ctx.strokeStyle="#a57c1b";
-      ctx.lineWidth=3;
-      ctx.globalAlpha=0.7;
-      ctx.strokeText("❌", 720, 410);
-      ctx.globalAlpha=1;
-      ctx.fillStyle = "#b22222";
-      ctx.fillText("❌", 720, 410);
-      ctx.restore();
-
-      // Draw compass rose
-      ctx.save();
-      ctx.translate(780,60);
-      ctx.rotate(Math.PI/7);
-      ctx.strokeStyle = "#a57c1b";
-      ctx.lineWidth = 2.5;
-      ctx.beginPath();
-      for(let i=0;i<8;i++){
-        ctx.moveTo(0,0);
-        ctx.lineTo(0,32);
-        ctx.rotate(Math.PI/4);
-      }
-      ctx.stroke();
-      ctx.font = "1.4em serif";
-      ctx.fillStyle="#66430e";
-      ctx.fillText("🧭", -14,11);
-      ctx.restore();
-
-      // Old map border
-      ctx.save();
-      ctx.lineWidth = 10;
-      ctx.strokeStyle = "#d3b46e";
-      ctx.globalAlpha=0.60;
-      ctx.strokeRect(0,0,canvas.width,canvas.height);
-      ctx.restore();
-    }
-
-    drawMap();
-  </script>
 </body>
 </html>
