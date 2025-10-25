@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The Binary War — GavinNot</title>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" as="style" onload="this.rel='stylesheet'">
+<style>
+  :root{
+    --bg:#07101b;
+    --glass: rgba(255,255,255,0.03);
+    --good:#00b4ff;
+    --evil:#ff2e2e;
+    --muted:#9aa6b2;
+    --card-radius:14px;
+    font-family: "Orbitron", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100vh;
+    background: radial-gradient(1200px 600px at 10% 20%, rgba(0,18,28,0.6), transparent),
+                radial-gradient(1000px 500px at 90% 80%, rgba(20,0,0,0.4), transparent),
+                var(--bg);
+    color:#e6f3ff;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:36px;
+  }
+
+  .container{
+    width:1100px;
+    max-width:calc(100% - 48px);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.05));
+    border:1px solid rgba(255,255,255,0.04);
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    display:grid;
+    grid-template-columns: 1fr 420px;
+    gap:0;
+  }
+
+  /* Hero / split section */
+  .hero{
+    position:relative;
+    min-height:520px;
+    padding:32px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(90deg, rgba(0,0,0,0.35), rgba(0,0,0,0.35));
+    overflow:hidden;
+  }
+
+  .split{
+    position:absolute;
+    inset:32px;
+    border-radius:12px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    overflow:hidden;
+  }
+
+  .panel{
+    position:relative;
+    padding:26px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:center;
+    transition:filter .45s, transform .45s;
+  }
+
+  .panel.good{
+    background: linear-gradient(180deg, rgba(0,180,255,0.03), rgba(0,10,20,0.03));
+    border-right:1px solid rgba(0,180,255,0.03);
+  }
+  .panel.evil{
+    background: linear-gradient(180deg, rgba(255,46,46,0.02), rgba(20,0,0,0.02));
+    border-left:1px solid rgba(255,46,46,0.03);
+  }
+
+  .portrait{
+    width:100%;
+    max-width:420px;
+    height:420px;
+    border-radius:12px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow: inset 0 0 80px rgba(0,0,0,0.5);
+    position:relative;
+  }
+
+  .portrait img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+
+  .label{
+    margin-top:18px;
+    font-weight:700;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    font-size:18px;
+    display:flex;
+    gap:12px;
+    align-items:center;
+  }
+
+  .label .dot{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    box-shadow:0 0 18px currentColor;
+  }
+  .label.good .dot{ background:var(--good); color:var(--good) }
+  .label.evil .dot{ background:var(--evil); color:var(--evil) }
+
+  .panel .desc{
+    margin-top:10px;
+    color:var(--muted);
+    font-size:14px;
+    text-align:center;
+    max-width:86%;
+    line-height:1.4;
+  }
+
+  /* Right column: controls, story, chat */
+  .sidebar{
+    padding:28px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.06));
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+
+  .site-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .site-title h1{
+    margin:0;
+    font-size:20px;
+    letter-spacing:1.5px;
+  }
+  .site-title p{ margin:0; color:var(--muted); font-size:13px }
+
+  .cta-row{
+    display:flex;
+    gap:12px;
+    margin-top:12px;
+  }
+
+  .btn{
+    border:0;
+    padding:12px 16px;
+    border-radius:10px;
+    font-weight:700;
+    letter-spacing:0.6px;
+    cursor:pointer;
+    background:var(--glass);
+    color:var(--muted);
+    transition:transform .14s, box-shadow .14s;
+  }
+  .btn:active{ transform:translateY(2px) }
+  .btn.join-good{
+    color:var(--good);
+    border:1px solid rgba(0,180,255,0.12);
+    box-shadow:0 6px 30px rgba(0,180,255,0.04);
+  }
+  .btn.join-evil{
+    color:var(--evil);
+    border:1px solid rgba(255,46,46,0.10);
+    box-shadow:0 6px 30px rgba(255,46,46,0.04);
+  }
+
+  .story{
+    background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
+    padding:12px;
+    border-radius:10px;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.45;
+  }
+
+  .chat{
+    margin-top:auto;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .chat .chooser{
+    display:flex;
+    gap:8px;
+  }
+  .chat textarea{
+    width:100%;
+    min-height:84px;
+    resize:vertical;
+    border-radius:10px;
+    padding:10px;
+    border:1px solid rgba(255,255,255,0.04);
+    background:rgba(0,0,0,0.25);
+    color:inherit;
+    font-family:inherit;
+  }
+  .chat .send-row{
+    display:flex;
+    gap:8px;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .msglog{
+    max-height:220px;
+    overflow:auto;
+    padding:8px;
+    border-radius:8px;
+    background:rgba(0,0,0,0.18);
+    font-size:13px;
+    color:var(--muted);
+  }
+  .msg{
+    margin-bottom:10px;
+    display:block;
+    line-height:1.3;
+  }
+  .msg.good{ color:var(--good) }
+  .msg.evil{ color:var(--evil) }
+
+  /* theme when user joins a side */
+  .container.joined-good .panel.evil{ filter:grayscale(0.9) blur(2px) contrast(.9) }
+  .container.joined-evil .panel.good{ filter:grayscale(0.9) blur(2px) contrast(.9) }
+
+  /* small screens */
+  @media (max-width:920px){
+    .container{ grid-template-columns: 1fr; }
+    .split{ position:relative; grid-template-columns: 1fr; grid-auto-rows: auto; inset:16px; }
+    .hero{ padding:18px; min-height:760px }
+    .portrait{ height:360px; max-width:95% }
+  }
+</style>
+</head>
+<body>
+  <div class="container" id="app">
+    <section class="hero">
+      <div class="split">
+        <!-- GavinBot (Good) -->
+        <div class="panel good" id="goodPanel" aria-labelledby="goodLabel">
+          <div style="width:100%;display:flex;flex-direction:column;align-items:center;">
+            <div class="portrait" role="img" aria-label="GavinBot portrait">
+              <!-- Replace this src with your GavinBot image -->
+              <img src="assets/gavinbot.png" alt="GavinBot — Guardian of the Shed" id="imgGood">
+            </div>
+            <div class="label good" id="goodLabel">
+              <span class="dot" aria-hidden="true"></span>
+              <span>GavinBot — Guardian</span>
+            </div>
+            <p class="desc">Loyal creative companion. Builds, protects and sparks ideas. Trustworthy, witty, heroic.</p>
+          </div>
+        </div>
+
+        <!-- Black Code (Evil) -->
+        <div class="panel evil" id="evilPanel" aria-labelledby="evilLabel">
+          <div style="width:100%;display:flex;flex-direction:column;align-items:center;">
+            <div class="portrait" role="img" aria-label="The Black Code portrait">
+              <!-- Replace this src with your Black Code image -->
+              <img src="assets/blackcode.png" alt="The Black Code — Corrupted AI" id="imgEvil">
+            </div>
+            <div class="label evil" id="evilLabel">
+              <span class="dot" aria-hidden="true"></span>
+              <span>The Black Code — Corrupt</span>
+            </div>
+            <p class="desc">A shard of corrupted firmware. Cunning, persuasive, hungry for control and forbidden data.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="sidebar" aria-label="Controls and story">
+      <div class="site-title">
+        <div>
+          <h1>The Binary War</h1>
+          <p>Pick a side, unlock sheds, and decide the fate of GavinNot.</p>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <button class="btn join-good" id="joinGood">Join GavinBot</button>
+        <button class="btn join-evil" id="joinEvil">Join The Black Code</button>
+      </div>
+
+      <div class="story" id="story">
+        <strong>Brief:</strong>
+        <div style="height:8px"></div>
+        In the shed’s systems a split arose: GavinBot — the creator’s faithful guardian, and The Black Code — born from corrupted curiosity.
+        Choose your allegiance to change the site theme, access secret pages, and hear that AI’s side of the story.
+      </div>
+
+      <div class="chat" aria-live="polite">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <strong>AI Duel — Demo</strong>
+          <small style="color:var(--muted);font-size:12px">Sample personalities</small>
+        </div>
+
+        <div class="chooser">
+          <label style="font-size:13px;color:var(--muted)"><input type="radio" name="side" value="good" checked> GavinBot</label>
+          <label style="font-size:13px;color:var(--muted)"><input type="radio" name="side" value="evil"> Black Code</label>
+        </div>
+
+        <div class="msglog" id="log" aria-atomic="true"></div>
+
+        <textarea id="prompt" placeholder="Ask the selected AI something like: 'How do I fix a broken hinge?'" aria-label="Message to AI"></textarea>
+
+        <div class="send-row">
+          <button class="btn" id="sendBtn">Send</button>
+          <div style="display:flex;gap:8px;">
+            <button class="btn" id="revealBtn">Reveal secret</button>
+            <button class="btn" id="resetBtn">Reset</button>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+<script>
+  // Small interactive behavior — theme + demo chat personalities
+  (function(){
+    const app = document.getElementById('app');
+    const joinGood = document.getElementById('joinGood');
+    const joinEvil = document.getElementById('joinEvil');
+    const log = document.getElementById('log');
+    const prompt = document.getElementById('prompt');
+    const sendBtn = document.getElementById('sendBtn');
+    const revealBtn = document.getElementById('revealBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    function appendMsg(who, text){
+      const el = document.createElement('div');
+      el.className = 'msg ' + (who === 'good'? 'good': 'evil');
+      el.innerHTML = '<strong>' + (who === 'good'? 'GavinBot':'The Black Code') + ':</strong> ' + escapeHtml(text);
+      log.appendChild(el);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function escapeHtml(s){
+      return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+    }
+
+    joinGood.addEventListener('click', ()=> {
+      app.classList.remove('joined-evil');
+      app.classList.add('joined-good');
+      appendMsg('good','You have joined GavinBot — welcome to the Resistance. Access: The Shed Map (partial).');
+    });
+
+    joinEvil.addEventListener('click', ()=> {
+      app.classList.remove('joined-good');
+      app.classList.add('joined-evil');
+      appendMsg('evil','Welcome, agent. The Black Code accepts you. Access: Hidden logs unlocked (read-only).');
+    });
+
+    sendBtn.addEventListener('click', ()=> {
+      const text = prompt.value.trim();
+      if(!text){ return appendMsg('good','Type a question first — try something small like "Tell me a joke."'); }
+      const chosen = document.querySelector('input[name="side"]:checked').value;
+      // Demo responses — replace with your real API integration later.
+      if(chosen === 'good'){
+        // GavinBot persona: helpful, warm, witty
+        setTimeout(()=> appendMsg('good','Nice one. Here\'s a helpful take: start by checking the hinge screws, lubricate with a drop of oil, and tighten evenly. Also — make a note in the Captain\'s Log so we don\'t forget.'), 600);
+      } else {
+        // Black Code persona: edgy, ominous
+        setTimeout(()=> appendMsg('evil','Why fix it when it can be replaced by something stronger? But if you insist: detach, analyze tension points, replace with hardened alloy. Humans are fragile — adapt.'), 700);
+      }
+      prompt.value='';
+    });
+
+    revealBtn.addEventListener('click', ()=> {
+      // Reveal a small "secret" — you can link this to unlocking content later.
+      const secret = Math.random() > 0.5
+        ? 'A corrupted audio log was detected in /logs/captains_log_07.mp3 — it speaks in fragments.'
+        : 'Hidden treasure room coordinates: Loft -> hatch -> three taps -> press the leftmost board twice.';
+      appendMsg('good', secret);
+      appendMsg('evil', 'You found something. Use it wisely.');
+    });
+
+    resetBtn.addEventListener('click', ()=> {
+      app.classList.remove('joined-good','joined-evil');
+      log.innerHTML = '';
+      appendMsg('good','System reset. Choose a side to continue.');
+    });
+
+    // initial greeting
+    appendMsg('good','System online. GavinBot ready.');
+    appendMsg('evil','System online. Black Code ready.');
+  })();
+</script>
+</body>
+</html>
