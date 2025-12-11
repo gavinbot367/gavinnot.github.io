@@ -1,0 +1,67 @@
+<div style="
+  background: #030b14;
+  padding: 40px 20px;
+  border-top: 2px solid #00eaff;
+  border-bottom: 2px solid #00eaff;
+  font-family: 'Orbitron', sans-serif;
+  color: #ccefff;
+  text-align: center;
+">
+
+  <h2 style="
+    font-size: 36px;
+    color: #00eaff;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+  ">
+    ✨ THE MAGICAL MERLIN WISH TREE ✨
+  </h2>
+
+  <p style="
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+    font-size: 18px;
+    line-height: 1.6;
+  ">
+    Deep within the neon forests of the GavinNot Realm stands an ancient legend:
+    <strong>The Merlin Wish Tree</strong> — a sentient fusion of nature and forgotten
+    technology. Its roots run through both earth and circuitry, and its glowing
+    eyes hold the memory of a thousand timelines.
+  </p>
+
+  <p style="
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+    font-size: 18px;
+    line-height: 1.6;
+  ">
+    They say the Tree was once a guardian wizard who merged with the last living
+    oak to protect the realm from collapse. Now, it grants wishes to those brave
+    enough to approach it — but only one wish for each traveller, and only if
+    their heart is true.
+  </p>
+
+  <p style="
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+    font-size: 18px;
+    line-height: 1.6;
+  ">
+    When a wish is accepted, the Tree’s circuits ignite with a blue cosmic glow,
+    and a swirling orb forms in its hand — the <strong>Seed of Destiny</strong>.
+    Once released, the seed weaves the wish into reality through mysterious,
+    unpredictable magic. Some say it has reshaped entire futures.
+  </p>
+
+  <p style="
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #67f7ff;
+  ">
+    Many have come. Only a few have been chosen.  
+    <em>What wish will you place before the Merlin Wish Tree?</em>
+  </p>
+
+</div>
