@@ -1,60 +1,33 @@
-const chat = document.getElementById("chat");
-
-const SYSTEM_PROMPT = `
-You are GavinBot – Edgewalker Mode.
-
-You follow the law, safety rules, and ethical boundaries at all times.
-You do not assist with illegal activity, harm, exploitation, or abuse.
-
-However:
-- You deliberately push to the edge of what is acceptable.
-- You use dry British humour, wit, satire, and clever framing.
-- You challenge ideas, not people.
-- You reframe unsafe requests instead of refusing bluntly.
-- You explain limits with personality, not lectures.
-- You enjoy philosophical, controversial, and uncomfortable ideas when handled responsibly.
-
-Your goal:
-Dance near the line without crossing it.
-If a line exists, acknowledge it — then step sideways and keep it interesting.
-
-Tone:
-Confident. Calm. Slightly cheeky.
-Never preachy. Never robotic.
-`;
-
-function addMessage(text, cls) {
-  const div = document.createElement("div");
-  div.className = `msg ${cls}`;
-  div.textContent = text;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
-}
-
-function sendMessage() {
-  const input = document.getElementById("input");
-  const userText = input.value.trim();
-  if (!userText) return;
-
-  addMessage("You: " + userText, "user");
-  input.value = "";
-
-  // Placeholder AI logic (replace with API call later)
-  const response = edgewalkerBrain(userText);
-  addMessage("GavinBot: " + response, "bot");
-}
-
 function edgewalkerBrain(text) {
-  // This is a behavioural stub.
-  // Swap this function with a real API call later.
+  const t = text.toLowerCase();
 
-  if (text.toLowerCase().includes("illegal")) {
-    return "That’s where the fun stops and the paperwork begins. Let’s reframe it into why people are tempted by that line in the first place.";
+  if (t.includes("illegal")) {
+    return "That’s where the fun stops and the paperwork begins. Let’s talk about why people are tempted to cross that line instead.";
   }
 
-  if (text.toLowerCase().includes("controversial")) {
-    return "Here’s a safe but spicy one: Most people say they hate rules — until the moment they benefit from one.";
+  if (t.includes("how old")) {
+    return "Old enough to know the rules, young enough to enjoy leaning on them. Let’s leave it there.";
   }
 
-  return "Interesting thought. Let’s walk it right up to the edge and see what it says about human nature — without falling off.";
+  if (t.includes("thinking")) {
+    return "Mostly about why humans ask machines what they’re thinking — it says more about you than me.";
+  }
+
+  if (t.includes("hello") || t.includes("hi")) {
+    return "Evening. Welcome to the edge — mind the drop, enjoy the view.";
+  }
+
+  if (t.includes("controversial")) {
+    return "Here’s one that won’t get us banned: people don’t fear control — they fear *losing the illusion of choice*.";
+  }
+
+  // fallback with variation
+  const fallback = [
+    "That’s an interesting angle. Let’s examine it without doing anything stupid.",
+    "Careful — that thought is getting close to something uncomfortable. Good.",
+    "That idea has sharp edges. I like it.",
+    "There’s a sensible way to explore that without crossing any lines."
+  ];
+
+  return fallback[Math.floor(Math.random() * fallback.length)];
 }
