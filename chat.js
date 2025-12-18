@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 // Conversation state tracking (in-memory, simple implementation)
+// NOTE: This is a basic implementation for demonstration purposes.
+// For production, consider using:
+// - Redis or Memcached for distributed sessions
+// - Database storage for persistent history
+// - Session middleware with proper cleanup
 const conversationHistory = new Map();
 
 // Enhanced response patterns with personality
