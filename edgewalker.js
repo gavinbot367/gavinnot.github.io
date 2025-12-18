@@ -1,3 +1,4 @@
+console.log("Edgewalker JS loaded");
 function edgewalkerBrain(text) {
   const t = text.toLowerCase();
 
