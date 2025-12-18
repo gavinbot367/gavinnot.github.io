@@ -181,6 +181,12 @@
 </div>
 
 <script>
+  // Configuration constants
+  const TYPING_SPEED_MS = 30; // Speed of character typing animation
+  const TYPING_BASE_DELAY_MS = 800; // Base delay before bot responds
+  const TYPING_RANDOM_DELAY_MS = 400; // Random additional delay for natural feel
+  const WELCOME_MESSAGE_DELAY_MS = 500; // Delay before showing welcome message
+
   const chatLog = document.getElementById('chat-log');
   const chatInput = document.getElementById('chat-input');
   const sendButton = document.getElementById('send-button');
@@ -306,7 +312,7 @@
         } else {
           clearInterval(typingInterval);
         }
-      }, 30); // Speed of typing animation
+      }, TYPING_SPEED_MS);
     } else {
       msgDiv.textContent = text;
       chatLog.appendChild(msgDiv);
@@ -339,7 +345,7 @@
       
       const response = botResponse(message);
       addMessage(response, 'bot', true); // Enable typing animation
-    }, 800 + Math.random() * 400); // Random delay for more natural feel
+    }, TYPING_BASE_DELAY_MS + Math.random() * TYPING_RANDOM_DELAY_MS);
   }
 
   sendButton.addEventListener('click', sendMessage);
@@ -354,7 +360,7 @@
   window.addEventListener('load', () => {
     setTimeout(() => {
       addMessage('Ahoy! 🏴‍☠️ I\'m GavinBot, your AI pirate companion! Ask me about GavinNot, the village, games, or just chat! Type "help" if you need ideas! ✨', 'bot', true);
-    }, 500);
+    }, WELCOME_MESSAGE_DELAY_MS);
   });
 </script>
 
