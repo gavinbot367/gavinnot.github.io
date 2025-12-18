@@ -21,10 +21,38 @@
     border-radius: 12px;
     margin-bottom: 30px;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    animation: float 3s ease-in-out infinite;
   }
   #gavinnot-image:hover {
     transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.6), 0 0 60px rgba(255, 255, 0, 0.4);
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  @keyframes typing {
+    from { opacity: 0.3; }
+    to { opacity: 1; }
+  }
+
+  .typing-indicator {
+    color: #0ff;
+    animation: pulse 1.5s ease-in-out infinite;
+    font-style: italic;
+  }
+
+  .message.bot {
+    animation: typing 0.5s ease-in;
   }
 
   #chat-container {
@@ -97,12 +125,48 @@
   #send-button:hover {
     background-color: #00cccc;
   }
+
+  /* Responsive design improvements */
+  @media (max-width: 768px) {
+    body {
+      padding: 10px;
+    }
+    
+    #gavinnot-image {
+      max-width: 200px;
+      margin-bottom: 20px;
+    }
+    
+    #chat-container {
+      height: 450px;
+      padding: 15px;
+    }
+    
+    #chat-input {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #gavinnot-image {
+      max-width: 150px;
+    }
+    
+    #chat-container {
+      height: 400px;
+      padding: 10px;
+    }
+    
+    .message {
+      font-size: 0.95rem;
+    }
+  }
 </style>
 </head>
 <body>
 
 <!-- GavinNot Image -->
-<img id="gavinnot-image" src="https://gavinnot.com/path-to-your-image.jpg" alt="GavinNot" title="Click to focus chat" />
+<img id="gavinnot-image" src="gavinnot-character-poster.png" alt="GavinNot" title="Click to focus chat" />
 
 <!-- Chat Section -->
 <div id="chat-container">
@@ -117,6 +181,12 @@
 </div>
 
 <script>
+  // Configuration constants
+  const TYPING_SPEED_MS = 30; // Speed of character typing animation
+  const TYPING_BASE_DELAY_MS = 800; // Base delay before bot responds
+  const TYPING_RANDOM_DELAY_MS = 400; // Random additional delay for natural feel
+  const WELCOME_MESSAGE_DELAY_MS = 500; // Delay before showing welcome message
+
   const chatLog = document.getElementById('chat-log');
   const chatInput = document.getElementById('chat-input');
   const sendButton = document.getElementById('send-button');
@@ -133,31 +203,121 @@
     chatInput.focus();
   });
 
-  // Simple chat logic (replace this with your chatbot API or logic)
+  // Enhanced chat logic with more personality and variety
   function botResponse(userText) {
-    // This is a very simple mock response logic.
-    // You can improve this by connecting to a real chatbot backend or AI API.
     userText = userText.toLowerCase();
 
-    if (userText.includes('hello') || userText.includes('hi')) {
-      return 'Hey there! How can I help you today?';
+    // Greetings
+    if (userText.includes('hello') || userText.includes('hi') || userText.includes('hey')) {
+      const greetings = [
+        'Ahoy there! 🏴‍☠️ Ready for some adventure?',
+        'Hey! Welcome to GavinNot\'s world! How can I help?',
+        'Greetings, traveler! What brings you to my digital realm?',
+        'Well hello! Fancy meeting you here! 😊'
+      ];
+      return greetings[Math.floor(Math.random() * greetings.length)];
     }
-    if (userText.includes('how are you')) {
-      return "I'm just a bot, but I'm doing great, thanks!";
+
+    // How are you
+    if (userText.includes('how are you') || userText.includes('how\'re you')) {
+      const statusResponses = [
+        'I\'m functioning at peak cleverness! 🤖✨',
+        'Doing fantastic! Just been tinkering with some new ideas!',
+        'Brilliant, thanks! Ready to chat about anything!',
+        'All systems go! Living my best AI life! 🚀'
+      ];
+      return statusResponses[Math.floor(Math.random() * statusResponses.length)];
     }
-    if (userText.includes('gavinnot')) {
-      return 'GavinNot is your friendly AI assistant!';
+
+    // About GavinNot
+    if (userText.includes('gavinnot') || userText.includes('gavin')) {
+      const gavinResponses = [
+        'GavinNot is a legendary inventor from the Isle of Portland! Built me from spare parts and arcade joysticks! 🎮⚡',
+        'Ah yes, my creator! From cannon castles to cosmic casinos, he\'s built quite the empire!',
+        'GavinNot? That\'s the pirate-inventor extraordinaire who brought me to life! 🏴‍☠️',
+        'The one and only! Master of mayhem, technology, and fish & chips! 🐟🍟'
+      ];
+      return gavinResponses[Math.floor(Math.random() * gavinResponses.length)];
     }
-    return "Sorry, I don't quite understand that yet. Ask me something else?";
+
+    // Village questions
+    if (userText.includes('village') || userText.includes('place')) {
+      return 'Want to explore the village? We\'ve got a pirate ship, karaoke church, casino, and so much more! Check out village.html! 🏡✨';
+    }
+
+    // Games
+    if (userText.includes('game') || userText.includes('play')) {
+      return 'Fancy a game? Try roulette.html for some pirate roulette, or all-games.html to see everything! 🎰🎮';
+    }
+
+    // Technology/AI
+    if (userText.includes('ai') || userText.includes('robot') || userText.includes('tech')) {
+      return 'Ah, a fellow tech enthusiast! I\'m an AI prankster-pirate built in a shed with LEDs and dreams! Visit the Tech Workshop to see more! 🔧💡';
+    }
+
+    // F1
+    if (userText.includes('f1') || userText.includes('racing') || userText.includes('formula')) {
+      return 'Red Bull\'s wings are looking sharp! 🏎️ Check out the F1 Museum in the village for simulators and more!';
+    }
+
+    // Pirates
+    if (userText.includes('pirate') || userText.includes('ship') || userText.includes('treasure')) {
+      return 'Yarr! 🏴‍☠️ Board the pirate ship in the garden for treasure hunts and cannon practice! Permission to cause maximum mayhem?';
+    }
+
+    // Help
+    if (userText.includes('help') || userText.includes('what can you')) {
+      return 'I can chat about GavinNot, the village, games, tech, pirates, and more! Ask me anything! Or just say hi! 😊';
+    }
+
+    // Jokes
+    if (userText.includes('joke') || userText.includes('funny')) {
+      const jokes = [
+        'Why did the pirate go to coding school? To learn the seven Cs! 🏴‍☠️💻',
+        'What do you call a robot pirate? A buccaneer-bot! 🤖⚓',
+        'Why did GavinNot put his chatbot on the ship? For the AI-high seas! 😄',
+        'How does a pirate AI learn? Through machine yearrrning! 🦜'
+      ];
+      return jokes[Math.floor(Math.random() * jokes.length)];
+    }
+
+    // Generic responses with personality
+    const genericResponses = [
+      'Hmm, interesting! Tell me more! 🤔',
+      'That\'s intriguing! I\'m still learning about that. Ask me about the village, games, or pirates!',
+      'Squawk! 🦜 Not quite sure about that one. Try asking about GavinNot, the village, or our adventures!',
+      'Fascinating! I\'m an AI in training. Ask me about pirates, tech, or games and I\'ll show you what I know! 💫',
+      'Arr, you\'ve stumped me there! But I know tons about the village, games, and mayhem! Try those! 🏴‍☠️'
+    ];
+    return genericResponses[Math.floor(Math.random() * genericResponses.length)];
   }
 
-  // Add message to chat log
-  function addMessage(text, sender) {
+  // Add message to chat log with optional typing animation
+  function addMessage(text, sender, animated = false) {
     const msgDiv = document.createElement('div');
     msgDiv.classList.add('message', sender);
-    msgDiv.textContent = text;
-    chatLog.appendChild(msgDiv);
-    chatLog.scrollTop = chatLog.scrollHeight;
+    
+    if (animated && sender === 'bot') {
+      // Simulate character-by-character typing for bot messages
+      let index = 0;
+      msgDiv.textContent = '';
+      chatLog.appendChild(msgDiv);
+      chatLog.scrollTop = chatLog.scrollHeight;
+      
+      const typingInterval = setInterval(() => {
+        if (index < text.length) {
+          msgDiv.textContent += text[index];
+          index++;
+          chatLog.scrollTop = chatLog.scrollHeight;
+        } else {
+          clearInterval(typingInterval);
+        }
+      }, TYPING_SPEED_MS);
+    } else {
+      msgDiv.textContent = text;
+      chatLog.appendChild(msgDiv);
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
   }
 
   // Handle send button click or enter key
@@ -169,11 +329,23 @@
     chatInput.value = '';
     chatInput.style.height = 'auto';
 
-    // Bot reply delay to simulate typing
+    // Show typing indicator
+    const typingDiv = document.createElement('div');
+    typingDiv.classList.add('message', 'bot', 'typing-indicator');
+    typingDiv.textContent = '🤖 GavinBot is thinking...';
+    typingDiv.id = 'typing-indicator';
+    chatLog.appendChild(typingDiv);
+    chatLog.scrollTop = chatLog.scrollHeight;
+
+    // Bot reply delay to simulate thinking
     setTimeout(() => {
+      // Remove typing indicator
+      const indicator = document.getElementById('typing-indicator');
+      if (indicator) indicator.remove();
+      
       const response = botResponse(message);
-      addMessage(response, 'bot');
-    }, 700);
+      addMessage(response, 'bot', true); // Enable typing animation
+    }, TYPING_BASE_DELAY_MS + Math.random() * TYPING_RANDOM_DELAY_MS);
   }
 
   sendButton.addEventListener('click', sendMessage);
@@ -182,6 +354,13 @@
       e.preventDefault();
       sendMessage();
     }
+  });
+
+  // Welcome message on page load
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      addMessage('Ahoy! 🏴‍☠️ I\'m GavinBot, your AI pirate companion! Ask me about GavinNot, the village, games, or just chat! Type "help" if you need ideas! ✨', 'bot', true);
+    }, WELCOME_MESSAGE_DELAY_MS);
   });
 </script>
 
