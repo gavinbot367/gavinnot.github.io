@@ -11,6 +11,47 @@
       font-family: 'Trebuchet MS', Arial, sans-serif;
       margin: 0; min-height:100vh;
     }
+    
+    /* Top Navigation styles */
+    .top-nav {
+      background: rgba(10, 18, 48, 0.95);
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #0ff;
+      box-shadow: 0 2px 10px rgba(0, 255, 255, 0.3);
+    }
+    
+    .nav-brand {
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 1em;
+      flex-wrap: wrap;
+    }
+    
+    .nav-links a {
+      color: #0ff;
+      text-decoration: none;
+      padding: 8px 15px;
+      border: 1px solid #0ff;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+    
+    .nav-links a:hover {
+      background-color: #0ff;
+      color: #000;
+      box-shadow: 0 0 10px #0ff;
+    }
+    
     h1 {
       text-align: center;
       margin: 1.2em 0 0.3em 0;
@@ -70,6 +111,15 @@
       .games-grid{gap:0.7em;}
       .game-card{padding:0.8em 0.5em 1em 0.5em;}
       .game-btn{font-size:0.95em;}
+      .top-nav {
+        flex-direction: column;
+        gap: 0.8em;
+        padding: 1em;
+      }
+      .nav-links a {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+      }
     }
     footer {
       text-align:center;
@@ -81,6 +131,17 @@
   </style>
 </head>
 <body>
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <div class="nav-brand">🎮 Games Arcade</div>
+    <div class="nav-links">
+      <a href="index.html">💬 Chat</a>
+      <a href="landing.html">🌊 Story</a>
+      <a href="village.html">🏡 Village</a>
+      <a href="all-games.html">🎮 Games</a>
+    </div>
+  </nav>
+  
   <h1>100 Fun Games<br>Gavinbot Village Arcade</h1>
   <div class="games-grid">
     <!-- 1. Coin Flip -->
