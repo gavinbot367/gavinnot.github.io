@@ -7,6 +7,54 @@
 <meta name="description" content="Explore The Shedverse — interactive map of GavinNot's shed, GavinBot's Perch, Barney's Yard and more." />
 <style>
   :root{
+  /* Top Navigation styles */
+  .top-nav {
+    width: 100%;
+    background: rgba(10, 18, 48, 0.95);
+    padding: 1em 2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #50e3c2;
+    box-shadow: 0 2px 10px rgba(80, 227, 194, 0.3);
+    margin-bottom: 1em;
+  }
+  .nav-brand {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #50e3c2;
+    text-shadow: 0 0 10px #50e3c2;
+  }
+  .nav-links {
+    display: flex;
+    gap: 0.8em;
+    flex-wrap: wrap;
+  }
+  .nav-links a {
+    color: #50e3c2;
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1px solid #50e3c2;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+  }
+  .nav-links a:hover {
+    background-color: #50e3c2;
+    color: #071129;
+    box-shadow: 0 0 10px #50e3c2;
+  }
+  @media (max-width: 640px) {
+    .top-nav {
+      flex-direction: column;
+      gap: 0.8em;
+      padding: 1em;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      padding: 5px 10px;
+    }
+  }
     --bg:#071129;
     --panel:#0f1724cc;
     --accent: #50e3c2;
@@ -56,6 +104,17 @@
 </style>
 </head>
 <body>
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <div class="nav-brand">🗺️ Treasure Hunt</div>
+    <div class="nav-links">
+      <a href="index.html">💬 Chat</a>
+      <a href="landing.html">🌊 Story</a>
+      <a href="village.html">🏡 Village</a>
+      <a href="all-games.html">🎮 Games</a>
+    </div>
+  </nav>
+  
 <div class="wrap" role="application" aria-label="The Shedverse interactive map">
   <header>
     <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='44'><rect rx='7' width='44' height='44' fill='%2350e3c2'/><text x='50%' y='55%' font-size='18' font-family='Arial' fill='%23001200' text-anchor='middle' dominant-baseline='middle'>G</text></svg>" alt="G logo" style="width:44px;height:44px;border-radius:8px;">

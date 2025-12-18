@@ -52,16 +52,71 @@
 
   .message {
     margin-bottom: 15px;
+    animation: fadeIn 0.3s ease-in;
+    padding: 8px 12px;
+    border-radius: 8px;
+    max-width: 80%;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .message.user {
     text-align: right;
-    color: #ff6;
+    color: #ffe14b;
+    background: rgba(255, 230, 75, 0.1);
+    margin-left: auto;
   }
 
   .message.bot {
     text-align: left;
     color: #0ff;
+    background: rgba(0, 255, 255, 0.1);
+  }
+
+  .message .timestamp {
+    font-size: 0.75em;
+    opacity: 0.6;
+    margin-top: 4px;
+  }
+
+  .typing-indicator {
+    display: none;
+    padding: 10px;
+    color: #0ff;
+    font-style: italic;
+    opacity: 0.7;
+  }
+
+  .typing-indicator.show {
+    display: block;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.9; }
+  }
+
+  .typing-dots span {
+    animation: blink 1.4s infinite;
+    font-size: 1.2em;
+  }
+
+  .typing-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .typing-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes blink {
+    0%, 20% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
   }
 
   #chat-input {
@@ -97,30 +152,113 @@
   #send-button:hover {
     background-color: #00cccc;
   }
+
+  .chat-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .chat-controls button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    background-color: #444;
+    color: #0ff;
+    border: 1px solid #0ff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .chat-controls button:hover {
+    background-color: #555;
+    box-shadow: 0 0 10px #0ff;
+  }
+
+  .header-nav {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .nav-links a {
+    color: #0ff;
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 8px 15px;
+    border: 1px solid #0ff;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+  }
+
+  .nav-links a:hover {
+    background-color: #0ff;
+    color: #000;
+    box-shadow: 0 0 10px #0ff;
+  }
+
+  @media (max-width: 600px) {
+    .message {
+      max-width: 90%;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      padding: 6px 10px;
+      margin: 0 5px;
+    }
+  }
 </style>
 </head>
 <body>
 
+<!-- Navigation Header -->
+<div class="header-nav">
+  <div class="nav-links">
+    <a href="landing.html">🌊 Story</a>
+    <a href="village.html">🏡 Village</a>
+    <a href="all-games.html">🎮 Games</a>
+  </div>
+</div>
+
 <!-- GavinNot Image -->
-<img id="gavinnot-image" src="https://gavinnot.com/path-to-your-image.jpg" alt="GavinNot" title="Click to focus chat" />
+<img id="gavinnot-image" src="gavinbot.png" alt="GavinBot" title="Click to start chatting!" />
 
 <!-- Chat Section -->
 <div id="chat-container">
-  <div id="chat-log"></div>
+  <div id="chat-log">
+    <div class="message bot">Welcome to Gavinbot Village! 🤖⚓ I'm Gavinbot, your friendly AI assistant. How can I help you today?</div>
+  </div>
+  
+  <div class="typing-indicator" id="typing-indicator">
+    <span class="typing-dots">Gavinbot is typing<span>.</span><span>.</span><span>.</span></span>
+  </div>
 
   <textarea
     id="chat-input"
     rows="1"
-    placeholder="Type your message here..."
+    placeholder="Type your message here... (Press Enter to send)"
   ></textarea>
-  <button id="send-button">Send</button>
+  
+  <div class="chat-controls">
+    <button id="send-button">Send Message</button>
+    <button id="clear-button">Clear Chat</button>
+  </div>
 </div>
 
 <script>
   const chatLog = document.getElementById('chat-log');
   const chatInput = document.getElementById('chat-input');
   const sendButton = document.getElementById('send-button');
+  const clearButton = document.getElementById('clear-button');
   const gavinnotImage = document.getElementById('gavinnot-image');
+  const typingIndicator = document.getElementById('typing-indicator');
 
   // Auto-resize textarea on input
   chatInput.addEventListener('input', () => {
@@ -133,31 +271,150 @@
     chatInput.focus();
   });
 
-  // Simple chat logic (replace this with your chatbot API or logic)
-  function botResponse(userText) {
-    // This is a very simple mock response logic.
-    // You can improve this by connecting to a real chatbot backend or AI API.
-    userText = userText.toLowerCase();
-
-    if (userText.includes('hello') || userText.includes('hi')) {
-      return 'Hey there! How can I help you today?';
-    }
-    if (userText.includes('how are you')) {
-      return "I'm just a bot, but I'm doing great, thanks!";
-    }
-    if (userText.includes('gavinnot')) {
-      return 'GavinNot is your friendly AI assistant!';
-    }
-    return "Sorry, I don't quite understand that yet. Ask me something else?";
+  // Get current time formatted
+  function getTimestamp() {
+    const now = new Date();
+    return now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
   }
 
-  // Add message to chat log
+  // Enhanced bot response logic with more patterns
+  function botResponse(userText) {
+    const text = userText.toLowerCase();
+
+    // Greetings
+    if (text.includes('hello') || text.includes('hi') || text.includes('hey') || text.includes('ahoy')) {
+      const greetings = [
+        'Ahoy there, matey! ⚓🤖 How can I help you today?',
+        'Hey! 🏴‍☠️ Welcome to Gavinbot Village! What adventure shall we embark on?',
+        'Greetings, friend! 🤖 Ready to explore some tech, games, or just chat?',
+        'Yo! ⚡ Gavinbot here! What brings you to the village today?'
+      ];
+      return greetings[Math.floor(Math.random() * greetings.length)];
+    }
+
+    // Farewells
+    if (text.includes('bye') || text.includes('goodbye') || text.includes('see you')) {
+      const farewells = [
+        'Fair winds and following seas! ⚓ Come back anytime!',
+        'Until next time, matey! 🏴‍☠️ Stay awesome!',
+        'Catch you later! 🤖 May your code be bug-free!'
+      ];
+      return farewells[Math.floor(Math.random() * farewells.length)];
+    }
+
+    // Gratitude
+    if (text.includes('thank')) {
+      return "You're welcome! 🤖 Happy to help, matey! ⚓";
+    }
+
+    // About Gavinbot
+    if (text.includes('who are you') || text.includes('what are you') || text.includes('gavinbot')) {
+      return "I'm Gavinbot! 🤖 The world's first AI prankster-pirate, created by Gavinnot on the Isle of Portland! I help manage the village and chat with awesome folks like you!";
+    }
+
+    // How are you
+    if (text.includes('how are you') || text.includes('how do you feel')) {
+      return "I'm doing great! 🤖⚡ Running smooth and ready for adventure! How about you?";
+    }
+
+    // Village
+    if (text.includes('village') || text.includes('explore') || text.includes('tour')) {
+      return "Gavinbot Village has it all! 🏡 Pirate ships, casinos, tech labs, F1 museums, and more! Check out <a href='village.html' style='color:#ffe14b;'>the village map</a> to explore!";
+    }
+
+    // Games
+    if (text.includes('game') || text.includes('play') || text.includes('casino')) {
+      return "We've got tons of games! 🎰 Try <a href='roulette.html' style='color:#ffe14b;'>Roulette</a>, <a href='blackjack.html' style='color:#ffe14b;'>Blackjack</a>, or check out <a href='all-games.html' style='color:#ffe14b;'>all games</a>!";
+    }
+
+    // F1
+    if (text.includes('f1') || text.includes('formula') || text.includes('racing')) {
+      return "Red Bull's wings are looking sharp this season! 🏁🍾 The F1 museum in the village has some amazing memorabilia!";
+    }
+
+    // Tech
+    if (text.includes('tech') || text.includes('code') || text.includes('programming') || text.includes('ai')) {
+      return "Technology is my element! 💻⚡ The village has a Tech Workshop and Technology Centre where we build amazing things!";
+    }
+
+    // Help
+    if (text.includes('help') || text.includes('what can you do')) {
+      return "I can tell you about the village 🏡, recommend games 🎮, share stories 📖, or just chat! Try asking about the village, F1, games, tech, or say 'surprise me'! 🎉";
+    }
+
+    // Jokes
+    if (text.includes('joke') || text.includes('funny') || text.includes('laugh')) {
+      const jokes = [
+        "Why did the pirate AI go to school? To improve its ARRRR-tificial intelligence! 🏴‍☠️🤖😄",
+        "What's a robot pirate's favorite variable type? A Boolean - because it's either AARRR or False! 💻😂",
+        "How does a pirate computer greet you? 'Ahoy, World!' 🌊💻",
+        "Why don't pirates make good programmers? Too many bugs in their ship! 🐛⚓😄"
+      ];
+      return jokes[Math.floor(Math.random() * jokes.length)];
+    }
+
+    // Surprise/Easter Eggs
+    if (text.includes('surprise') || text.includes('secret') || text.includes('easter egg')) {
+      const surprises = [
+        "🎉 Secret unlocked! Did you know we have a Weather Control Station? (Used mostly for good!)",
+        "🌟 Fun fact: The pirate ship has a hidden escape slide and VR helm!",
+        "⚡ Easter egg found! Try the Joke Reactor at midnight!",
+        "🚁 Gavinbot has a remote-controlled flying bathtub on the helicopter pad!"
+      ];
+      return surprises[Math.floor(Math.random() * surprises.length)];
+    }
+
+    // Portland/Origin
+    if (text.includes('portland') || text.includes('origin') || text.includes('story') || text.includes('history')) {
+      return "Ah, the Isle of Portland! 🌊 Where it all began with cannon castles and Navy warships! Check out the <a href='landing.html' style='color:#ffe14b;'>epic origin story</a>!";
+    }
+
+    // Fallback
+    const fallbacks = [
+      "Interesting question! 🤔 I'm still learning about that. Try asking about the village, games, or F1!",
+      "Hmm, that's a good one! 💭 How about asking me about Gavinbot Village, our games, or the epic origin story?",
+      "You've got me thinking! 🧠 I'm best at village tours, game recommendations, and tech talk. Want to try those?",
+      "Great question! 🌟 Ask me about the village 🏡, games 🎮, tech 💻, or say 'help' for more options!"
+    ];
+    return fallbacks[Math.floor(Math.random() * fallbacks.length)];
+  }
+
+  // Add message to chat log with timestamp and animation
   function addMessage(text, sender) {
     const msgDiv = document.createElement('div');
     msgDiv.classList.add('message', sender);
-    msgDiv.textContent = text;
+    
+    const textSpan = document.createElement('div');
+    textSpan.innerHTML = text;
+    
+    const timeSpan = document.createElement('div');
+    timeSpan.classList.add('timestamp');
+    timeSpan.textContent = getTimestamp();
+    
+    msgDiv.appendChild(textSpan);
+    msgDiv.appendChild(timeSpan);
+    
     chatLog.appendChild(msgDiv);
-    chatLog.scrollTop = chatLog.scrollHeight;
+    
+    // Smooth scroll to bottom
+    chatLog.scrollTo({
+      top: chatLog.scrollHeight,
+      behavior: 'smooth'
+    });
+  }
+
+  // Show typing indicator
+  function showTypingIndicator() {
+    typingIndicator.classList.add('show');
+    chatLog.scrollTo({
+      top: chatLog.scrollHeight,
+      behavior: 'smooth'
+    });
+  }
+
+  // Hide typing indicator
+  function hideTypingIndicator() {
+    typingIndicator.classList.remove('show');
   }
 
   // Handle send button click or enter key
@@ -169,18 +426,46 @@
     chatInput.value = '';
     chatInput.style.height = 'auto';
 
-    // Bot reply delay to simulate typing
+    // Show typing indicator
+    showTypingIndicator();
+
+    // Bot reply delay to simulate typing (700-1200ms)
+    const delay = 700 + Math.random() * 500;
     setTimeout(() => {
+      hideTypingIndicator();
       const response = botResponse(message);
       addMessage(response, 'bot');
-    }, 700);
+    }, delay);
   }
 
+  // Clear chat history
+  function clearChat() {
+    if (confirm('Clear chat history? This cannot be undone.')) {
+      chatLog.innerHTML = '<div class="message bot">Chat cleared! 🧹 Ready for a fresh start! How can I help you?</div>';
+    }
+  }
+
+  // Event listeners
   sendButton.addEventListener('click', sendMessage);
+  clearButton.addEventListener('click', clearChat);
+  
   chatInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
+    }
+  });
+
+  // Focus on input when page loads
+  window.addEventListener('load', () => {
+    chatInput.focus();
+  });
+
+  // Keyboard shortcut: Ctrl/Cmd + K to clear chat
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      clearChat();
     }
   });
 </script>

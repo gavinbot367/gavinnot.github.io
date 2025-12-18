@@ -1,13 +1,10 @@
-<!DOCTYPE <a href="https://mozartai.app/share/6mnMjx" target="_blank" style="display:inline-block;padding:12px 20px;border:2px solid #0ff;border-radius:6px;font-family:Arial, sans-serif;text-decoration:none;font-weight:bold;letter-spacing:1px;">
-  🎵 LISTEN – “We Built This Life” (Mozart AI)
-</a>
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Gavinnot & Gavinbot: The Epic Origin & Mayhem</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Discover the wild, futuristic, and hilarious saga of Gavinnot & Gavinbot – from Portland’s cannon castles to the cosmic casino and beyond!">
+  <meta name="description" content="Discover the wild, futuristic, and hilarious saga of Gavinnot & Gavinbot - from Portland's cannon castles to the cosmic casino and beyond!">
   <style>
     body {
       margin:0; padding:0;
@@ -16,6 +13,79 @@
       color: #fff;
       min-height:100vh;
       overflow-x:hidden;
+    }
+    
+    /* Navigation styles */
+    .top-nav {
+      background: rgba(10, 18, 48, 0.95);
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #0ff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 255, 255, 0.3);
+    }
+    
+    .nav-brand {
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 1em;
+      flex-wrap: wrap;
+    }
+    
+    .nav-links a {
+      color: #0ff;
+      text-decoration: none;
+      padding: 8px 15px;
+      border: 1px solid #0ff;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+    
+    .nav-links a:hover {
+      background-color: #0ff;
+      color: #000;
+      box-shadow: 0 0 10px #0ff;
+    }
+    
+    .music-link {
+      display: inline-block;
+      padding: 10px 18px;
+      margin: 1em auto;
+      border: 2px solid #ffe14b;
+      border-radius: 8px;
+      color: #ffe14b;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    
+    .music-link:hover {
+      background: #ffe14b;
+      color: #091437;
+      box-shadow: 0 0 15px #ffe14b;
+    }
+    
+    @media (max-width: 700px) {
+      .top-nav {
+        flex-direction: column;
+        gap: 1em;
+        padding: 1em;
+      }
+      .nav-links a {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+      }
     }
     header {
       padding: 2.7em 0 1.2em 0;
@@ -169,9 +239,23 @@
   </style>
 </head>
 <body>
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <div class="nav-brand">🤖 Gavinbot Village</div>
+    <div class="nav-links">
+      <a href="index.html">💬 Chat</a>
+      <a href="landing.html">🌊 Story</a>
+      <a href="village.html">🏡 Village</a>
+      <a href="all-games.html">🎮 Games</a>
+    </div>
+  </nav>
+  
   <header>
     <h1>🌊 Gavinnot & Gavinbot: The Epic Origin & Mayhem</h1>
     <p>From Portland’s cannon castles to cosmic chaos and beyond!</p>
+    <a href="https://mozartai.app/share/6mnMjx" target="_blank" class="music-link">
+      🎵 LISTEN - "We Built This Life" (Mozart AI)
+    </a>
   </header>
   <main>
     <section class="chaos-section">
