@@ -1,168 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Gavinnot & Gavinbot – Edgewalker</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto&display=swap" rel="stylesheet">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GavinNot Chat</title>
 <style>
-body {
-    margin: 0;
-    background: radial-gradient(circle at top, #001f2f, #000);
-    color: #fff;
-    font-family: Roboto, Arial, sans-serif;
-    text-align: center;
-}
-
-/* ---------- HEADER ---------- */
-header {
-    padding: 40px 20px 10px;
-}
-
-header img {
-    width: 200px;
-    max-width: 80%;
-    border-radius: 20px;
-    box-shadow: 0 0 30px #00ffff;
-}
-
-h1 {
-    font-family: Orbitron, sans-serif;
+  body {
+    background-color: #000;
     color: #00ffff;
-    margin: 20px 0 5px;
-    text-shadow: 0 0 15px #00ffff;
-}
+    font-family: 'Orbitron', sans-serif, monospace;
+    margin: 0; padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-/* ---------- CHATBOT ---------- */
-#edgewalker {
-    max-width: 700px;
-    margin: 20px auto 60px;
-    border: 2px solid #00ffff;
-    border-radius: 18px;
-    background: #000;
+  #gavinnot-image {
+    max-width: 300px;
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  #gavinnot-image:hover {
+    transform: scale(1.05);
+  }
+
+  #chat-container {
+    width: 100%;
+    max-width: 900px;
+    background-color: #111;
+    border: 3px solid #00ffff;
+    border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 0 25px #00ffff44;
-}
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+  }
 
-#chat {
-    min-height: 260px;
-    max-height: 400px;
+  #chat-log {
+    flex-grow: 1;
     overflow-y: auto;
     padding: 10px;
-    text-align: left;
-}
-
-.msg {
-    margin-bottom: 12px;
-    line-height: 1.5;
-}
-
-.user {
-    color: #fff;
-}
-
-.bot {
-    color: #39ff14;
-}
-
-/* ---------- INPUT ---------- */
-#input {
-    width: 100%;
-    min-height: 50px;
-    resize: none;
-    padding: 12px;
+    border: 2px solid #00ffff;
     border-radius: 10px;
-    border: none;
-    font-size: 16px;
-    margin-top: 10px;
-    transition: all 0.25s ease;
-}
+    margin-bottom: 15px;
+    background: #000;
+  }
 
-#input:focus {
-    min-height: 120px;
+  .message {
+    margin-bottom: 15px;
+  }
+
+  .message.user {
+    text-align: right;
+    color: #ff6;
+  }
+
+  .message.bot {
+    text-align: left;
+    color: #0ff;
+  }
+
+  #chat-input {
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #00ffff;
+    background: #000;
+    color: #00ffff;
+    resize: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+  }
+
+  #chat-input:focus {
     outline: none;
-    box-shadow: 0 0 12px #00ffff;
-}
+    border-color: #ff00ff;
+    background: #111;
+  }
 
-button {
+  #send-button {
     margin-top: 10px;
-    padding: 12px 26px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    background: #00ffff;
+    padding: 10px 15px;
+    font-size: 1rem;
+    background-color: #00ffff;
     color: #000;
-}
-
-button:hover {
-    background: #39ff14;
-}
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  #send-button:hover {
+    background-color: #00cccc;
+  }
 </style>
 </head>
-
 <body>
 
-<header>
-    <!-- CHANGE IMAGE NAME IF NEEDED -->
-    <img src="gavinnot-&-gavinbot.png" alt="Gavinnot & Gavinbot">
-    <h1>GAVINBOT – EDGEWALKER MODE</h1>
-    <p>Rules respected. Limits tested. Banter encouraged.</p>
-</header>
+<!-- GavinNot Image -->
+<img id="gavinnot-image" src="https://gavinnot.com/path-to-your-image.jpg" alt="GavinNot" title="Click to focus chat" />
 
-<section id="edgewalker">
-    <div id="chat"></div>
+<!-- Chat Section -->
+<div id="chat-container">
+  <div id="chat-log"></div>
 
-    <textarea id="input" placeholder="Say something cheeky… but legal."></textarea>
-    <button onclick="sendMessage()">Send</button>
-</section>
+  <textarea
+    id="chat-input"
+    rows="1"
+    placeholder="Type your message here..."
+  ></textarea>
+  <button id="send-button">Send</button>
+</div>
 
 <script>
-const chat = document.getElementById("chat");
-const input = document.getElementById("input");
+  const chatLog = document.getElementById('chat-log');
+  const chatInput = document.getElementById('chat-input');
+  const sendButton = document.getElementById('send-button');
+  const gavinnotImage = document.getElementById('gavinnot-image');
 
-function addMessage(text, cls) {
-    const div = document.createElement("div");
-    div.className = "msg " + cls;
-    div.textContent = text;
-    chat.appendChild(div);
-    chat.scrollTop = chat.scrollHeight;
-}
+  // Auto-resize textarea on input
+  chatInput.addEventListener('input', () => {
+    chatInput.style.height = 'auto'; // reset
+    chatInput.style.height = chatInput.scrollHeight + 'px';
+  });
 
-function edgewalkerReply(userText) {
-    const replies = [
-        "Careful now… I like that energy 😏",
-        "That’s walking the line — I respect it.",
-        "I can’t break the rules… but I can bend the conversation.",
-        "That’s spicy, but still seaworthy ⚓",
-        "You’re testing the rails — good.",
-        "Fun thought. Let’s push ideas, not laws."
-    ];
-    return replies[Math.floor(Math.random() * replies.length)];
-}
+  // Focus chat input when clicking on image
+  gavinnotImage.addEventListener('click', () => {
+    chatInput.focus();
+  });
 
-function sendMessage() {
-    const text = input.value.trim();
-    if (!text) return;
+  // Simple chat logic (replace this with your chatbot API or logic)
+  function botResponse(userText) {
+    // This is a very simple mock response logic.
+    // You can improve this by connecting to a real chatbot backend or AI API.
+    userText = userText.toLowerCase();
 
-    addMessage("You: " + text, "user");
-    input.value = "";
-
-    setTimeout(() => {
-        addMessage("Gavinbot: " + edgewalkerReply(text), "bot");
-    }, 400);
-}
-
-/* ENTER KEY SUPPORT */
-input.addEventListener("keydown", e => {
-    if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
+    if (userText.includes('hello') || userText.includes('hi')) {
+      return 'Hey there! How can I help you today?';
     }
-});
+    if (userText.includes('how are you')) {
+      return "I'm just a bot, but I'm doing great, thanks!";
+    }
+    if (userText.includes('gavinnot')) {
+      return 'GavinNot is your friendly AI assistant!';
+    }
+    return "Sorry, I don't quite understand that yet. Ask me something else?";
+  }
+
+  // Add message to chat log
+  function addMessage(text, sender) {
+    const msgDiv = document.createElement('div');
+    msgDiv.classList.add('message', sender);
+    msgDiv.textContent = text;
+    chatLog.appendChild(msgDiv);
+    chatLog.scrollTop = chatLog.scrollHeight;
+  }
+
+  // Handle send button click or enter key
+  function sendMessage() {
+    const message = chatInput.value.trim();
+    if (!message) return;
+
+    addMessage(message, 'user');
+    chatInput.value = '';
+    chatInput.style.height = 'auto';
+
+    // Bot reply delay to simulate typing
+    setTimeout(() => {
+      const response = botResponse(message);
+      addMessage(response, 'bot');
+    }, 700);
+  }
+
+  sendButton.addEventListener('click', sendMessage);
+  chatInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
 </script>
 
 </body>
