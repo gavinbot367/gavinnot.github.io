@@ -3,154 +3,154 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GavinBot Chatbot</title>
+  <title>GavinBot - Interactive Chat</title>
+
   <style>
-    /* Base styles */
+    /* General Style Setup */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: #121212;
-      color: #ffffff;
+      background: linear-gradient(120deg, #1e88e5, #1565c0);
+      color: #fff;
+    }
+    .chat-container {
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       min-height: 100vh;
     }
-    /* Header styles */
     header {
+      background-color: #0d47a1;
+      padding: 15px;
       width: 100%;
-      padding: 1rem;
-      background: #1e88e5;
-      color: #ffffff;
       text-align: center;
-      font-size: 2rem;
+      font-size: 24px;
       font-weight: bold;
     }
-    /* Chat container styles */
-    .chat-container {
-      max-width: 500px;
-      width: 100%;
-      background: #292b2f;
-      border-radius: 8px;
-      padding: 1rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    .chat-box {
+      display: flex;
+      flex-direction: column;
+      max-width: 400px;
+      width: 80%;
+      background: white;
+      color: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     .messages {
-      height: 300px;
       overflow-y: auto;
+      height: 300px;
       padding: 10px;
-      border: 2px solid #424242;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-      background-color: #343a40;
-    }
-    /* Message bubbles */
-    .message {
-      display: block;
-      padding: 8px 12px;
-      border-radius: 16px;
-      margin-bottom: 10px;
-      max-width: 80%;
-      word-break: break-word;
-    }
-    .message.user {
-      background-color: #1e88e5;
-      color: #ffffff;
-      align-self: flex-end;
-      margin-left: auto;
-    }
-    .message.bot {
-      background-color: #616161;
-      color: #ffffff;
-      align-self: flex-start;
-      margin-right: auto;
-    }
-    /* Form styles */
-    .chat-input {
+      background: #f2f2f2;
       display: flex;
+      flex-direction: column;
       gap: 10px;
     }
-    input[type="text"] {
-      flex-grow: 1;
+    .message {
+      max-width: calc(100% - 40px);
       padding: 10px;
-      border: 1px solid #424242;
-      border-radius: 4px;
-      background-color: #292b2f;
-      color: #ffffff;
+      border-radius: 15px;
+      font-size: 14px;
+      margin-bottom: 5px;
     }
-    button {
+    .message.user {
+      align-self: flex-end;
+      background-color: #1e88e5;
+      color: white;
+    }
+    .message.bot {
+      align-self: flex-start;
+      background-color: #e0e0e0;
+      color: #424242;
+    }
+    .input-area {
+      display: flex;
+      gap: 5px;
+      padding: 10px;
+      background: #1565c0;
+    }
+    input[type="text"] {
+      flex: 1;
       padding: 10px;
       border: none;
-      border-radius: 4px;
-      background-color: #1e88e5;
-      color: #ffffff;
-      font-weight: bold;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      background: #1e88e5;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background 0.3s;
     }
     button:hover {
-      background-color: #1565c0;
+      background: #0d47a1;
     }
   </style>
 </head>
 <body>
-  <header>GavinBot - Next-gen Chatbot</header>
-  <div class="chat-container">
-    <div class="messages" id="messages"></div>
-    <form class="chat-input" id="chat-form">
-      <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off" />
-      <button type="submit">Send</button>
-    </form>
+
+<header>
+  GavinBot - Your Assistant
+</header>
+<div class="chat-container">
+  <div class="chat-box">
+    <div class="messages" id="messageContainer"></div>
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Type your message here..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
   </div>
+</div>
 
-  <script>
-    // Simulated chatbot backend responses
-    const botResponses = {
-      default: "I didn't quite catch that, but I'm here to help! 😊",
-      greetings: "Hello there! How can I assist you today?",
-      weather: "It looks like great weather! What's your favorite season?",
-      goodbye: "Goodbye! Have a wonderful day!",
-    };
+<script>
+  // Chatbot logic
+  const messagesContainer = document.getElementById("messageContainer");
 
-    function getBotResponse(userMessage) {
-      if (/hello|hi|hey/i.test(userMessage)) return botResponses.greetings;
-      if (/weather|forecast/i.test(userMessage)) return botResponses.weather;
-      if (/bye|goodbye/i.test(userMessage)) return botResponses.goodbye;
-      return botResponses.default;
+  function displayMessage(content, className) {
+    const messageDiv = document.createElement("div");
+    messageDiv.className = `message ${className}`;
+    messageDiv.textContent = content;
+    messagesContainer.appendChild(messageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  function getBotResponse(userText) {
+    const lowerCaseText = userText.toLowerCase();
+    if (lowerCaseText.includes("hello") || lowerCaseText.includes("hi")) {
+      return "Hello! How can I assist you today?";
+    } else if (lowerCaseText.includes("weather")) {
+      return "I can't provide weather updates yet, but I'm learning!";
+    } else if (lowerCaseText.includes("bye")) {
+      return "Goodbye! Have a great day!";
+    } else {
+      return "I'm not sure how to respond to that. Can you ask something else?";
     }
+  }
 
-    // Chatbot interaction logic
-    const messagesContainer = document.getElementById("messages");
-    const chatForm = document.getElementById("chat-form");
-    const userInput = document.getElementById("user-input");
+  function sendMessage() {
+    const userInput = document.getElementById("userInput");
+    const userText = userInput.value.trim();
+    if (!userText) return;
 
-    chatForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const message = userInput.value.trim();
-      if (!message) return;
+    // Display user's message
+    displayMessage(userText, "user");
 
-      // Display user message
-      const userMessageElement = document.createElement("div");
-      userMessageElement.className = "message user";
-      userMessageElement.textContent = message;
-      messagesContainer.appendChild(userMessageElement);
+    // Generate and display bot response
+    const botResponse = getBotResponse(userText);
+    setTimeout(() => {
+      displayMessage(botResponse, "bot");
+    }, 1000); // Simulate chatbot thinking delay
+    
+    userInput.value = "";
+  }
+</script>
 
-      // Get bot response
-      const botMessage = getBotResponse(message);
-
-      // Display bot message after delay
-      setTimeout(() => {
-        const botMessageElement = document.createElement("div");
-        botMessageElement.className = "message bot";
-        botMessageElement.textContent = botMessage;
-        messagesContainer.appendChild(botMessageElement);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight; // Auto-scroll
-      }, 1000);
-
-      userInput.value = ""; // Clear user input
-    });
-  </script>
 </body>
 </html>
