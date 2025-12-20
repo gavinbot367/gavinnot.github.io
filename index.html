@@ -144,7 +144,7 @@
   function botResponse(userText) {
     userText = userText.toLowerCase();
 
-    if (/hello|hi|hey/i.test(userText)) {
+    if (/hello|hi|hey/.test(userText)) {
       return 'Hello there! How can I assist you today?';
     }
     if (userText.includes('how are you')) {
@@ -153,10 +153,10 @@
     if (userText.includes('gavinnot')) {
       return 'GavinNot is your friendly AI assistant!';
     }
-    if (/weather|forecast/i.test(userText)) {
+    if (/weather|forecast/.test(userText)) {
       return "It looks like great weather! What's your favorite season?";
     }
-    if (/bye|goodbye/i.test(userText)) {
+    if (/bye|goodbye/.test(userText)) {
       return 'Goodbye! Have a wonderful day!';
     }
     return "I didn't quite catch that, but I'm here to help! 😊";
