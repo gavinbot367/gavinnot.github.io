@@ -1,73 +1,156 @@
-# Copilot Instructions for gavinnot.github.io
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GavinBot Chatbot</title>
+  <style>
+    /* Base styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #121212;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    /* Header styles */
+    header {
+      width: 100%;
+      padding: 1rem;
+      background: #1e88e5;
+      color: #ffffff;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    /* Chat container styles */
+    .chat-container {
+      max-width: 500px;
+      width: 100%;
+      background: #292b2f;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .messages {
+      height: 300px;
+      overflow-y: auto;
+      padding: 10px;
+      border: 2px solid #424242;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      background-color: #343a40;
+    }
+    /* Message bubbles */
+    .message {
+      display: block;
+      padding: 8px 12px;
+      border-radius: 16px;
+      margin-bottom: 10px;
+      max-width: 80%;
+      word-break: break-word;
+    }
+    .message.user {
+      background-color: #1e88e5;
+      color: #ffffff;
+      align-self: flex-end;
+      margin-left: auto;
+    }
+    .message.bot {
+      background-color: #616161;
+      color: #ffffff;
+      align-self: flex-start;
+      margin-right: auto;
+    }
+    /* Form styles */
+    .chat-input {
+      display: flex;
+      gap: 10px;
+    }
+    input[type="text"] {
+      flex-grow: 1;
+      padding: 10px;
+      border: 1px solid #424242;
+      border-radius: 4px;
+      background-color: #292b2f;
+      color: #ffffff;
+    }
+    button {
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      background-color: #1e88e5;
+      color: #ffffff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #1565c0;
+    }
+  </style>
+</head>
+<body>
+  <header>GavinBot - Next-gen Chatbot</header>
+  <div class="chat-container">
+    <div class="messages" id="messages"></div>
+    <form class="chat-input" id="chat-form">
+      <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off" />
+      <button type="submit">Send</button>
+    </form>
+  </div>
 
-## Project Overview
-This is a GitHub Pages website featuring interactive games and experiences centered around the "GavinNot" character universe. The site includes browser-based games (blackjack, roulette, flappy bird, treasure map), character assets, and a Node.js backend for chat functionality.
+  <script>
+    // Simulated chatbot backend responses
+    const botResponses = {
+      default: "I didn't quite catch that, but I'm here to help! 😊",
+      greetings: "Hello there! How can I assist you today?",
+      weather: "It looks like great weather! What's your favorite season?",
+      goodbye: "Goodbye! Have a wonderful day!",
+    };
 
-## Project Structure
-- **HTML Files**: Static pages for games and interactive experiences
-  - `index.html` - Main chat interface
-  - `landing.html` - Landing page
-  - `village.html` - Village exploration
-  - Game files: `blackjack.html`, `roulette.html`, `flappy-bird.html`, `treasure-map.html`, etc.
-- **JavaScript Files**: 
-  - `server.js` - Express backend server
-  - `chat.js` - Chat API route module
-  - `edgewalker.js` - Game logic
-- **Assets**: PNG images and MP4 videos for characters and scenes
-- **Backend**: Node.js/Express server with CORS support
+    function getBotResponse(userMessage) {
+      if (/hello|hi|hey/i.test(userMessage)) return botResponses.greetings;
+      if (/weather|forecast/i.test(userMessage)) return botResponses.weather;
+      if (/bye|goodbye/i.test(userMessage)) return botResponses.goodbye;
+      return botResponses.default;
+    }
 
-## Technology Stack
-- Frontend: Vanilla HTML, CSS, JavaScript
-- Backend: Node.js with Express
-- Dependencies: express, cors
-- Hosting: GitHub Pages
+    // Chatbot interaction logic
+    const messagesContainer = document.getElementById("messages");
+    const chatForm = document.getElementById("chat-form");
+    const userInput = document.getElementById("user-input");
 
-## Development Guidelines
+    chatForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const message = userInput.value.trim();
+      if (!message) return;
 
-### Code Style
-- Use 2 spaces for indentation in JavaScript files
-- Follow vanilla JavaScript conventions for frontend code
-- Keep inline styles within HTML files where already established
-- Use cyan/turquoise (`#00ffff`) as the primary theme color
-- Maintain dark theme aesthetic (black backgrounds)
+      // Display user message
+      const userMessageElement = document.createElement("div");
+      userMessageElement.className = "message user";
+      userMessageElement.textContent = message;
+      messagesContainer.appendChild(userMessageElement);
 
-### Backend Development
-- Express server runs on port 3001 (or PORT env variable)
-- Use CORS middleware for all API endpoints
-- API routes should be prefixed with `/api/`
+      // Get bot response
+      const botMessage = getBotResponse(message);
 
-### Frontend Development
-- Games and interactive elements are self-contained in individual HTML files
-- Use inline styles and scripts for simplicity (following existing pattern)
-- Ensure mobile responsiveness with viewport meta tags
-- Maintain consistent visual theme across all pages
+      // Display bot message after delay
+      setTimeout(() => {
+        const botMessageElement = document.createElement("div");
+        botMessageElement.className = "message bot";
+        botMessageElement.textContent = botMessage;
+        messagesContainer.appendChild(botMessageElement);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight; // Auto-scroll
+      }, 1000);
 
-### Adding New Features
-- New games should be standalone HTML files
-- Include appropriate links from main pages (landing.html, all-games.html)
-- Use existing character assets where appropriate
-- Keep the cyberpunk/retro aesthetic consistent
-
-## Running the Project
-
-### Backend Server
-```bash
-npm install
-npm start
-```
-Server will run on http://localhost:3001
-
-### Frontend
-- Open HTML files directly in browser, or
-- Serve via GitHub Pages at https://gavinnot.com/
-
-## Testing
-- Test games and interactive elements in multiple browsers
-- Verify backend API endpoints respond correctly
-- Ensure mobile responsiveness
-
-## Important Notes
-- This is a creative/entertainment project with a unique character universe
-- Maintain the fun, quirky tone of the existing content
-- Asset files (PNG, MP4) are part of the storytelling experience
-- CNAME file should not be modified (domain configuration)
+      userInput.value = ""; // Clear user input
+    });
+  </script>
+</body>
+</html>
