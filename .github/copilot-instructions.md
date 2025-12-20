@@ -11,7 +11,7 @@ This is a GitHub Pages website featuring interactive games and experiences cente
   - Game files: `blackjack.html`, `roulette.html`, `flappy-bird.html`, `treasure-map.html`, etc.
 - **JavaScript Files**: 
   - `server.js` - Express backend server
-  - `chat.js` - Chat functionality
+  - `chat.js` - Chat API route module
   - `edgewalker.js` - Game logic
 - **Assets**: PNG images and MP4 videos for characters and scenes
 - **Backend**: Node.js/Express server with CORS support
@@ -59,7 +59,7 @@ Server will run on http://localhost:3001
 
 ### Frontend
 - Open HTML files directly in browser, or
-- Serve via GitHub Pages at https://gavinbot367.github.io/
+- Serve via GitHub Pages at https://gavinnot.com/
 
 ## Testing
 - Test games and interactive elements in multiple browsers
