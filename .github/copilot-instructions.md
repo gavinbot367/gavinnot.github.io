@@ -25,7 +25,7 @@ This is a GitHub Pages website featuring interactive games and experiences cente
 ## Development Guidelines
 
 ### Code Style
-- Use consistent indentation (2 spaces based on existing code)
+- Use 2 spaces for indentation in JavaScript files
 - Follow vanilla JavaScript conventions for frontend code
 - Keep inline styles within HTML files where already established
 - Use cyan/turquoise (`#00ffff`) as the primary theme color
