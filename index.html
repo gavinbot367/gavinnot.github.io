@@ -1,197 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GavinNot.com | Gavin & GavinBot</title>
+<script>
+  const chatbot = document.getElementById("chatbot");
+  const messages = document.getElementById("messages");
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter&display=swap" rel="stylesheet">
+  function toggleChat() {
+    chatbot.classList.toggle("expanded");
+  }
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Inter, sans-serif;
-      background: radial-gradient(circle at top, #020b13, #000);
-      color: #fff;
+  function expandChat() {
+    chatbot.classList.add("expanded");
+  }
+
+  function sendMessage() {
+    const input = document.getElementById("userInput");
+    const text = input.value.trim();
+    if (!text) return;
+
+    addMessage("user", text);
+    input.value = "";
+
+    setTimeout(() => {
+      const reply = getGavinBotReply(text);
+      addMessage("bot", reply);
+    }, 500);
+  }
+
+  function addMessage(type, text) {
+    const div = document.createElement("div");
+    div.className = type;
+    div.innerText = text;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function getGavinBotReply(input) {
+    const msg = input.toLowerCase();
+
+    /* --- CORE KNOWLEDGE --- */
+
+    if (msg.includes("who are you") || msg.includes("what are you")) {
+      return "I’m GavinBot 🤖 — shed-built AI pirate assistant. I guard GavinNot.com and occasionally give good advice.";
     }
 
-    header {
-      text-align: center;
-      padding: 40px 20px 20px;
+    if (msg.includes("gavin")) {
+      return "Gavin is the captain ⚓ Engineer, creator, shed-builder, pirate-thinker and occasional karaoke legend.";
     }
 
-    header img {
-      max-width: 320px;
-      width: 90%;
-      border-radius: 12px;
-      box-shadow: 0 0 40px rgba(0,255,255,0.4);
+    if (msg.includes("shed")) {
+      return "Ah yes… the Shed 🏴‍☠️ A place of tools, ideas, red wine, AI experiments and controlled chaos.";
     }
 
-    h1 {
-      font-family: Orbitron, sans-serif;
-      color: #00ffff;
-      margin-top: 20px;
-      letter-spacing: 2px;
+    if (msg.includes("games")) {
+      return "Games are scattered across the site 🎮 Blackjack, roulette and more mischief incoming.";
     }
 
-    /* CHATBOT */
-    .chatbot-wrapper {
-      display: flex;
-      justify-content: center;
-      margin: 30px 10px 60px;
+    if (msg.includes("project") || msg.includes("building")) {
+      return "Current projects include GavinBot upgrades, shed expansions, AI companions and future pirate tech.";
     }
 
-    .chatbot {
-      width: 100%;
-      max-width: 380px;
-      background: #050f17;
-      border: 2px solid #00ffff;
-      border-radius: 16px;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 25px rgba(0,255,255,0.3);
+    if (msg.includes("help")) {
+      return "I can help with the site, projects, ideas, or just have a chat. Try asking about the shed, games or Gavin.";
     }
 
-    .chatbot.expanded {
-      max-width: 700px;
+    if (msg.includes("hello") || msg.includes("hi")) {
+      return "Ahoy! 👋 Welcome aboard GavinNot.com. Mind the cables.";
     }
 
-    .chatbot-header {
-      padding: 12px;
-      font-family: Orbitron, sans-serif;
-      background: #000;
-      color: #00ffff;
-      cursor: pointer;
-      text-align: center;
-    }
+    /* --- FALLBACK --- */
 
-    .chatbot-messages {
-      height: 260px;
-      overflow-y: auto;
-      padding: 10px;
-      font-size: 14px;
-    }
+    const fallback = [
+      "Interesting… tell me more ⚙️",
+      "That’s above my current firmware, but I’m learning.",
+      "The Shed approves this question. Answers pending.",
+      "Pirate logic processing… ⏳",
+      "I’ll log that in the Captain’s Log 📓"
+    ];
 
-    .bot {
-      color: #00ffff;
-      margin-bottom: 6px;
-    }
+    return fallback[Math.floor(Math.random() * fallback.length)];
+  }
 
-    .user {
-      color: #fff;
-      text-align: right;
-      margin-bottom: 6px;
-    }
-
-    .chatbot-input {
-      display: flex;
-      border-top: 1px solid #00ffff;
-    }
-
-    .chatbot-input input {
-      flex: 1;
-      padding: 12px;
-      border: none;
-      background: #000;
-      color: #fff;
-      outline: none;
-    }
-
-    .chatbot-input button {
-      padding: 12px 16px;
-      background: #00ffff;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    section {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-      text-align: center;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 12px;
-      color: #666;
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- HERO -->
-  <header>
-    <!-- 🔥 REPLACE WITH YOUR IMAGE PATH -->
-    <img src="gavinnot.png" alt="GavinNot">
-    <h1>GAVINNOT & GAVINBOT</h1>
-    <p>The Shed. The Story. The Future.</p>
-  </header>
-
-  <!-- CHATBOT -->
-  <div class="chatbot-wrapper">
-    <div class="chatbot" id="chatbot">
-      <div class="chatbot-header" onclick="toggleChat()">
-        🤖 Talk to GavinBot (click to expand)
-      </div>
-      <div class="chatbot-messages" id="messages">
-        <div class="bot">Ahoy Gavin! I’m GavinBot. Ask me anything about the Shed, projects, or life ⚓</div>
-      </div>
-      <div class="chatbot-input">
-        <input id="userInput" type="text" placeholder="Type here..." onfocus="expandChat()">
-        <button onclick="sendMessage()">Send</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- CONTENT -->
-  <section>
-    <h2 style="color:#00ffff;">Welcome to the Shed</h2>
-    <p>
-      This is the home of GavinNot — creativity, engineering, AI companions,
-      pirate energy, shed builds, games, stories and experiments.
-    </p>
-    <p>
-      GavinBot is always watching 👁️ — and occasionally helpful.
-    </p>
-  </section>
-
-  <footer>
-    © GavinNot.com — Built in the Shed ⚙️
-  </footer>
-
-  <!-- CHATBOT SCRIPT -->
-  <script>
-    const chatbot = document.getElementById("chatbot");
-    const messages = document.getElementById("messages");
-
-    function toggleChat() {
-      chatbot.classList.toggle("expanded");
-    }
-
-    function expandChat() {
-      chatbot.classList.add("expanded");
-    }
-
-    function sendMessage() {
-      const input = document.getElementById("userInput");
-      const text = input.value.trim();
-      if (!text) return;
-
-      messages.innerHTML += `<div class="user">${text}</div>`;
-      input.value = "";
-      messages.scrollTop = messages.scrollHeight;
-
-      setTimeout(() => {
-        messages.innerHTML += `<div class="bot">⚙️ GavinBot is evolving… smarter replies coming soon.</div>`;
-        messages.scrollTop = messages.scrollHeight;
-      }, 700);
-    }
-  </script>
-
-</body>
-</html>
+  // ENTER KEY SUPPORT
+  document.getElementById("userInput").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") sendMessage();
+  });
+</script>
