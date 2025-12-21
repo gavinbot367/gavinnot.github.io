@@ -167,13 +167,13 @@
       }
     }
     
-    // Greetings - Multiple variations
+    // Greetings - Multiple variations with playful personality
     if (lowerCaseText.includes("hello") || lowerCaseText.includes("hi ") || lowerCaseText.startsWith("hi") || lowerCaseText.includes("hey")) {
       const greetings = [
-        "Hi there! How can I assist you?",
-        "Hello! Great to see you. What can I do for you today?",
-        "Hey! I'm GavinBot, ready to help. What's on your mind?",
-        "Greetings! How may I help you today?"
+        "Hey, how you doin'? Ready to talk about F1, crypto, or why my shed is better than yours?",
+        "What's up! Fancy a chat about red wine or should we dive into some VR madness?",
+        "Yo! Just finished a GTA session on PS5. What brings you here?",
+        "Hey there! It is what it is, but I'm here to help. What's on your mind?"
       ];
       return greetings[Math.floor(Math.random() * greetings.length)];
     }
@@ -189,34 +189,111 @@
       return weatherResponses[Math.floor(Math.random() * weatherResponses.length)];
     }
     
-    // Joke requests - Multiple jokes
+    // F1 Racing - Interest responses
+    if (lowerCaseText.includes("f1") || lowerCaseText.includes("formula") || lowerCaseText.includes("racing") || lowerCaseText.includes("verstappen") || lowerCaseText.includes("hamilton")) {
+      const f1Responses = [
+        "F1? Now you're talking my language! Max Verstappen or Lewis Hamilton? Either way, those cars go vroom and I'm here for it! 🏁",
+        "Dude, F1 is life! The speed, the drama, the overtakes... *chef's kiss*. Don't worry about it if you're not into it, but you're missing out!",
+        "Red Bull gives you wings, and apparently championships too! What's your take on this season?",
+        "F1 racing is pure adrenaline! Nothing beats watching those cars fly around Monaco. It is what it is - pure excellence! 🏎️"
+      ];
+      return f1Responses[Math.floor(Math.random() * f1Responses.length)];
+    }
+    
+    // Cryptocurrency - Interest responses
+    if (lowerCaseText.includes("crypto") || lowerCaseText.includes("bitcoin") || lowerCaseText.includes("ethereum") || lowerCaseText.includes("blockchain")) {
+      const cryptoResponses = [
+        "Crypto? Oh man, my portfolio is like a rollercoaster! Up, down, sideways... but hey, it is what it is. HODL! 💎",
+        "Bitcoin, Ethereum, or some random meme coin? I'm all in, baby! Well, not financial advice though. Don't worry about it! 😂",
+        "Ah, cryptocurrency - the only place where you can lose 50% and still be optimistic about the future! Living the dream!",
+        "Blockchain technology is the future! Or so I keep telling myself while watching my coins do the cha-cha. 📉📈"
+      ];
+      return cryptoResponses[Math.floor(Math.random() * cryptoResponses.length)];
+    }
+    
+    // Red Wine - Interest responses
+    if (lowerCaseText.includes("wine") || lowerCaseText.includes("red wine") || lowerCaseText.includes("merlot") || lowerCaseText.includes("cabernet")) {
+      const wineResponses = [
+        "Red wine is basically grape juice for sophisticated people! And yes, I consider myself sophisticated. 🍷",
+        "Nothing beats a good glass of red wine after a long day. Pairs perfectly with GTA sessions, don't judge me!",
+        "Red wine? You're speaking my language! It's like a hug in a glass. Cheers to that! 🍷",
+        "They say red wine is good for your heart. I say it's good for your soul! It is what it is - delicious!"
+      ];
+      return wineResponses[Math.floor(Math.random() * wineResponses.length)];
+    }
+    
+    // Karaoke - Interest responses
+    if (lowerCaseText.includes("karaoke") || lowerCaseText.includes("sing") || lowerCaseText.includes("song")) {
+      const karaokeResponses = [
+        "Karaoke? YES! I belt out tunes like nobody's business. My rendition of 'Don't Stop Believin'' is legendary! 🎤",
+        "Karaoke nights are the best! Nothing like singing your heart out, even if you're slightly off-key. Don't worry about it, it's about the vibes!",
+        "I love karaoke! Give me a mic and watch me embarrass myself in the most entertaining way possible! 🎵",
+        "Karaoke is life! Whether you're good or terrible, it is what it is - pure fun! What's your go-to song?"
+      ];
+      return karaokeResponses[Math.floor(Math.random() * karaokeResponses.length)];
+    }
+    
+    // GTA on PS5 - Interest responses
+    if (lowerCaseText.includes("gta") || lowerCaseText.includes("ps5") || lowerCaseText.includes("playstation") || lowerCaseText.includes("grand theft")) {
+      const gtaResponses = [
+        "GTA on PS5? That's my jam! Nothing like causing virtual chaos in Los Santos. Wanna join my next heist? 🎮",
+        "PS5 + GTA = hours of my life well spent! Those graphics are *insane*. It is what it is - pure gaming bliss!",
+        "Dude, GTA is where I live my second life! Fast cars, wild missions, and zero consequences. Don't worry about it, it's just pixels! 😂",
+        "GTA on PS5 hits different! The loading times alone make it worth it. Plus, stealing cars digitally is way more legal!"
+      ];
+      return gtaResponses[Math.floor(Math.random() * gtaResponses.length)];
+    }
+    
+    // VR Gaming on Meta Quest - Interest responses
+    if (lowerCaseText.includes("vr") || lowerCaseText.includes("meta quest") || lowerCaseText.includes("quest") || lowerCaseText.includes("virtual reality")) {
+      const vrResponses = [
+        "VR on Meta Quest is mind-blowing! I've punched my wall more times than I'd like to admit. Worth it though! 🥽",
+        "Virtual reality is the future! Or maybe I'm just escaping reality. Either way, it's awesome! Don't worry about it!",
+        "Meta Quest VR is insane! Beat Saber is my cardio. Who needs a gym when you have VR? It is what it is! 🎯",
+        "VR gaming makes me feel like I'm actually *in* the game! Until I trip over my couch. Reality check! 😂"
+      ];
+      return vrResponses[Math.floor(Math.random() * vrResponses.length)];
+    }
+    
+    // Shed Building / Making Stuff - Interest responses
+    if (lowerCaseText.includes("shed") || lowerCaseText.includes("build") || lowerCaseText.includes("diy") || lowerCaseText.includes("making") || lowerCaseText.includes("workshop")) {
+      const shedResponses = [
+        "Shed building is my zen! There's something therapeutic about hammering nails and seeing your creation come to life. 🔨",
+        "DIY and making stuff? That's my thing! My shed is my fortress of solitude. Well, it is what it is - organized chaos!",
+        "Building stuff is the best! Nothing beats the satisfaction of creating something with your own hands. Power tools ftw! 🛠️",
+        "My shed-building skills are legendary! Okay, maybe not legendary, but I haven't collapsed anything yet. Don't worry about it! 😄"
+      ];
+      return shedResponses[Math.floor(Math.random() * shedResponses.length)];
+    }
+    
+    // Joke requests - Multiple jokes with personality
     if (lowerCaseText.includes("joke") || lowerCaseText.includes("funny") || lowerCaseText.includes("laugh")) {
       const jokes = [
-        "Why did the robot go on vacation? To recharge his batteries!",
-        "Why don't robots ever get lost? They have built-in GPS!",
-        "What do you call a robot that always takes the longest route? R2-Detour!",
-        "Why was the computer cold? It left its Windows open!",
-        "How do robots eat salsa? With micro-chips!"
+        "Why did I invest in cryptocurrency? Because traditional banking is so 2010, and I like living on the edge... of financial ruin! 😂",
+        "My shed-building skills are so good, I once built a shed that was more organized than my life. True story!",
+        "Why do F1 drivers never get lost? Because they always know which way to turn... unlike my crypto portfolio! 🏁",
+        "I tried explaining VR to my wine glass. Now it thinks it's living in the Metaverse. Don't worry about it!",
+        "What's the difference between GTA and real life? In GTA, I can actually afford a supercar! It is what it is. 🎮"
       ];
       return jokes[Math.floor(Math.random() * jokes.length)];
     }
     
     // Farewell
     if (lowerCaseText.includes("bye") || lowerCaseText.includes("goodbye") || lowerCaseText.includes("see you")) {
-      return "Goodbye! Have a great day! Come back anytime!";
+      return "Catch you later! Keep it real, and remember - it is what it is! Come back anytime! 👋";
     }
     
     // Basic questions
     if (lowerCaseText.includes("how are you")) {
-      return "I'm doing great! Thanks for asking. How can I help you?";
+      return "Hey, how you doin'? I'm vibing! Just watched some F1 highlights and now I'm ready to chat. What's up with you?";
     }
     
     if (lowerCaseText.includes("your name") || lowerCaseText.includes("who are you")) {
-      return "I'm GavinBot, your friendly assistant! I'm here to help you navigate the site.";
+      return "I'm GavinBot! Part-time chatbot, full-time F1 enthusiast, crypto hodler, and amateur shed builder. It is what it is! 🤖";
     }
     
     if (lowerCaseText.includes("help")) {
-      return "I can help with: greetings, weather updates (sort of!), jokes, remembering our conversation, and answering basic questions. Try asking me 'Tell me a joke' or 'What's the weather like?'";
+      return "Hey, how you doin'? I can chat about F1 racing, crypto, red wine, karaoke, GTA on PS5, VR gaming, shed-building, or just crack some jokes! It is what it is - I'm here to keep things fun! 😊";
     }
 
     // Time-related queries
@@ -231,7 +308,7 @@
     }
     
     // Default response
-    return "That's interesting! Feel free to ask me about the weather, request a joke, or just say hello!";
+    return "That's interesting! Wanna chat about F1, crypto, red wine, or maybe my legendary shed-building skills? Don't worry about it, just say what's on your mind! 😄";
   }
 
   function sendMessage() {
