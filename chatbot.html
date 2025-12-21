@@ -29,6 +29,28 @@
       font-size: 24px;
       font-weight: bold;
     }
+    .bot-image-container {
+      width: 100%;
+      text-align: center;
+      padding: 20px 0;
+      background-color: rgba(13, 71, 161, 0.3);
+    }
+    .bot-image {
+      max-width: 300px;
+      width: 80%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+    .bot-image:hover {
+      transform: scale(1.05);
+    }
+    @media (max-width: 600px) {
+      .bot-image {
+        max-width: 200px;
+      }
+    }
     .chat-box {
       display: flex;
       flex-direction: column;
@@ -99,6 +121,9 @@
 <header>
   GavinBot - Your Assistant
 </header>
+<div class="bot-image-container">
+  <img src="gavinbot.png" alt="GavinBot" class="bot-image">
+</div>
 <div class="chat-container">
   <div class="chat-box">
     <div class="messages" id="messageContainer"></div>
@@ -110,8 +135,9 @@
 </div>
 
 <script>
-  // Chatbot logic with enhanced responses
+  // Chatbot logic with enhanced responses and conversation context
   const messagesContainer = document.getElementById("messageContainer");
+  const conversationContext = []; // Store last 3 interactions
 
   function displayMessage(content, className) {
     const messageDiv = document.createElement("div");
@@ -121,27 +147,63 @@
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
   }
 
+  function addToContext(userMessage, botResponse) {
+    conversationContext.push({ user: userMessage, bot: botResponse });
+    if (conversationContext.length > 3) {
+      conversationContext.shift(); // Keep only last 3 interactions
+    }
+  }
+
   function getBotResponse(userText) {
     const lowerCaseText = userText.toLowerCase();
     
-    // Greetings
-    if (lowerCaseText.includes("hello") || lowerCaseText.includes("hi") || lowerCaseText.includes("hey")) {
-      return "Hello there! How can I assist you today?";
+    // Check if user is asking about previous conversation
+    if (lowerCaseText.includes("what did i") || lowerCaseText.includes("what was i")) {
+      if (conversationContext.length > 1) {
+        const lastInteraction = conversationContext[conversationContext.length - 2];
+        return `You asked: "${lastInteraction.user}" and I said: "${lastInteraction.bot}"`;
+      } else {
+        return "We just started talking! Ask me anything.";
+      }
     }
     
-    // Weather queries
+    // Greetings - Multiple variations
+    if (lowerCaseText.includes("hello") || lowerCaseText.includes("hi ") || lowerCaseText.startsWith("hi") || lowerCaseText.includes("hey")) {
+      const greetings = [
+        "Hi there! How can I assist you?",
+        "Hello! Great to see you. What can I do for you today?",
+        "Hey! I'm GavinBot, ready to help. What's on your mind?",
+        "Greetings! How may I help you today?"
+      ];
+      return greetings[Math.floor(Math.random() * greetings.length)];
+    }
+    
+    // Weather queries - Creative responses
     if (lowerCaseText.includes("weather") || lowerCaseText.includes("sunny") || lowerCaseText.includes("rain")) {
-      return "It's always sunny when GavinBot is around!";
+      const weatherResponses = [
+        "I can't track weather, but it's always sunny with GavinBot around!",
+        "The forecast? 100% chance of awesome conversations!",
+        "Weather-wise, I'm always in the cloud! ☁️",
+        "I don't do weather reports, but I can brighten your day!"
+      ];
+      return weatherResponses[Math.floor(Math.random() * weatherResponses.length)];
     }
     
-    // Joke requests
+    // Joke requests - Multiple jokes
     if (lowerCaseText.includes("joke") || lowerCaseText.includes("funny") || lowerCaseText.includes("laugh")) {
-      return "Why don't robots ever get lost? They have built-in GPS!";
+      const jokes = [
+        "Why did the robot go on vacation? To recharge his batteries!",
+        "Why don't robots ever get lost? They have built-in GPS!",
+        "What do you call a robot that always takes the longest route? R2-Detour!",
+        "Why was the computer cold? It left its Windows open!",
+        "How do robots eat salsa? With micro-chips!"
+      ];
+      return jokes[Math.floor(Math.random() * jokes.length)];
     }
     
     // Farewell
     if (lowerCaseText.includes("bye") || lowerCaseText.includes("goodbye") || lowerCaseText.includes("see you")) {
-      return "Goodbye! Have a great day!";
+      return "Goodbye! Have a great day! Come back anytime!";
     }
     
     // Basic questions
@@ -154,7 +216,18 @@
     }
     
     if (lowerCaseText.includes("help")) {
-      return "I can help with greetings, weather updates, jokes, and basic questions. Just ask away!";
+      return "I can help with: greetings, weather updates (sort of!), jokes, remembering our conversation, and answering basic questions. Try asking me 'Tell me a joke' or 'What's the weather like?'";
+    }
+
+    // Time-related queries
+    if (lowerCaseText.includes("time") || lowerCaseText.includes("date")) {
+      const now = new Date();
+      return `The current time is ${now.toLocaleTimeString()} and today is ${now.toLocaleDateString()}.`;
+    }
+
+    // About the site
+    if (lowerCaseText.includes("site") || lowerCaseText.includes("website") || lowerCaseText.includes("page")) {
+      return "This is GavinBot's interactive chat page! You can explore other pages too. Need help finding something?";
     }
     
     // Default response
@@ -173,6 +246,7 @@
     const botResponse = getBotResponse(userText);
     setTimeout(() => {
       displayMessage(botResponse, "bot");
+      addToContext(userText, botResponse); // Store in conversation context
     }, 1000); // Simulate chatbot thinking delay
     
     userInput.value = "";
