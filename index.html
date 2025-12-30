@@ -2,340 +2,583 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Gavinnot & Gavinbot | The Futuristic Pirate Lair</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto&display=swap" rel="stylesheet">
-    <link rel="icon" href="GavinnotandGavinbot.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gavinnot & Gavinbot | AI Pirate Adventures</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="gavinnot&gavinbot.PNG">
     <style>
-        body {
+        * {
             margin: 0;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
-            color: #fff;
-            font-family: 'Roboto', Arial, sans-serif;
-        }
-        nav {
-            background: #232323;
-            color: #fff;
-            padding: 1em 0.5em 1em 0.5em;
-            text-align: center;
-        }
-        nav a {
-            color: #19f7d2;
-            margin: 0 12px;
-            font-weight: bold;
-            text-decoration: none;
-            font-family: 'Orbitron', Arial, sans-serif;
-        }
-        nav a:hover {
-            color: #fdbc4b;
-            text-shadow: 0 0 8px #fdbc4b;
-        }
-        .toggle-btn {
-            float: right; margin-top: -2.5em; margin-right: 1em;
-            background: #444; color: #fff; border: none; border-radius: 4px; padding: 0.3em 0.7em; cursor: pointer;
-        }
-        .hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 32px 0 10px 0;
-        }
-        .glow {
-    font-family: 'Orbitron', Arial, sans-serif;
-    font-size: 2.4em;
-    font-weight: 900; /* extra bold */
-    color: #19f7d2;
-    /* Neon glow plus dark outline */
-    text-shadow:
-        0 0 7px #19f7d2,
-        0 0 21px #19f7d2,
-        0 0 42px #0ff,
-        0 0 82px #0ff,
-        2px 2px 0 #111,   /* dark outline right-bottom */
-        -2px 2px 0 #111,  /* dark outline left-bottom */
-        2px -2px 0 #111,  /* dark outline right-top */
-        -2px -2px 0 #111, /* dark outline left-top */
-        0 2px 0 #111,     /* dark outline bottom */
-        2px 0px 0 #111,   /* dark outline right */
-        0 -2px 0 #111,    /* dark outline top */
-        -2px 0px 0 #111;  /* dark outline left */
-    animation: pulse 2s infinite alternate;
-}
-       
-        @keyframes pulse {
-            to { text-shadow: 0 0 24px #19f7d2, 0 0 42px #0ff, 0 0 82px #0ff, 0 0 120px #0ff; }
-        }
-        .main-image {
-            width: 120px; /* smaller image */
-            max-width: 95vw;
-            border-radius: 20px;
-            margin: 24px auto 12px auto;
-            display: block;
-            box-shadow: 0 0 24px #19f7d2;
-        }
-        .quote {
-            font-style: italic;
-            color: #fdbc4b;
-            text-shadow: 0 0 6px #fdbc4b80;
-            margin: 12px 0 20px 0;
-            font-size: 1.2em;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 2em 1em;
-        }
-        .neon-border {
-            border: 2px solid #19f7d2;
-            box-shadow: 0 0 20px #19f7d2, 0 0 40px #0ff;
-            border-radius: 20px;
-            padding: 32px 24px;
-            margin: 32px 0;
-            background: rgba(10,12,24,0.85);
-            max-width: 650px;
-            width: 90%;
-        }
-        h2 {
-            font-family: 'Orbitron', Arial, sans-serif;
-            color: #fdbc4b;
-            text-shadow: 0 0 8px #fdbc4b, 0 0 20px #fff20044;
-            letter-spacing: 1.5px;
-        }
-        .gallery-section {
-            margin: 40px 0;
-        }
-        .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            justify-content: center;
-        }
-        .gallery img {
-            width: 180px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px #19f7d2;
-            background: #232323;
-            padding: 2px;
-        }
-        @media (max-width: 600px) {
-            .gallery img { width: 90px; }
-            .container, .neon-border { padding: 1em 0.3em; }
-        }
-        ul {
-            text-align: left;
-            margin: 0 auto 0 1.5em;
             padding: 0;
-            max-width: 500px;
-            font-size: 1.1em;
+            box-sizing: border-box;
         }
-        ul li { margin: 10px 0; }
-        footer {
-            margin: 50px 0 0 0;
-            color: #aaa;
-            font-size: 1em;
-            text-align: center;
-            letter-spacing: 1px;
+
+        :root {
+            --primary-cyan: #19f7d2;
+            --primary-gold: #fdbc4b;
+            --accent-orange: #ff6b35;
+            --dark-bg: #0a0e1a;
+            --card-bg: rgba(15, 20, 35, 0.9);
+            --text-light: #ffffff;
+            --text-muted: #b8c5d6;
         }
-        .neon-cycle-btn {
-            background: linear-gradient(135deg, #19f7d2 0%, #0ff 100%);
-            color: #232323;
-            font-family: 'Orbitron', 'Roboto', Arial, sans-serif;
-            font-size: 1.2em;
-            padding: 10px 28px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 0 10px #19f7d2, 0 0 40px #0ff, 0 0 80px #19f7d2;
-            text-shadow: 0 0 8px #19f7d2, 0 0 20px #0ff;
-            transition: background 0.3s, color 0.3s, transform 0.2s;
-            outline: none;
-            animation: neonPulse 1.8s infinite alternate;
-            position: relative;
-            overflow: hidden;
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a2332 50%, #0a0e1a 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-        @keyframes neonPulse {
-            from { box-shadow: 0 0 10px #19f7d2, 0 0 40px #0ff, 0 0 80px #19f7d2;}
-            to { box-shadow: 0 0 20px #19f7d2, 0 0 60px #2fffc8, 0 0 110px #00ffe7;}
-        }
-        .neon-cycle-btn:hover {
-            background: linear-gradient(135deg, #39ff14 0%, #0ff 100%);
-            color: #232323;
-            transform: scale(1.05);
-        }
-        
-        /* Special promotional section styles */
-        .promo-section {
-            border: 3px solid #ff6b35;
-            box-shadow: 
-                0 0 30px #ff6b35, 
-                0 0 60px #ff6b35,
-                inset 0 0 30px rgba(255, 107, 53, 0.1);
-            border-radius: 25px;
-            padding: 40px 30px;
-            margin: 40px auto;
-            background: linear-gradient(135deg, rgba(255, 107, 53, 0.15) 0%, rgba(25, 247, 210, 0.1) 100%);
-            max-width: 800px;
-            width: 95%;
-            animation: promoGlow 3s infinite alternate;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        @keyframes promoGlow {
-            from { 
-                box-shadow: 0 0 30px #ff6b35, 0 0 60px #ff6b35, inset 0 0 30px rgba(255, 107, 53, 0.1);
-            }
-            to { 
-                box-shadow: 0 0 50px #ff6b35, 0 0 100px #ff6b35, inset 0 0 50px rgba(255, 107, 53, 0.2);
-            }
-        }
-        
-        .promo-content {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 30px;
-        }
-        
-        .promo-image {
-            flex: 1;
-            min-width: 300px;
-            text-align: center;
-        }
-        
-        .promo-image img {
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 350px;
-            border-radius: 20px;
-            box-shadow: 0 0 40px #ff6b35, 0 0 80px rgba(255, 107, 53, 0.5);
-            border: 2px solid #19f7d2;
-            animation: imagePulse 2.5s infinite alternate;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(25, 247, 210, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(253, 188, 75, 0.08) 0%, transparent 50%);
+            z-index: -1;
+            animation: bgPulse 15s ease-in-out infinite;
         }
-        
-        @keyframes imagePulse {
-            from { 
-                box-shadow: 0 0 40px #ff6b35, 0 0 80px rgba(255, 107, 53, 0.5);
-                transform: scale(1);
-            }
-            to { 
-                box-shadow: 0 0 60px #ff6b35, 0 0 120px rgba(255, 107, 53, 0.7);
-                transform: scale(1.02);
-            }
+
+        @keyframes bgPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
         }
-        
-        .promo-text {
-            flex: 1;
-            min-width: 350px;
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(15, 20, 35, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(25, 247, 210, 0.2);
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary-cyan);
         }
-        
-        .promo-title {
-            font-family: 'Orbitron', Arial, sans-serif;
-            font-size: 2.5em;
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
             font-weight: 900;
-            color: #ff6b35;
-            text-shadow: 
-                0 0 10px #ff6b35,
-                0 0 20px #ff6b35,
-                0 0 40px #ff6b35,
-                2px 2px 0 #111,
-                -2px 2px 0 #111,
-                2px -2px 0 #111,
-                -2px -2px 0 #111;
-            margin-bottom: 20px;
+            color: var(--primary-cyan);
+            text-shadow: 0 0 20px var(--primary-cyan);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--primary-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gold);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-gold);
+            text-shadow: 0 0 15px var(--primary-gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
             text-align: center;
-            animation: titleGlow 2s infinite alternate;
+            padding: 4rem 2rem;
+            position: relative;
         }
-        
-        @keyframes titleGlow {
-            from { 
-                text-shadow: 0 0 10px #ff6b35, 0 0 20px #ff6b35, 0 0 40px #ff6b35, 2px 2px 0 #111, -2px 2px 0 #111, 2px -2px 0 #111, -2px -2px 0 #111;
+
+        .hero-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            border: 4px solid var(--primary-cyan);
+            box-shadow: 
+                0 0 40px var(--primary-cyan),
+                0 0 80px rgba(25, 247, 210, 0.5),
+                inset 0 0 30px rgba(25, 247, 210, 0.2);
+            animation: heroGlow 3s ease-in-out infinite;
+            object-fit: cover;
+        }
+
+        @keyframes heroGlow {
+            0%, 100% {
+                box-shadow: 
+                    0 0 40px var(--primary-cyan),
+                    0 0 80px rgba(25, 247, 210, 0.5),
+                    inset 0 0 30px rgba(25, 247, 210, 0.2);
             }
-            to { 
-                text-shadow: 0 0 20px #ff6b35, 0 0 40px #ff6b35, 0 0 80px #ff6b35, 2px 2px 0 #111, -2px 2px 0 #111, 2px -2px 0 #111, -2px -2px 0 #111;
+            50% {
+                box-shadow: 
+                    0 0 60px var(--primary-cyan),
+                    0 0 120px rgba(25, 247, 210, 0.7),
+                    inset 0 0 50px rgba(25, 247, 210, 0.3);
             }
         }
-        
-        .promo-subtitle {
-            font-size: 1.3em;
-            color: #fdbc4b;
-            text-shadow: 0 0 8px #fdbc4b;
-            margin-bottom: 25px;
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-cyan) 0%, var(--primary-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 40px rgba(25, 247, 210, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .hero-tagline {
+            font-size: 1.3rem;
+            color: var(--primary-gold);
+            font-style: italic;
+            text-shadow: 0 0 10px rgba(253, 188, 75, 0.5);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Section Styling */
+        .section {
+            margin: 4rem 0;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
             text-align: center;
-            font-weight: bold;
+            margin-bottom: 3rem;
+            color: var(--primary-cyan);
+            text-shadow: 0 0 20px var(--primary-cyan);
+            position: relative;
         }
-        
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+            margin: 1rem auto 0;
+        }
+
+        /* Card Styling */
+        .card {
+            background: var(--card-bg);
+            border: 2px solid var(--primary-cyan);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(25, 247, 210, 0.2);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(25, 247, 210, 0.4);
+        }
+
+        /* Featured Project - Gavinbot */
+        .featured-project {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.2) 0%, rgba(25, 247, 210, 0.1) 100%);
+            border: 3px solid var(--accent-orange);
+            border-radius: 25px;
+            padding: 3rem;
+            margin: 4rem 0;
+            box-shadow: 
+                0 0 40px rgba(255, 107, 53, 0.3),
+                0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-project::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+            animation: rotateGlow 10s linear infinite;
+        }
+
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .featured-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .featured-image img {
+            width: 100%;
+            max-width: 450px;
+            border-radius: 20px;
+            border: 3px solid var(--primary-cyan);
+            box-shadow: 0 0 40px rgba(25, 247, 210, 0.5);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .featured-text h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            color: var(--accent-orange);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px var(--accent-orange);
+        }
+
+        .featured-text h3 {
+            font-size: 1.5rem;
+            color: var(--primary-gold);
+            margin-bottom: 1.5rem;
+        }
+
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 25px 0;
+            gap: 1rem;
+            margin: 2rem 0;
         }
-        
+
         .feature-item {
             background: rgba(25, 247, 210, 0.1);
-            border: 1px solid #19f7d2;
+            border: 2px solid var(--primary-cyan);
             border-radius: 15px;
-            padding: 15px;
+            padding: 1.5rem;
             text-align: center;
-            color: #19f7d2;
-            font-weight: bold;
-            box-shadow: 0 0 15px rgba(25, 247, 210, 0.3);
             transition: all 0.3s;
         }
-        
+
         .feature-item:hover {
             background: rgba(25, 247, 210, 0.2);
-            box-shadow: 0 0 25px rgba(25, 247, 210, 0.6);
-            transform: translateY(-5px);
+            transform: scale(1.05);
         }
-        
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-title {
+            font-weight: 700;
+            color: var(--primary-cyan);
+            margin-bottom: 0.5rem;
+        }
+
         .cta-button {
-            background: linear-gradient(135deg, #ff6b35 0%, #fdbc4b 100%);
-            color: #232323;
-            font-family: 'Orbitron', 'Roboto', Arial, sans-serif;
-            font-size: 1.4em;
-            font-weight: bold;
-            padding: 15px 35px;
-            border: none;
-            border-radius: 35px;
-            cursor: pointer;
-            box-shadow: 0 0 20px #ff6b35, 0 0 40px #fdbc4b;
-            text-decoration: none;
             display: inline-block;
-            margin: 20px auto;
-            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, var(--accent-orange), var(--primary-gold));
+            color: var(--dark-bg);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 0 30px rgba(255, 107, 53, 0.5);
             transition: all 0.3s;
-            animation: ctaPulse 2s infinite alternate;
+            animation: pulse 2s ease-in-out infinite;
         }
-        
-        @keyframes ctaPulse {
-            from { 
-                box-shadow: 0 0 20px #ff6b35, 0 0 40px #fdbc4b;
+
+        @keyframes pulse {
+            0%, 100% {
                 transform: scale(1);
+                box-shadow: 0 0 30px rgba(255, 107, 53, 0.5);
             }
-            to { 
-                box-shadow: 0 0 30px #ff6b35, 0 0 60px #fdbc4b;
+            50% {
                 transform: scale(1.05);
+                box-shadow: 0 0 50px rgba(255, 107, 53, 0.8);
             }
         }
-        
+
         .cta-button:hover {
-            background: linear-gradient(135deg, #fdbc4b 0%, #ff6b35 100%);
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-orange));
             transform: scale(1.1);
-            box-shadow: 0 0 40px #ff6b35, 0 0 80px #fdbc4b;
         }
-        
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            border: 2px solid var(--primary-cyan);
+            box-shadow: 0 10px 30px rgba(25, 247, 210, 0.2);
+            transition: all 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(25, 247, 210, 0.4);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(10, 14, 26, 0.95), transparent);
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--primary-cyan);
+        }
+
+        /* Info Cards Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border: 2px solid var(--primary-cyan);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(25, 247, 210, 0.2);
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(25, 247, 210, 0.4);
+            border-color: var(--primary-gold);
+        }
+
+        .info-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px var(--primary-gold);
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .info-card li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary-cyan);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 20px;
+            border: 3px solid var(--primary-cyan);
+            box-shadow: 0 20px 50px rgba(25, 247, 210, 0.3);
+        }
+
+        /* Auction Preview */
+        .auction-preview {
+            background: linear-gradient(135deg, rgba(253, 188, 75, 0.2) 0%, rgba(25, 247, 210, 0.1) 100%);
+            border: 2px solid var(--primary-gold);
+            border-radius: 25px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(253, 188, 75, 0.3);
+        }
+
+        .auction-preview img {
+            max-width: 500px;
+            width: 100%;
+            border-radius: 20px;
+            border: 2px solid var(--primary-cyan);
+            margin-top: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 20, 35, 0.95);
+            border-top: 2px solid var(--primary-cyan);
+            padding: 3rem 2rem;
+            margin-top: 6rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--primary-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-gold);
+            text-shadow: 0 0 15px var(--primary-gold);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .featured-content,
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .featured-text h2 {
+                font-size: 2.2rem;
+            }
+        }
+
         @media (max-width: 768px) {
-            .promo-content {
+            .nav-container {
                 flex-direction: column;
+                gap: 1rem;
             }
-            .promo-image, .promo-text {
-                min-width: auto;
+
+            .nav-links {
+                gap: 1rem;
+                justify-content: center;
             }
-            .promo-title {
-                font-size: 2em;
+
+            .hero-title {
+                font-size: 2rem;
             }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .gallery-grid,
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-project {
+                padding: 2rem 1rem;
+            }
+
             .feature-grid {
                 grid-template-columns: 1fr;
             }
@@ -343,71 +586,95 @@
     </style>
 </head>
 <body>
+    <!-- Navigation -->
     <nav>
-        <a href="#about">About</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#contact">Contact</a>
-        <button class="toggle-btn" onclick="toggleMode()">🌗 Mode</button>
+        <div class="nav-container">
+            <div class="nav-brand">GAVINNOT 🏴‍☠️ GAVINBOT</div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#gavinbot">The Real Gavinbot</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#projects">Projects</a>
+                <a href="#adventures">Adventures</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
     </nav>
-    <div class="hero">
-    <img src="gavinnot&gavinbot.PNG" alt="Gavinnot and Gavinbot" class="main-image" />
-    <div class="glow">Gavinnot & Gavinbot 🏴‍☠️🦜🤖</div>
-    <div class="quote">“The future isn’t written… but the code (and the banter) is.”</div>
-    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="gavinnot&gavinbot.PNG" alt="Gavinnot & Gavinbot" class="hero-image">
+        <h1 class="hero-title">GAVINNOT & GAVINBOT</h1>
+        <p class="hero-subtitle">🏴‍☠️ Futuristic Pirate | 🤖 AI Innovator | 🔥 Firefighter Spirit</p>
+        <p class="hero-tagline">"The future isn't written… but the code (and the banter) is."</p>
+    </section>
+
+    <!-- Main Container -->
     <div class="container">
-        <section id="about" class="neon-border">
-            <h2>About Me</h2>
-            <p>
-                Born in Yorkshire made on Portland, UK. Firefighter, pirate at heart, and son of Navy men.<br>
-                F1 racing fan, builder of anything, crypto explorer, blackjack ace.<br>
-                Sharing my story, projects, and adventures—so my spark lives on.
-            </p>
-        </section>
         
-        <!-- The Real Gavinbot Promotional Section -->
-        <section class="promo-section">
-            <div class="promo-title">🚀 THE REAL GAVINBOT 🚀</div>
-            <div class="promo-subtitle">PHYSICAL AI REVOLUTION - FROM DIGITAL TO REALITY</div>
-            
-            <div class="promo-content">
-                <div class="promo-image">
-                    <img src="gavinbot.png" alt="The Real Gavinbot - Physical AI Robot" />
+        <!-- About Section -->
+        <section id="about" class="section">
+            <h2 class="section-title">ABOUT THE LEGEND</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p><strong>Born in Yorkshire, made on Portland, UK.</strong></p>
+                    <p>Firefighter by trade, pirate at heart, and son of Navy men. I'm a builder, tinkerer, and adventurer who lives for the thrill of creation and the joy of a good challenge.</p>
+                    <p><strong>What drives me:</strong></p>
+                    <p>🏎️ <strong>F1 Racing Fan</strong> - Speed, strategy, and precision</p>
+                    <p>🛠️ <strong>Builder of Anything</strong> - If it can be imagined, it can be built</p>
+                    <p>🪙 <strong>Crypto Explorer</strong> - Diving into the digital frontier</p>
+                    <p>🃏 <strong>Blackjack Ace</strong> - Calculated risks and bold moves</p>
+                    <p>My mission? To share my story, projects, and adventures—so my spark lives on through innovation, creativity, and a bit of mischief.</p>
                 </div>
-                
-                <div class="promo-text">
-                    <p style="font-size: 1.2em; color: #fff; text-shadow: 0 0 8px #19f7d2; margin-bottom: 25px; text-align: center;">
-                        <strong>BREAKING THE DIGITAL BARRIER!</strong><br>
-                        The legendary Gavinbot is transcending the virtual realm and manifesting in the REAL WORLD. 
-                        This isn't just code anymore - this is <span style="color: #ff6b35; font-weight: bold;">PHYSICAL AI ENGINEERING</span> 
-                        at its most advanced level!
+                <div class="about-image">
+                    <img src="gavinnotcharacterposter.PNG" alt="Gavinnot Character">
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Project: The Real Gavinbot -->
+        <section id="gavinbot" class="featured-project">
+            <div class="featured-content">
+                <div class="featured-image">
+                    <img src="gavinbot.png" alt="The Real Gavinbot">
+                </div>
+                <div class="featured-text">
+                    <h2>🚀 THE REAL GAVINBOT</h2>
+                    <h3>PHYSICAL AI REVOLUTION</h3>
+                    <p style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--text-light);">
+                        <strong>BREAKING THE DIGITAL BARRIER!</strong> The legendary Gavinbot is transcending the virtual realm and manifesting in the <span style="color: var(--accent-orange); font-weight: bold;">REAL WORLD</span>. This isn't just code anymore—this is <span style="color: var(--accent-orange); font-weight: bold;">PHYSICAL AI ENGINEERING</span> at its most advanced level.
                     </p>
                     
                     <div class="feature-grid">
                         <div class="feature-item">
-                            <div>🖨️ 3D PRINTED</div>
-                            <div style="font-size: 0.9em; margin-top: 5px;">Advanced manufacturing</div>
+                            <div class="feature-icon">🖨️</div>
+                            <div class="feature-title">3D PRINTED</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);">Advanced manufacturing</div>
                         </div>
                         <div class="feature-item">
-                            <div>👤 STEALTH DESIGN</div>
-                            <div style="font-size: 0.9em; margin-top: 5px;">Covert operations ready</div>
+                            <div class="feature-icon">👤</div>
+                            <div class="feature-title">STEALTH DESIGN</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);">Covert operations ready</div>
                         </div>
                         <div class="feature-item">
-                            <div>✈️ AUTONOMOUS FLIGHT</div>
-                            <div style="font-size: 0.9em; margin-top: 5px;">True aerial capabilities</div>
+                            <div class="feature-icon">✈️</div>
+                            <div class="feature-title">AUTONOMOUS FLIGHT</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);">True aerial capabilities</div>
                         </div>
                         <div class="feature-item">
-                            <div>🧠 ADVANCED OS</div>
-                            <div style="font-size: 0.9em; margin-top: 5px;">Next-gen AI brain</div>
+                            <div class="feature-icon">🧠</div>
+                            <div class="feature-title">ADVANCED OS</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);">Next-gen AI brain</div>
                         </div>
                         <div class="feature-item">
-                            <div>🤖 ROBOTICS REVOLUTION</div>
-                            <div style="font-size: 0.9em; margin-top: 5px;">Paradigm-shifting tech</div>
+                            <div class="feature-icon">🤖</div>
+                            <div class="feature-title">ROBOTICS REVOLUTION</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);">Paradigm-shifting tech</div>
                         </div>
                     </div>
                     
-                    <p style="font-size: 1.1em; color: #fdbc4b; text-shadow: 0 0 6px #fdbc4b; text-align: center; margin: 25px 0;">
-                        <em>"This is physical AI unlike anything before - a fusion of cutting-edge robotics, 
-                        stealth engineering, and autonomous intelligence that will redefine what's possible!"</em>
+                    <p style="font-size: 1.1rem; color: var(--primary-gold); font-style: italic; text-align: center; margin: 2rem 0;">
+                        "This is physical AI unlike anything before—a fusion of cutting-edge robotics, stealth engineering, and autonomous intelligence that will redefine what's possible!"
                     </p>
                     
                     <div style="text-align: center;">
@@ -418,126 +685,141 @@
                 </div>
             </div>
         </section>
-        
-        <section class="neon-border">
-            <h2>Meet Gavinbot <span title="AI Parrot">🦜🤖</span></h2>
-            <p>
-                Gavinbot is my AI parrot!<br>
-                He squawks stories, pirate jokes, and keeps the banter alive.<br>
-                When I’m gone, Gavinbot will chat with my family and friends in true feathered, funny fashion.<br>
-                <span style="color:#39ff14; font-weight:bold;">"Pieces of eight! Squawk! Tell me a tale, matey!"</span>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="section">
+            <h2 class="section-title">AMAZING PHOTOGRAPHY</h2>
+            <p style="text-align: center; font-size: 1.2rem; color: var(--text-muted); margin-bottom: 3rem;">
+                Epic adventures, shed builds, and creative snapshots from a life less ordinary
             </p>
-        </section>
-        <section class="neon-border">
-            <h2>Shed Ideas</h2>
-            <p>
-                Discover my wildest, wackiest, and most practical shed ideas for every tinkerer's dream. From DIY inventions to cozy hideouts, there's always something brewing in the lair!
-            </p>
-               </section>
-        <section class="neon-border">
-            <h2>Fun Games & Competitions</h2>
-            <ul>
-                <li>Futuristic Pirate Quizzes</li>
-                <li>Build-offs & Tinkering Challenges</li>
-                <li>Blackjack, Roulette, and Slot Simulators</li>
-                <li>Caption This (with Amazing Photography)</li>
-                <li>Best Pirate Joke Contest</li>
-            </ul>
-        </section>
-        <section class="neon-border">
-            <h2>Funny Futuristic Themes</h2>
-            <p>
-                Expect robots, lasers, neon lights, and AI parrots! Gavinbot keeps things lively with surprise themes, digital costumes, and quirky, evolving site features.
-            </p>
-        </section>
-        <section id="gallery" class="gallery-section neon-border">
-            <h2>Amazing Photography</h2>
-            <p>Explore galleries of epic adventures, shed builds, and creative snapshots from a life less ordinary. Submit your own for a chance to get featured!</p>
-            <div class="gallery">
-                <img src="gavin&gracenot.PNG" alt="Gavinnot & Gracenot">
-                <img src="gavinnot&younggracenot.PNG" alt="Gavinnot and young Gracenot">
-                <img src="gavinnotcharacterposter.PNG" alt="Gavinnot Character poster">
-                <img src="gavinnotpirate&gavinnot.PNG" alt="Gavinnot and Gracenot 2">
-                <img src="edgeoftheworld.PNG" alt="Edge of the World">
-                <img src="shedessentials.PNG" alt="Everything that you need in your shed">
-                <!-- Add more images here as desired -->
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="gavinnot&gracenot.PNG" alt="Gavinnot & Gracenot">
+                    <div class="gallery-overlay">
+                        <div class="gallery-title">Gavinnot & Gracenot</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="gavinnot&younggracenot.PNG" alt="Gavinnot & Young Gracenot">
+                    <div class="gallery-overlay">
+                        <div class="gallery-title">Family Adventures</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="gavinnotpirate&gavinbot.PNG" alt="Pirate Gavinnot & Gavinbot">
+                    <div class="gallery-overlay">
+                        <div class="gallery-title">Pirate Mode Activated</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="edgeofworld.PNG" alt="Edge of the World">
+                    <div class="gallery-overlay">
+                        <div class="gallery-title">Edge of the World</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="shedessentials.PNG" alt="Shed Essentials">
+                    <div class="gallery-overlay">
+                        <div class="gallery-title">Shed Essentials</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="gavinbot.png" alt="Gavinbot Close-up">
+                    <div class="gallery-overlay">
+                        <div class="gallery-title">The Real Gavinbot</div>
+                    </div>
+                </div>
             </div>
         </section>
-       <section class="neon-border">
-    <h2>Friday Evening Auctions</h2>
-    <p>
-        Join us every Friday night for futuristic, pirate-style auctions! Bid on wild creations, rare finds, and quirky treasures—fun, competition, and laughs guaranteed!
-    </p>
-    <img src="Auctionitems.PNG" alt="Friday Auction Preview" style="width:100%;max-width:400px;border-radius:16px;margin-top:18px;box-shadow:0 0 18px #19f7d2;">
-</section>  
+
+        <!-- Projects & Adventures -->
+        <section id="projects" class="section">
+            <h2 class="section-title">PROJECTS & ADVENTURES</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🦜 Meet Gavinbot (AI Parrot)</h3>
+                    <p>Gavinbot is my AI parrot companion—squawking stories, pirate jokes, and keeping the banter alive! When I'm gone, Gavinbot will chat with family and friends in true feathered, funny fashion.</p>
+                    <p style="color: var(--primary-cyan); font-weight: bold; margin-top: 1rem;">"Pieces of eight! Squawk! Tell me a tale, matey!"</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>🛠️ Shed Ideas</h3>
+                    <p>From DIY inventions to cozy hideouts, explore the wildest, wackiest, and most practical shed ideas for every tinkerer's dream. There's always something brewing in the lair!</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>🎮 Fun Games & Competitions</h3>
+                    <ul>
+                        <li>Futuristic Pirate Quizzes</li>
+                        <li>Build-offs & Tinkering Challenges</li>
+                        <li>Blackjack, Roulette & Slot Simulators</li>
+                        <li>Caption This (Amazing Photography)</li>
+                        <li>Best Pirate Joke Contest</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>🤖 Funny Futuristic Themes</h3>
+                    <p>Expect robots, lasers, neon lights, and AI parrots! Gavinbot keeps things lively with surprise themes, digital costumes, and quirky, evolving site features.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>🎤 Karaoke Corner</h3>
+                    <ul>
+                        <li>Teddy Swims – The Door</li>
+                        <li>Lionel Richie – Hello</li>
+                        <li>Nirvana & The Offspring</li>
+                        <li>Blink 182</li>
+                        <li>Sound of Silence</li>
+                        <li>My Way & The Beatles</li>
+                        <li>Crazy by Gnarls Barkley</li>
+                        <li>Tenacious D – Fuck Her Gently</li>
+                        <li>Elton John</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>⚙️ Special Projects</h3>
+                    <p><strong>gavinbot:</strong> An advanced bot designed for automation and fun interactions.</p>
+                    <p style="margin-top: 1rem;">
+                        <a href="https://github.com/gavinbot367/gavinbot" target="_blank" style="color: var(--primary-cyan); text-decoration: none; font-weight: bold;">
+                            View on GitHub →
+                        </a>
+                    </p>
+                </div>
+            </div>
         </section>
-        <section id="contact" class="neon-border">
-            <h2>Connect & Support</h2>
-            <!-- Karaoke Section -->
-<section id="karaoke">
-  <h2>Karaoke</h2>
-  <p>Enjoy some of my favorite karaoke performances and tracks!</p>
-  <!-- Example: Embed a YouTube karaoke video -->
-  <div>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="Karaoke Video" frameborder="0" allowfullscreen></iframe>
-  </div>
-  <!-- You can add a list of karaoke tracks or links here -->
-  <ul>
-    <li><a href="https://www.youtube.com/watch?v=VIDEO_ID1" target="_blank">Song Title 1</a></li>
-    <li><a href="https://www.youtube.com/watch?v=VIDEO_ID2" target="_blank">Song Title 2</a></li>
-  </ul>
-</section>
 
-<!-- Special Projects Section -->
-<section id="special-projects">
-  <h2>Special Projects</h2>
-  <p>Take a look at some of my unique and creative projects!</p>
-  <ul>
-    <li>
-      <strong>Project Name 1:</strong> Short description of the project.
-      <a href="https://github.com/gavinbot367/project1" target="_blank">View on GitHub</a>
-    </li>
-    <li>
-      <strong>Project Name 2:</strong> Short description of the project.
-      <a href="https://github.com/gavinbot367/project2" target="_blank">View on GitHub</a>
-    </li>
-    <!-- Add more projects as needed -->
-  </ul>
-</section>
- <!-- Karaoke Section -->
-<section id="karaoke">
-  <h2>Karaoke</h2>
-  <p>Enjoy some of my favorite karaoke performances and tracks!</p>
-  <ul>
-    <li>Teddy Swims – The Door</li>
-    <li>Lionel Richie – Hello</li>
-    <li>Nirvana</li>
-    <li>The Offspring</li>
-    <li>Blink 182</li>
-    <li>Sound of Silence</li>
-    <li>My Way</li>
-    <li>The Beatles</li>
-    <li>Crazy by Gnarls Barkley</li>
-    <li>Fuck Her Gently – Tenacious D</li>
-    <li>Elton John</li>
-  </ul>
-</section>
-</section>
+        <!-- Friday Auction -->
+        <section id="adventures" class="section">
+            <div class="auction-preview">
+                <h2 class="section-title" style="margin-bottom: 1rem;">🔨 FRIDAY EVENING AUCTIONS</h2>
+                <p style="font-size: 1.3rem; color: var(--text-muted); margin-bottom: 2rem;">
+                    Join us every Friday night for futuristic, pirate-style auctions! Bid on wild creations, rare finds, and quirky treasures—fun, competition, and laughs guaranteed!
+                </p>
+                <img src="Auctionitems.PNG" alt="Friday Auction Items">
+            </div>
+        </section>
 
-<!-- Special Projects Section -->
-<section id="special-projects">
-  <h2>Special Projects</h2>
-  <p>Take a look at some of my unique and creative projects!</p>
-  <ul>
-    <li>
-      <strong>gavinbot:</strong>
-      An advanced bot designed for automation and fun interactions. Check it out on 
-      <a href="https://github.com/gavinbot367/gavinbot" target="_blank">GitHub</a>.
-    </li>
-    <!-- Add more projects below as needed -->
-  </ul>
-</section>         
     </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <h2 class="section-title" style="margin-bottom: 2rem;">CONNECT & SUPPORT</h2>
+            <p class="footer-text">
+                Join the adventure! Whether you're here for the tech, the banter, or the pure pirate spirit—welcome aboard! 🏴‍☠️
+            </p>
+            <div class="footer-links">
+                <a href="https://github.com/gavinbot367" target="_blank">GitHub</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#projects">Projects</a>
+                <a href="#gavinbot">The Real Gavinbot</a>
+            </div>
+            <p class="footer-text" style="margin-top: 2rem; font-size: 0.9rem;">
+                © 2024 Gavinnot & Gavinbot | Built with 💙 and ⚡
+            </p>
+        </div>
+    </footer>
 </body>
 </html>
-
