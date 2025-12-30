@@ -1,200 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>GavinNot Chat</title>
-<style>
-  body {
-    background-color: #000;
-    color: #00ffff;
-    font-family: 'Orbitron', sans-serif, monospace;
-    margin: 0; padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  #gavinnot-image {
-    max-width: 300px;
-    width: 100%;
-    border-radius: 12px;
-    margin-bottom: 30px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-  #gavinnot-image:hover {
-    transform: scale(1.05);
-  }
-
-  #chat-container {
-    width: 100%;
-    max-width: 900px;
-    background-color: #111;
-    border: 3px solid #00ffff;
-    border-radius: 15px;
-    padding: 20px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    height: 500px;
-  }
-
-  #chat-log {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding: 10px;
-    border: 2px solid #00ffff;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    background: #000;
-  }
-
-  .message {
-    margin-bottom: 15px;
-    padding: 8px 12px;
-    border-radius: 16px;
-    max-width: 80%;
-    word-break: break-word;
-  }
-
-  .message.user {
-    text-align: right;
-    color: #000;
-    background-color: #ffff66;
-    margin-left: auto;
-  }
-
-  .message.bot {
-    text-align: left;
-    color: #000;
-    background-color: #0ff;
-  }
-
-  #chat-input {
-    width: 100%;
-    font-size: 1.1rem;
-    padding: 10px;
-    border-radius: 10px;
-    border: 2px solid #00ffff;
-    background: #000;
-    color: #00ffff;
-    resize: none;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-  }
-
-  #chat-input:focus {
-    outline: none;
-    border-color: #ff00ff;
-    background: #111;
-  }
-
-  #send-button {
-    margin-top: 10px;
-    padding: 10px 15px;
-    font-size: 1rem;
-    background-color: #00ffff;
-    color: #000;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  #send-button:hover {
-    background-color: #00cccc;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GavinBot Chatbot</title>
+  <style>
+    /* Base styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #121212;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    /* Header styles */
+    header {
+      width: 100%;
+      padding: 1rem;
+      background: #1e88e5;
+      color: #ffffff;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    /* Chat container styles */
+    .chat-container {
+      max-width: 500px;
+      width: 100%;
+      background: #292b2f;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .messages {
+      height: 300px;
+      overflow-y: auto;
+      padding: 10px;
+      border: 2px solid #424242;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      background-color: #343a40;
+    }
+    /* Message bubbles */
+    .message {
+      display: block;
+      padding: 8px 12px;
+      border-radius: 16px;
+      margin-bottom: 10px;
+      max-width: 80%;
+      word-break: break-word;
+    }
+    .message.user {
+      background-color: #1e88e5;
+      color: #ffffff;
+      align-self: flex-end;
+      margin-left: auto;
+    }
+    .message.bot {
+      background-color: #616161;
+      color: #ffffff;
+      align-self: flex-start;
+      margin-right: auto;
+    }
+    /* Form styles */
+    .chat-input {
+      display: flex;
+      gap: 10px;
+    }
+    input[type="text"] {
+      flex-grow: 1;
+      padding: 10px;
+      border: 1px solid #424242;
+      border-radius: 4px;
+      background-color: #292b2f;
+      color: #ffffff;
+    }
+    button {
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      background-color: #1e88e5;
+      color: #ffffff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #1565c0;
+    }
+  </style>
 </head>
 <body>
+  <header>GavinBot - Next-gen Chatbot</header>
+  <div class="chat-container">
+    <div class="messages" id="messages"></div>
+    <form class="chat-input" id="chat-form">
+      <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off" />
+      <button type="submit">Send</button>
+    </form>
+  </div>
 
-<!-- GavinNot Image -->
-<img id="gavinnot-image" src="https://gavinnot.com/path-to-your-image.jpg" alt="GavinNot" title="Click to focus chat" />
+  <script>
+    // Simulated chatbot backend responses
+    const botResponses = {
+      default: "I didn't quite catch that, but I'm here to help! 😊",
+      greetings: "Hello there! How can I assist you today?",
+      weather: "It looks like great weather! What's your favorite season?",
+      goodbye: "Goodbye! Have a wonderful day!",
+    };
 
-<!-- Chat Section -->
-<div id="chat-container">
-  <div id="chat-log"></div>
-
-  <textarea
-    id="chat-input"
-    rows="1"
-    placeholder="Type your message here..."
-  ></textarea>
-  <button id="send-button">Send</button>
-</div>
-
-<script>
-  const chatLog = document.getElementById('chat-log');
-  const chatInput = document.getElementById('chat-input');
-  const sendButton = document.getElementById('send-button');
-  const gavinnotImage = document.getElementById('gavinnot-image');
-
-  // Auto-resize textarea on input
-  chatInput.addEventListener('input', () => {
-    chatInput.style.height = 'auto'; // reset
-    chatInput.style.height = chatInput.scrollHeight + 'px';
-  });
-
-  // Focus chat input when clicking on image
-  gavinnotImage.addEventListener('click', () => {
-    chatInput.focus();
-  });
-
-  // Enhanced chat logic with weather and goodbye responses
-  function botResponse(userText) {
-    userText = userText.toLowerCase();
-
-    if (/hello|hi|hey/.test(userText)) {
-      return 'Hello there! How can I assist you today?';
+    function getBotResponse(userMessage) {
+      if (/hello|hi|hey/i.test(userMessage)) return botResponses.greetings;
+      if (/weather|forecast/i.test(userMessage)) return botResponses.weather;
+      if (/bye|goodbye/i.test(userMessage)) return botResponses.goodbye;
+      return botResponses.default;
     }
-    if (userText.includes('how are you')) {
-      return "I'm just a bot, but I'm doing great, thanks!";
-    }
-    if (userText.includes('gavinnot')) {
-      return 'GavinNot is your friendly AI assistant!';
-    }
-    if (/weather|forecast/.test(userText)) {
-      return "It looks like great weather! What's your favorite season?";
-    }
-    if (/bye|goodbye/.test(userText)) {
-      return 'Goodbye! Have a wonderful day!';
-    }
-    return "I didn't quite catch that, but I'm here to help! 😊";
-  }
 
-  // Add message to chat log
-  function addMessage(text, sender) {
-    const msgDiv = document.createElement('div');
-    msgDiv.classList.add('message', sender);
-    msgDiv.textContent = text;
-    chatLog.appendChild(msgDiv);
-    chatLog.scrollTop = chatLog.scrollHeight;
-  }
+    // Chatbot interaction logic
+    const messagesContainer = document.getElementById("messages");
+    const chatForm = document.getElementById("chat-form");
+    const userInput = document.getElementById("user-input");
 
-  // Handle send button click or enter key
-  function sendMessage() {
-    const message = chatInput.value.trim();
-    if (!message) return;
-
-    addMessage(message, 'user');
-    chatInput.value = '';
-    chatInput.style.height = 'auto';
-
-    // Bot reply delay to simulate typing
-    setTimeout(() => {
-      const response = botResponse(message);
-      addMessage(response, 'bot');
-    }, 700);
-  }
-
-  sendButton.addEventListener('click', sendMessage);
-  chatInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    chatForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      sendMessage();
-    }
-  });
-</script>
+      const message = userInput.value.trim();
+      if (!message) return;
 
+      // Display user message
+      const userMessageElement = document.createElement("div");
+      userMessageElement.className = "message user";
+      userMessageElement.textContent = message;
+      messagesContainer.appendChild(userMessageElement);
+
+      // Get bot response
+      const botMessage = getBotResponse(message);
+
+      // Display bot message after delay
+      setTimeout(() => {
+        const botMessageElement = document.createElement("div");
+        botMessageElement.className = "message bot";
+        botMessageElement.textContent = botMessage;
+        messagesContainer.appendChild(botMessageElement);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight; // Auto-scroll
+      }, 1000);
+
+      userInput.value = ""; // Clear user input
+    });
+  </script>
 </body>
 </html>
