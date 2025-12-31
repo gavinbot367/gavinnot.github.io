@@ -1,118 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Image Gallery</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Thematic Sections</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #fff;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background-color: #f9f9f9;
         }
-
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+        }
+        .gallery-section {
+            padding: 2em;
+        }
+        h2 {
+            border-bottom: 2px solid #333;
+            font-size: 1.5em;
+        }
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            width: 90%;
-            margin: 20px auto;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1em;
+            margin-top: 1em;
         }
-
-        .gallery-item {
-            text-align: center;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .gallery-item img {
-            max-width: 100%;
+        .gallery img {
+            width: 100%;
             height: auto;
-            border-radius: 10px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
         }
-
-        .gallery-item img:hover {
+        .gallery img:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(0,255,255,0.8);
-        }
-
-        .caption {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: #ccc;
+            border-color: #333;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to the Image Gallery</h1>
+    <header>
+        <h1>Welcome to the Thematic Gallery</h1>
+    </header>
 
-    <div class="gallery">
-        <!-- Images added here -->
-        <div class="gallery-item">
-            <a href="assets-blackcode.png" target="_blank">
-                <img src="assets-blackcode.png" alt="assets-blackcode">
-            </a>
-            <div class="caption">assets-blackcode.png</div>
-        </div>
-        <div class="gallery-item">
-            <a href="assets-gavinbot.png" target="_blank">
-                <img src="assets-gavinbot.png" alt="assets-gavinbot">
-            </a>
-            <div class="caption">assets-gavinbot.png</div>
-        </div>
-        <div class="gallery-item">
-            <a href="auction-items.png" target="_blank">
-                <img src="auction-items.png" alt="auction-items">
-            </a>
-            <div class="caption">auction-items.png</div>
-        </div>
-        <div class="gallery-item">
-            <a href="back-garden.png" target="_blank">
-                <img src="back-garden.png" alt="back-garden">
-            </a>
-            <div class="caption">back-garden.png</div>
-        </div>
-        <div class="gallery-item">
-            <a href="dream.png" target="_blank">
-                <img src="dream.png" alt="dream">
-            </a>
-            <div class="caption">dream.png</div>
-        </div>
-        <div class="gallery-item">
-            <a href="edge-of-world.png" target="_blank">
-                <img src="edge-of-world.png" alt="edge-of-world">
-            </a>
-            <div class="caption">edge-of-world.png</div>
-        </div>
-        <div class="gallery-item">
-            <a href="gavinbot.png" target="_blank">
-                <img src="gavinbot.png" alt="gavinbot">
-            </a>
-            <div class="caption">gavinbot.png</div>
-        </div>
-        <div class="gallery-item">
-            <a href="gavinnot-&-gracenot.png" target="_blank">
-                <img src="gavinnot-&-gracenot.png" alt="gavinnot-&-gracenot">
-            </a>
-            <div class="caption">gavinnot-&-gracenot.png</div>
-        </div>
-        <div class="gallery-item">
-            <a href="karaoke-church.png" target="_blank">
-                <img src="karaoke-church.png" alt="karaoke-church">
-            </a>
-            <div class="caption">karaoke-church.png</div>
-        </div>
-        <div class="gallery-item">
-            <a href="the-tech-workshop.png" target="_blank">
-                <img src="the-tech-workshop.png" alt="the-tech-workshop">
-            </a>
-            <div class="caption">the-tech-workshop.png</div>
-        </div>
-    </div>
+    <main>
+        <section class="gallery-section">
+            <h2>Nature</h2>
+            <div class="gallery">
+                <img src="images/nature1.jpg" alt="Nature photo 1">
+                <img src="images/nature2.jpg" alt="Nature photo 2">
+                <img src="images/nature3.jpg" alt="Nature photo 3">
+                <img src="images/nature4.jpg" alt="Nature photo 4">
+            </div>
+        </section>
+
+        <section class="gallery-section">
+            <h2>Architecture</h2>
+            <div class="gallery">
+                <img src="images/architecture1.jpg" alt="Architecture photo 1">
+                <img src="images/architecture2.jpg" alt="Architecture photo 2">
+                <img src="images/architecture3.jpg" alt="Architecture photo 3">
+                <img src="images/architecture4.jpg" alt="Architecture photo 4">
+            </div>
+        </section>
+
+        <section class="gallery-section">
+            <h2>Abstract</h2>
+            <div class="gallery">
+                <img src="images/abstract1.jpg" alt="Abstract photo 1">
+                <img src="images/abstract2.jpg" alt="Abstract photo 2">
+                <img src="images/abstract3.jpg" alt="Abstract photo 3">
+                <img src="images/abstract4.jpg" alt="Abstract photo 4">
+            </div>
+        </section>
+    </main>
 </body>
 </html>
