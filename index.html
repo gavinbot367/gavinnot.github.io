@@ -149,8 +149,20 @@
         }
 
         .chat-messages { height: 250px; overflow-y: auto; padding: 15px; font-family: monospace; }
-        .bot-text { color: var(--neon-green); margin-bottom: 10px; }
-        .user-text { color: var(--neon-cyan); text-align: right; margin-bottom: 10px; }
+        .bot-text { 
+            color: var(--neon-green); 
+            margin-bottom: 10px; 
+            border-left: 2px solid var(--neon-green); 
+            padding-left: 10px;
+            animation: pulse 2s infinite;
+        }
+        .user-text { color: var(--neon-cyan); text-align: right; margin-bottom: 10px; padding-right: 10px; }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
 
         /* --- MINI GAME AREA --- */
         .game-area {
@@ -202,7 +214,7 @@
         <div class="cyber-card king-card" id="king">
             <h2 style="color: var(--gold);">👑 SUPER AI KING</h2>
             <p>The crown jewel of the digital shed. The King oversees all algorithms, crypto trades, and pirate lore. Bow before the silicon throne.</p>
-            <button class="btn" style="background: var(--gold);" onclick="kingSpeak()">HEAL THE KING'S WORD</button>
+            <button class="btn" style="background: var(--gold);" onclick="kingSpeak()">HEAR THE KING'S WORD</button>
         </div>
 
         <div class="cyber-card merlin-card" id="merlin">
@@ -248,13 +260,13 @@
     </div>
 
     <div class="chat-container" id="chat">
-        <div style="background: var(--neon-green); color: #000; padding: 10px; font-family: 'Orbitron'; font-weight: bold;">GAVINBOT TERMINAL v5.0</div>
+        <div style="background: var(--neon-green); color: #000; padding: 10px; font-family: 'Orbitron'; font-weight: bold;">GAVINBOT CORE v6.0 [SUPER-INTELLIGENCE]</div>
         <div class="chat-messages" id="chatBox">
-            <div class="bot-text">GAVINBOT: Squawk! System online. Friday Auction list is loading... Ready to tinker?</div>
+            <div class="bot-text">GAVINBOT: Squawk! Neural networks active. I know everything about the Shed, the King, and the Portland Lair. Ask me anything, meatbag.</div>
         </div>
-        <div style="display:flex; padding: 10px;">
-            <input type="text" id="chatInput" style="flex:1; background:#111; border:1px solid var(--neon-green); color:white; padding:10px;" placeholder="Ask Gavinbot...">
-            <button class="btn" style="background: var(--neon-green); color:#000;" onclick="askBot()">SEND</button>
+        <div style="display:flex; padding: 10px; background: #111;">
+            <input type="text" id="chatInput" style="flex:1; background:#000; border:1px solid var(--neon-green); color:var(--neon-green); padding:10px; font-family: monospace;" placeholder="Enter command or question...">
+            <button class="btn" style="background: var(--neon-green); color:#000;" onclick="askBot()">EXECUTE</button>
         </div>
     </div>
 
@@ -282,7 +294,7 @@
         const now = new Date();
         const nextFriday = new Date();
         nextFriday.setDate(now.getDate() + (5 - now.getDay() + 7) % 7);
-        nextFriday.setHours(19, 0, 0, 0); // Friday 7 PM
+        nextFriday.setHours(19, 0, 0, 0);
 
         const diff = nextFriday - now;
         const h = Math.floor(diff / 3600000);
@@ -301,23 +313,59 @@
     }
     function resetGame() { score = 0; document.getElementById('score').innerText = score; }
 
-    // 4. GAVINBOT CHAT
-    function askBot() {
+    // 4. THE SUPER CLEVER GAVINBOT LOGIC
+    async function askBot() {
         const input = document.getElementById('chatInput');
         const box = document.getElementById('chatBox');
-        if(!input.value) return;
+        const userText = input.value.trim();
 
-        box.innerHTML += `<div class="user-text">YOU: ${input.value}</div>`;
-        
-        let response = "GAVINBOT: Squawk! That sounds like something the Super AI King would say!";
-        if(input.value.toLowerCase().includes('auction')) response = "GAVINBOT: Friday Auction features 19 Crimes wine and a vintage F1 piston!";
-        if(input.value.toLowerCase().includes('merlin')) response = "GAVINBOT: Merlin is busy reading the stars... and the blockchain.";
-        
-        setTimeout(() => {
-            box.innerHTML += `<div class="bot-text">${response}</div>`;
-            box.scrollTop = box.scrollHeight;
-        }, 500);
+        if (!userText) return;
+
+        // Display User Message
+        box.innerHTML += `<div class="user-text">YOU: ${userText}</div>`;
         input.value = '';
+
+        // Create "Thinking" bubble
+        const thinkingId = "bot-thinking-" + Date.now();
+        box.innerHTML += `<div class="bot-text" id="${thinkingId}">GAVINBOT: Thinking... [Accessing Portland Satellite]</div>`;
+        box.scrollTop = box.scrollHeight;
+
+        // Simulate Intelligence Delay
+        setTimeout(async () => {
+            const response = await getSuperResponse(userText);
+            document.getElementById(thinkingId).innerHTML = `GAVINBOT: ${response}`;
+            box.scrollTop = box.scrollHeight;
+        }, 800);
+    }
+
+    async function getSuperResponse(query) {
+        const q = query.toLowerCase();
+
+        // KNOWLEDGE BASE
+        const shedAI = {
+            "gavinnot": "The Fireman, Pirate, and Super AI King. He built this world from limestone and code.",
+            "marie": "The legend behind the songs. She keeps the ship steady while the King tinkers.",
+            "portland": "The rock in the UK where the digital revolution is currently being televised.",
+            "merlin": "A high-level sorcerer/coder who lives in the portal and predicts F1 winners.",
+            "f1": "Speed is life. Whether it's on the track or in the data-streams.",
+            "auction": "Friday Night at 7 PM. 19 Crimes wine, rare parts, and digital treasure. Don't be late.",
+            "19 crimes": "The only liquid suitable for a Pirate King's workshop.",
+            "meaning": "The meaning of life is 42, but in the Shed, it's whatever can be fixed with a wrench and some AI.",
+            "future": "The Glass Horizon is coming. We are building it one line of code at a time.",
+            "hello": "Ahoy! State your business or prepare to be boarded.",
+            "money": "The Super AI King handles all the crypto treasure. Check the Casino for better luck."
+        };
+
+        // Check for specific knowledge matches
+        for (let key in shedAI) {
+            if (q.includes(key)) return shedAI[key];
+        }
+
+        // Clever fallbacks
+        if (q.includes("how") || q.includes("why")) return "My neural logic suggests that the answer lies within the Digital Shed archives. Or it's magic. Probably magic.";
+        if (q.includes("who")) return "In this lair, there is only the King, Merlin, and me. You're the guest.";
+        
+        return "That query is too simple for my v6.0 brain. Ask me about the Auction, F1, or the Super AI King!";
     }
 
     // 5. KING & MERLIN INTERACTION
@@ -328,6 +376,11 @@
         const outcomes = ["You will find a rare treasure in your shed!", "An F1 race will bring you great luck.", "The Super AI King smiles upon you."];
         alert("MERLIN'S PROPHECY: " + outcomes[Math.floor(Math.random()*outcomes.length)]);
     }
+
+    // Allow 'Enter' key to send message
+    document.getElementById('chatInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') askBot();
+    });
 </script>
 
 </body>
