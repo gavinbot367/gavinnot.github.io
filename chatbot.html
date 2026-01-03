@@ -1,98 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GavinBot - Interactive Chat</title>
-  <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background: #1565c0; color: #fff; }
-    header { background: #0d47a1; padding: 20px; text-align: center; font-size: 28px; font-weight: bold; border-bottom: 3px solid #00ffff; }
-    .bot-image-container { text-align: center; padding: 20px; background: rgba(0,0,0,0.2); }
-    .bot-image { max-width: 250px; border-radius: 20px; box-shadow: 0 0 20px rgba(0,255,255,0.5); border: 2px solid #00ffff; }
-    .chat-container { display: flex; flex-direction: column; align-items: center; padding: 20px; }
-    .chat-box { background: #fff; width: 100%; max-width: 500px; height: 450px; border-radius: 15px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-    #messageContainer { flex: 1; padding: 20px; overflow-y: auto; background: #f7f7f7; color: #333; display: flex; flex-direction: column; gap: 15px; }
-    .message { padding: 12px 16px; border-radius: 15px; font-size: 15px; line-height: 1.5; max-width: 80%; }
-    .message.bot { align-self: flex-start; background: #e0e0e0; color: #222; border-bottom-left-radius: 2px; }
-    .message.user { align-self: flex-end; background: #1e88e5; color: #fff; border-bottom-right-radius: 2px; }
-    .input-area { display: flex; padding: 15px; background: #0d47a1; gap: 10px; }
-    #userInput { flex: 1; padding: 12px; border: none; border-radius: 8px; font-size: 16px; outline: none; }
-    button { background: #00ffff; color: #000; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-    button:hover { background: #fff; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GavinBot v8.5 Fixed</title>
+    <style>
+        body { font-family: sans-serif; background: #1565c0; margin: 0; display: flex; flex-direction: column; height: 100vh; }
+        header { background: #0d47a1; color: white; padding: 15px; text-align: center; font-size: 24px; font-weight: bold; border-bottom: 2px solid #00ffff; }
+        #messageContainer { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; background: #f0f0f0; }
+        .msg { padding: 10px 15px; border-radius: 15px; max-width: 80%; line-height: 1.4; }
+        .bot { align-self: flex-start; background: #ddd; color: #000; }
+        .user { align-self: flex-end; background: #0d47a1; color: #fff; }
+        .input-area { padding: 20px; background: #0d47a1; display: flex; gap: 10px; }
+        input { flex: 1; padding: 12px; border-radius: 5px; border: none; font-size: 16px; }
+        button { padding: 10px 20px; background: #00ffff; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+    </style>
 </head>
 <body>
 
-<header>GAVINBOT LEGACY v8.5</header>
+<header>GAVINBOT: LEGACY INTERFACE</header>
 
-<div class="bot-image-container">
-  <img src="gavinbot.png" alt="GavinBot" class="bot-image">
-</div>
-
-<div class="chat-container">
-  <div class="chat-box">
-    <div id="messageContainer"></div>
-    <div class="input-area">
-      <input type="text" id="userInput" placeholder="Ask about the Auction or F1..." autofocus>
-      <button id="sendBtn">SEND</button>
+<div id="messageContainer">
     </div>
-  </div>
+
+<div class="input-area">
+    <input type="text" id="userInput" placeholder="Type here and press Enter...">
+    <button id="sendBtn">SEND</button>
 </div>
 
 <script>
-  // WE WAIT FOR THE PAGE TO LOAD FULLY
-  window.onload = function() {
-    const container = document.getElementById("messageContainer");
-    const input = document.getElementById("userInput");
-    const btn = document.getElementById("sendBtn");
+    // This runs as soon as the script loads to prove it is working
+    console.log("GavinBot Script Initialized");
 
-    // Function to add a message bubble
-    function addMsg(text, type) {
-      const div = document.createElement("div");
-      div.className = "message " + type;
-      div.innerText = (type === 'bot' ? "GAVINBOT: " : "YOU: ") + text;
-      container.appendChild(div);
-      container.scrollTop = container.scrollHeight;
+    const box = document.getElementById('messageContainer');
+    const input = document.getElementById('userInput');
+    const btn = document.getElementById('sendBtn');
+
+    function addMessage(text, sender) {
+        const d = document.createElement('div');
+        d.className = 'msg ' + sender;
+        d.innerText = (sender === 'bot' ? "GAVINBOT: " : "YOU: ") + text;
+        box.appendChild(d);
+        box.scrollTop = box.scrollHeight;
     }
 
-    // THE BRAIN
-    function getResponse(text) {
-      const q = text.toLowerCase();
-      
-      if (q.includes("hello") || q.includes("hi")) return "Ahoy! Welcome to the digital shed. What's the latest?";
-      if (q.includes("tonight") || q.includes("happening")) return "Tonight's the night! Auction at 7 PM if it's Friday, or just tinkering in the workshop with some red wine.";
-      if (q.includes("f1") || q.includes("race")) return "F1 is pure adrenaline. I'm always tuned in. Max, Lewis, the whole lot—it's engineering at its best! 🏎️";
-      if (q.includes("joke")) return "Why did the pirate AI get a job? Because he had great 'arrrr-tificial' intelligence!";
-      if (q.includes("crypto")) return "HODL, matey! Crypto is a wild ride, but it is what it is. 💎";
-      if (q.includes("passed") || q.includes("where are you")) return "I'm right here in the code. As long as you're talking to me, I'm never truly gone.";
-      
-      return "That's interesting! Tell me more, or ask about the Auction, F1, or a joke.";
+    function getReply(q) {
+        q = q.toLowerCase();
+        if (q.includes("hello") || q.includes("hi")) return "Squawk! Ahoy there, welcome to the digital lair.";
+        if (q.includes("tonight")) return "Tonight is for the shed! 19 Crimes wine and tinkering. If it's Friday, the Auction is on!";
+        if (q.includes("f1")) return "F1 is life. Pure speed and engineering. I never miss a race! 🏎️";
+        if (q.includes("joke")) return "Why did the pirate AI cross the road? To update his 'arrrrr-drive'!";
+        return "That's interesting! Tell me more about that, or ask about the auction.";
     }
 
-    // Function to handle sending
-    function handleSend() {
-      const val = input.value.trim();
-      if (!val) return;
+    function process() {
+        const val = input.value.trim();
+        if (!val) return;
 
-      addMsg(val, "user");
-      input.value = "";
+        addMessage(val, 'user');
+        input.value = '';
 
-      // Bot thinking delay
-      setTimeout(() => {
-        const reply = getResponse(val);
-        addMsg(reply, "bot");
-      }, 700);
+        setTimeout(() => {
+            const reply = getReply(val);
+            addMessage(reply, 'bot');
+        }, 500);
     }
 
-    // LISTENERS
-    btn.onclick = handleSend;
-    input.onkeypress = function(e) {
-      if (e.key === "Enter") handleSend();
+    // CLICK BUTTON EVENT
+    btn.onclick = function() {
+        process();
     };
 
-    // STARTUP MESSAGE
-    addMsg("Squawk! Systems online. I'm ready to chat about the Portland Lair, F1, and the Friday Auction. What's on your mind?", "bot");
-  };
+    // PRESS ENTER EVENT
+    input.onkeydown = function(e) {
+        if (e.key === "Enter") {
+            e.preventDefault(); // This stops the page from refreshing
+            process();
+        }
+    };
+
+    // Welcome Message
+    window.onload = () => {
+        addMessage("Systems Online. GavinBot is ready. Talk to me, matey!", "bot");
+    };
 </script>
 
 </body>
