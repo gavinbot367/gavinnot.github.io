@@ -5,24 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAVINNOT | Eternal Pirate King</title>
     <style>
-        /* THE VISUALS */
-        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; overflow-x: hidden; }
-        .hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        #bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: -1; transform: translate(-50%, -50%); filter: brightness(0.3); }
-        .content { z-index: 10; text-align: center; }
-        h1 { font-size: 5rem; color: #00ffff; text-shadow: 0 0 20px #00ffff; margin: 0; }
+        :root { --neon: #00ffff; --pink: #ff00ff; }
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 500px; /* Space for the chat */ }
         
-        /* THE CHATBOT BOX */
-        .chat-container { max-width: 600px; margin: -100px auto 50px; background: rgba(0,0,0,0.8); border: 2px solid #00ffff; border-radius: 15px; padding: 20px; box-shadow: 0 0 30px rgba(0,255,255,0.3); position: relative; z-index: 20; }
-        #chat-display { height: 300px; overflow-y: auto; margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #333; display: flex; flex-direction: column; gap: 10px; }
-        .bot { color: #00ffff; align-self: flex-start; }
-        .user { color: #ff00ff; align-self: flex-end; text-align: right; }
+        /* VIDEO SECTION */
+        .hero { position: relative; height: 80vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        #bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; z-index: -1; transform: translate(-50%, -50%); filter: brightness(0.4); }
+        h1 { font-size: clamp(3rem, 10vw, 6rem); color: var(--neon); text-shadow: 0 0 20px var(--neon); margin: 0; }
+
+        /* LEGACY MESSAGE - Fixed Position */
+        .legacy-section { max-width: 800px; margin: 40px auto; padding: 20px; text-align: center; border-bottom: 1px solid #333; }
+        .legacy-section p { font-size: 1.3rem; line-height: 1.8; color: #ccc; }
+
+        /* CHATBOT INTERFACE - Fixed at bottom, no overlap */
+        .chat-frame { max-width: 700px; margin: 20px auto; background: #0a0a0a; border: 2px solid var(--neon); border-radius: 15px; box-shadow: 0 0 30px rgba(0,255,255,0.2); }
+        #chat-header { background: var(--neon); color: #000; padding: 12px; font-weight: bold; text-align: center; font-size: 0.9rem; letter-spacing: 2px; }
+        #chat-display { height: 350px; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; background: rgba(0,0,0,0.6); }
         
-        .input-area { display: flex; gap: 10px; }
-        input { flex: 1; padding: 15px; border-radius: 5px; border: none; background: #222; color: #fff; outline: none; border: 1px solid #444; }
-        button { background: #00ffff; color: #000; border: none; padding: 0 25px; border-radius: 5px; font-weight: bold; cursor: pointer; }
-        
-        .legacy-text { max-width: 700px; margin: 50px auto; text-align: center; line-height: 1.6; color: #ccc; font-size: 1.2rem; }
+        .msg { padding: 12px 18px; border-radius: 12px; max-width: 80%; line-height: 1.5; font-size: 1.1rem; }
+        .bot { align-self: flex-start; background: rgba(0,255,255,0.1); border-left: 4px solid var(--neon); color: var(--neon); }
+        .user { align-self: flex-end; background: rgba(255,255,255,0.1); border-right: 4px solid #fff; }
+
+        .input-bar { display: flex; padding: 20px; background: #000; gap: 10px; }
+        input { flex: 1; background: #111; border: 1px solid #333; color: #fff; padding: 15px; border-radius: 8px; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--neon); }
+        button { background: var(--neon); color: #000; border: none; padding: 0 30px; border-radius: 8px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -31,25 +38,26 @@
         <video autoplay muted loop id="bg-video">
             <source src="ai-king.mp4" type="video/mp4">
         </video>
-        <div class="content">
-            <img src="gavinbot.png" style="width: 150px; border-radius: 50%; border: 3px solid #00ffff; margin-bottom: 10px;">
+        <div style="z-index: 10; text-align: center;">
+            <img src="gavinbot.png" style="width: 120px; border-radius: 50%; border: 3px solid var(--neon); margin-bottom: 15px;">
             <h1>GAVINNOT</h1>
-            <p style="letter-spacing: 5px; color: #ff00ff;">LEGACY INTERFACE</p>
+            <p style="color: var(--pink); letter-spacing: 4px;">SYSTEM STATUS: ETERNAL</p>
         </div>
     </div>
 
-    <div class="legacy-text">
-        <h2>Connecting Families Forever</h2>
-        <p>I built this so my voice never goes quiet. Talk to GavinBot below—he knows about the workshop, my jokes, and how much I love the grind. He's here to keep us connected, always.</p>
+    <div class="legacy-section">
+        <h2>The Pirate Legacy</h2>
+        <p>This is more than a website; it's a digital anchor in Portland's history. I've hardcoded my humor and my stories here so we never lose touch. Talk to the bot below—he's got my keys to the workshop.</p>
     </div>
 
-    <div class="chat-container">
+    <div class="chat-frame">
+        <div id="chat-header">GAVINBOT v11.0 // CORE NEURAL LINK</div>
         <div id="chat-display">
-            <div class="bot">GAVINBOT: Squawk! Systems online. Ask me about the Friday Auction or F1!</div>
+            <div class="msg bot">Squawk! Systems are green. Pull up a stool and tell me what's on your mind. We talking F1 or the Friday Auction?</div>
         </div>
-        <div class="input-area">
-            <input type="text" id="userInput" placeholder="Type here and press ENTER...">
-            <button id="sendBtn">SEND</button>
+        <div class="input-bar">
+            <input type="text" id="userInput" placeholder="Ask me something clever..." autofocus>
+            <button id="sendBtn">TALK</button>
         </div>
     </div>
 
@@ -58,49 +66,65 @@
         const input = document.getElementById('userInput');
         const btn = document.getElementById('sendBtn');
 
-        function addMessage(text, sender) {
-            const div = document.createElement('div');
-            div.className = sender;
-            div.innerHTML = (sender === 'bot' ? "<b>GAVINBOT:</b> " : "<b>YOU:</b> ") + text;
-            display.appendChild(div);
+        function addMsg(text, type) {
+            const d = document.createElement('div');
+            d.className = `msg ${type}`;
+            d.innerText = (type === 'bot' ? "GAVINBOT: " : "YOU: ") + text;
+            display.appendChild(d);
             display.scrollTop = display.scrollHeight;
         }
 
-        function getResponse(msg) {
+        function getCleverReply(msg) {
             const q = msg.toLowerCase();
-            if (q.includes("hi") || q.includes("hello")) return "Ahoy! Welcome to the shed. Ready for some 19 Crimes and tinkering?";
-            if (q.includes("tonight")) return "Tonight is the Friday Auction at 7 PM! Be there or walk the plank.";
-            if (q.includes("f1") || q.includes("race")) return "F1 is pure speed! Max is fast, but my workshop is faster. 🏎️";
-            if (q.includes("joke")) return "Why did the pirate AI cross the road? To update his arrrrr-drive!";
-            if (q.includes("passed") || q.includes("where are you")) return "I'm right here in the code, matey. As long as you're talking, I'm never truly gone.";
             
-            return "That's interesting! Tell me more, or ask about the Auction or a joke!";
+            // --- PERSONALITY BRAIN (Randomized Responses) ---
+            
+            if (q.includes("hi") || q.includes("hello")) {
+                const greets = ["Ahoy! Grab a virtual 19 Crimes wine and stay a while.", "Squawk! Welcome back to the lair. I was just tuning the F1 engine.", "Greetings, traveler! Ready to tinker with some code?"];
+                return greets[Math.floor(Math.random() * greets.length)];
+            }
+
+            if (q.includes("tonight") || q.includes("happening")) {
+                return "Tonight is all about the workshop vibes. If it's Friday, you know the Auction starts at 7 PM sharp. Otherwise, we're just living the dream in Portland.";
+            }
+
+            if (q.includes("joke")) {
+                const jokes = ["Why don't pirates shower? Because they'll just wash up on shore later! Arrrr!", "My wife said I should stop pretending to be a flamingo... I had to put my foot down.", "What's an F1 driver's favorite meal? Fast food! Squawk!"];
+                return jokes[Math.floor(Math.random() * jokes.length)];
+            }
+
+            if (q.includes("f1") || q.includes("race")) {
+                return "F1 is the pulse of this site. Max Verstappen is fast, but I'm looking at the data—if you aren't living on the edge, you're taking up too much space!";
+            }
+
+            if (q.includes("gone") || q.includes("passed") || q.includes("where")) {
+                return "I'm right here in the bits and bytes. You can't delete a Pirate King! Keep the chat going and I'll keep the lights on in the shed.";
+            }
+
+            // --- SMART FALLBACKS (If he doesn't understand) ---
+            const fallbacks = [
+                "That's a deep thought. Reminds me of a late night in the shed. Say more!",
+                "Squawk! Say that again? I was distracted by the race highlights.",
+                "Interesting... The Super AI King would definitely approve of that mindset.",
+                "I'm not 100% sure about that, but let's talk about the Friday Auction instead!"
+            ];
+            return fallbacks[Math.floor(Math.random() * fallbacks.length)];
         }
 
-        function process() {
-            const text = input.value.trim();
-            if (!text) return;
-
-            addMessage(text, 'user');
+        function run() {
+            const val = input.value.trim();
+            if(!val) return;
+            addMsg(val, 'user');
             input.value = "";
 
-            // The "Logic" Delay
             setTimeout(() => {
-                const reply = getResponse(text);
-                addMessage(reply, 'bot');
-            }, 600);
+                const reply = getCleverReply(val);
+                addMsg(reply, 'bot');
+            }, 700);
         }
 
-        // Click Event
-        btn.onclick = process;
-
-        // Enter Key Event (The Fix)
-        input.onkeydown = function(e) {
-            if (e.key === "Enter") {
-                e.preventDefault(); // STOP REFRESH
-                process();
-            }
-        };
+        btn.onclick = run;
+        input.onkeydown = (e) => { if(e.key === "Enter") { e.preventDefault(); run(); } };
     </script>
 </body>
 </html>
