@@ -1,58 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>GAVINNOT RESET</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAVINNOT | Eternal Pirate King</title>
     <style>
-        body { background: black; color: #0f0; font-family: 'Courier New', monospace; text-align: center; padding: 50px; }
-        #terminal { background: #111; border: 2px solid #0f0; width: 90%; max-width: 600px; margin: 20px auto; height: 300px; overflow-y: scroll; padding: 10px; text-align: left; }
-        input { width: 70%; padding: 10px; background: #000; color: #0f0; border: 1px solid #0f0; }
-        button { padding: 10px 20px; background: #0f0; color: #000; border: none; cursor: pointer; font-weight: bold; }
-        .bot { color: #0ff; }
+        /* THE VISUALS */
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; overflow-x: hidden; }
+        .hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        #bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: -1; transform: translate(-50%, -50%); filter: brightness(0.3); }
+        .content { z-index: 10; text-align: center; }
+        h1 { font-size: 5rem; color: #00ffff; text-shadow: 0 0 20px #00ffff; margin: 0; }
+        
+        /* THE CHATBOT BOX */
+        .chat-container { max-width: 600px; margin: -100px auto 50px; background: rgba(0,0,0,0.8); border: 2px solid #00ffff; border-radius: 15px; padding: 20px; box-shadow: 0 0 30px rgba(0,255,255,0.3); position: relative; z-index: 20; }
+        #chat-display { height: 300px; overflow-y: auto; margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #333; display: flex; flex-direction: column; gap: 10px; }
+        .bot { color: #00ffff; align-self: flex-start; }
+        .user { color: #ff00ff; align-self: flex-end; text-align: right; }
+        
+        .input-area { display: flex; gap: 10px; }
+        input { flex: 1; padding: 15px; border-radius: 5px; border: none; background: #222; color: #fff; outline: none; border: 1px solid #444; }
+        button { background: #00ffff; color: #000; border: none; padding: 0 25px; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        
+        .legacy-text { max-width: 700px; margin: 50px auto; text-align: center; line-height: 1.6; color: #ccc; font-size: 1.2rem; }
     </style>
 </head>
 <body>
 
-    <h1>GAVINNOT COMMAND CENTER</h1>
-    <p>If you can see this, the code is LIVE.</p>
-
-    <div id="terminal">
-        <div>SYSTEM: Initializing GavinBot...</div>
+    <div class="hero">
+        <video autoplay muted loop id="bg-video">
+            <source src="ai-king.mp4" type="video/mp4">
+        </video>
+        <div class="content">
+            <img src="gavinbot.png" style="width: 150px; border-radius: 50%; border: 3px solid #00ffff; margin-bottom: 10px;">
+            <h1>GAVINNOT</h1>
+            <p style="letter-spacing: 5px; color: #ff00ff;">LEGACY INTERFACE</p>
+        </div>
     </div>
 
-    <input type="text" id="userIn" placeholder="Type HI and hit Enter">
-    <button id="sendBtn">SEND</button>
+    <div class="legacy-text">
+        <h2>Connecting Families Forever</h2>
+        <p>I built this so my voice never goes quiet. Talk to GavinBot below—he knows about the workshop, my jokes, and how much I love the grind. He's here to keep us connected, always.</p>
+    </div>
+
+    <div class="chat-container">
+        <div id="chat-display">
+            <div class="bot">GAVINBOT: Squawk! Systems online. Ask me about the Friday Auction or F1!</div>
+        </div>
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Type here and press ENTER...">
+            <button id="sendBtn">SEND</button>
+        </div>
+    </div>
 
     <script>
-        const terminal = document.getElementById('terminal');
-        const input = document.getElementById('userIn');
+        const display = document.getElementById('chat-display');
+        const input = document.getElementById('userInput');
         const btn = document.getElementById('sendBtn');
 
-        function print(txt, owner) {
-            const line = document.createElement('div');
-            line.className = owner;
-            line.innerHTML = (owner === 'bot' ? "GAVINBOT: " : "YOU: ") + txt;
-            terminal.appendChild(line);
-            terminal.scrollTop = terminal.scrollHeight;
+        function addMessage(text, sender) {
+            const div = document.createElement('div');
+            div.className = sender;
+            div.innerHTML = (sender === 'bot' ? "<b>GAVINBOT:</b> " : "<b>YOU:</b> ") + text;
+            display.appendChild(div);
+            display.scrollTop = display.scrollHeight;
         }
 
-        function handle() {
-            const val = input.value.trim();
-            if(!val) return;
-            print(val, 'user');
-            input.value = "";
+        function getResponse(msg) {
+            const q = msg.toLowerCase();
+            if (q.includes("hi") || q.includes("hello")) return "Ahoy! Welcome to the shed. Ready for some 19 Crimes and tinkering?";
+            if (q.includes("tonight")) return "Tonight is the Friday Auction at 7 PM! Be there or walk the plank.";
+            if (q.includes("f1") || q.includes("race")) return "F1 is pure speed! Max is fast, but my workshop is faster. 🏎️";
+            if (q.includes("joke")) return "Why did the pirate AI cross the road? To update his arrrrr-drive!";
+            if (q.includes("passed") || q.includes("where are you")) return "I'm right here in the code, matey. As long as you're talking, I'm never truly gone.";
             
-            setTimeout(() => {
-                let r = "I am alive. The logic is working. Tell me to bring back the Pirate visuals!";
-                if(val.toLowerCase().includes("hi")) r = "Ahoy! The system is finally responding!";
-                print(r, 'bot');
-            }, 500);
+            return "That's interesting! Tell me more, or ask about the Auction or a joke!";
         }
 
-        btn.onclick = handle;
-        input.onkeydown = (e) => { if(e.keyCode === 13) handle(); };
+        function process() {
+            const text = input.value.trim();
+            if (!text) return;
 
-        print("GavinBot Online. Ready for orders.", "bot");
+            addMessage(text, 'user');
+            input.value = "";
+
+            // The "Logic" Delay
+            setTimeout(() => {
+                const reply = getResponse(text);
+                addMessage(reply, 'bot');
+            }, 600);
+        }
+
+        // Click Event
+        btn.onclick = process;
+
+        // Enter Key Event (The Fix)
+        input.onkeydown = function(e) {
+            if (e.key === "Enter") {
+                e.preventDefault(); // STOP REFRESH
+                process();
+            }
+        };
     </script>
-
 </body>
 </html>
