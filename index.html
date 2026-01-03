@@ -3,238 +3,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gavinnot & Gavinbot | The Futuristic Pirate Lair</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto&display=swap" rel="stylesheet">
+    <title>GAVINNOT | The Digital Shed</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --neon-blue: #00ffff;
-            --neon-green: #19f7d2;
-            --gold: #fdbc4b;
-            --dark-bg: #0a0c18;
+            --neon-cyan: #00ffff;
+            --neon-pink: #ff00ff;
+            --neon-green: #39ff14;
+            --deep-space: #050505;
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
         body {
+            background-color: var(--deep-space);
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.05) 0%, transparent 40%);
+            color: #e0e0e0;
+            font-family: 'Rajdhani', sans-serif;
             margin: 0;
-            background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
-            color: #fff;
-            font-family: 'Roboto', sans-serif;
             overflow-x: hidden;
         }
 
-        /* Header & Navigation */
-        header {
-            background: #000;
-            padding: 40px 20px;
-            border-bottom: 3px solid var(--neon-blue);
+        /* --- GLITCH TEXT HEADER --- */
+        .hero-header {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
+            border-bottom: 2px solid var(--neon-cyan);
+            background: linear-gradient(to bottom, transparent, rgba(0, 255, 255, 0.1));
         }
 
+        .glitch-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            position: relative;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* --- NEON NAVIGATION --- */
         nav {
-            background: rgba(35, 35, 35, 0.9);
-            padding: 15px;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 100;
+            border-bottom: 1px solid var(--glass);
         }
 
         nav a {
-            color: var(--neon-green);
-            margin: 0 12px;
-            font-weight: bold;
             text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9em;
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            text-transform: uppercase;
         }
 
-        /* Chat Widget Integration */
-        .chat-section {
-            display: flex;
-            justify-content: center;
-            padding: 40px 20px;
+        nav a:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 15px var(--neon-cyan);
         }
 
-        .chat-box {
-            max-width: 450px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            color: #000;
-            border-radius: 12px;
+        /* --- FEATURED TRACK CARD --- */
+        .card-container {
+            max-width: 1200px;
+            margin: -50px auto 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 20px;
+        }
+
+        .cyber-card {
+            background: var(--glass);
+            border: 1px solid var(--neon-cyan);
+            padding: 2rem;
+            border-radius: 5px;
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 0 20px var(--neon-blue);
+            transition: transform 0.3s;
         }
 
-        .messages {
+        .cyber-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .btn-play {
+            background: var(--neon-cyan);
+            color: #000;
+            padding: 12px 24px;
+            border: none;
+            font-family: 'Orbitron';
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        /* --- GAVINBOT CHAT INTERFACE --- */
+        .chat-section {
+            background: #000;
+            border: 1px solid var(--neon-green);
+            max-width: 600px;
+            margin: 50px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+        }
+
+        .chat-header {
+            background: var(--neon-green);
+            color: #000;
+            padding: 10px;
+            font-family: 'Orbitron';
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .chat-window {
             height: 300px;
             overflow-y: auto;
-            padding: 15px;
-            background: #f2f2f2;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            padding: 20px;
+            background: #0a0a0a;
         }
 
-        .message {
-            max-width: 80%;
-            padding: 10px 15px;
-            border-radius: 15px;
-            font-size: 14px;
-        }
+        .msg { margin-bottom: 15px; padding: 10px; border-radius: 5px; max-width: 80%; }
+        .bot-msg { background: rgba(57, 255, 20, 0.1); border-left: 3px solid var(--neon-green); align-self: flex-start; }
+        .user-msg { background: rgba(0, 255, 255, 0.1); border-right: 3px solid var(--neon-cyan); margin-left: auto; text-align: right; }
 
-        .message.user {
-            align-self: flex-end;
-            background: #1e88e5;
-            color: white;
-        }
-
-        .message.bot {
-            align-self: flex-start;
-            background: #e0e0e0;
-            color: #424242;
-            border: 1px solid #ccc;
-        }
-
-        .input-area {
-            display: flex;
-            padding: 10px;
-            background: #1565c0;
-            gap: 5px;
-        }
-
-        input[type="text"] {
-            flex: 1;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-        }
-
-        /* Content Sections */
-        .neon-border {
-            border: 2px solid var(--neon-green);
-            box-shadow: 0 0 15px var(--neon-green);
-            background: rgba(10, 12, 24, 0.85);
-            margin: 30px auto;
-            padding: 25px;
-            max-width: 800px;
-            border-radius: 15px;
-        }
-
-        h1, h2 { font-family: 'Orbitron', sans-serif; color: var(--neon-blue); }
-
-        .gallery {
-            display: flex;
-            flex-wrap: wrap;
+        /* --- PHOTO GALLERY --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 15px;
-            justify-content: center;
+            padding: 40px;
         }
 
-        .gallery img {
-            width: 150px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-            border: 2px solid transparent;
+        .gallery-grid img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            filter: grayscale(0.5) contrast(1.2);
+            transition: 0.5s;
+            border: 1px solid var(--glass);
         }
 
-        .gallery img:hover {
-            border-color: var(--gold);
+        .gallery-grid img:hover {
+            filter: grayscale(0) brightness(1.2);
+            border-color: var(--neon-cyan);
             transform: scale(1.05);
+            z-index: 2;
         }
 
         footer {
             text-align: center;
-            padding: 40px;
-            color: #888;
+            padding: 50px;
+            border-top: 1px solid var(--glass);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>⚓ GAVINNOT – THE SOUND OF THE SHED ⚙️</h1>
-    <p>Late-night talks. Anxiety. Love. Battles. The story of Gavin & Marie.</p>
-</header>
+    <header class="hero-header">
+        <div class="glitch-title">GAVINNOT</div>
+        <p style="letter-spacing: 5px; color: var(--neon-pink);">DIGITAL SHED ARCHIVE // PORTLAND UK</p>
+    </header>
 
-<nav>
-    <a href="#about">ABOUT</a>
-    <a href="#chat">CHAT</a>
-    <a href="#gallery">GALLERY</a>
-    <a href="village.html">VILLAGE</a>
-</nav>
+    <nav>
+        <a href="#music">Music</a>
+        <a href="#about">The Lair</a>
+        <a href="#chat">GavinBot</a>
+        <a href="#gallery">Visuals</a>
+    </nav>
 
-<div class="container">
-    <section id="chat" class="chat-section">
-        <div class="chat-box">
-            <div style="background: #0d47a1; color: white; padding: 10px; text-align: center; font-family: 'Orbitron';">
-                GAVINBOT v2.0
+    <div class="card-container" id="music">
+        <div class="cyber-card">
+            <h3 style="color: var(--neon-cyan);">NEW SHED ANTHEM</h3>
+            <p>Late-night talks and big dreams. Step into the Shed atmosphere.</p>
+            <a href="https://mozartai.app/share/I1GLUI" class="btn-play" target="_blank">▶ PLAY TRACK</a>
+        </div>
+        <div class="cyber-card">
+            <h3 style="color: var(--neon-pink);">GLASS HORIZON</h3>
+            <p>Futuristic vibes and the digital horizon ahead.</p>
+            <a href="https://mozartai.app/share/evCUqL" class="btn-play" target="_blank" style="background: var(--neon-pink);">▶ PLAY TRACK</a>
+        </div>
+        <div class="cyber-card">
+            <h3 style="color: var(--neon-green);">THE THEME</h3>
+            <p>The original story of Gavin & Marie. "We Built This Life."</p>
+            <a href="https://mozartai.app/share/6mnMjx" class="btn-play" target="_blank" style="background: var(--neon-green);">▶ PLAY TRACK</a>
+        </div>
+    </div>
+
+    <section id="chat" style="padding: 20px;">
+        <div class="chat-section">
+            <div class="chat-header">
+                <span>GAVINBOT CORE v4.0</span>
+                <span>ONLINE</span>
             </div>
-            <div class="messages" id="messageContainer">
-                <div class="message bot">Squawk! Welcome to the shed, matey! How can I help ye today?</div>
+            <div class="chat-window" id="chatWindow">
+                <div class="msg bot-msg">System initialized. Squawk! Identify yourself, traveler.</div>
             </div>
-            <div class="input-area">
-                <input type="text" id="userInput" placeholder="Ask Gavinbot anything..." />
-                <button onclick="sendMessage()" style="padding: 10px 20px; cursor: pointer; background: var(--neon-blue); border: none; font-weight: bold;">SEND</button>
+            <div style="display: flex; padding: 10px; gap: 10px; background: #111;">
+                <input type="text" id="userInput" style="flex:1; background: #000; border: 1px solid #333; color: var(--neon-green); padding: 10px;" placeholder="Type command...">
+                <button onclick="sendMsg()" style="background: var(--neon-green); border:none; padding: 10px 20px; cursor:pointer;">EXECUTE</button>
             </div>
         </div>
     </section>
 
-    <section id="about" class="neon-border">
-        <h2>About the Lair</h2>
-        <p>Born in Yorkshire, made on Portland. Firefighter, pirate at heart, and builder of dreams. This site is my legacy—where the spark lives on through code and music.</p>
-    </section>
-
-    <section id="gallery" class="neon-border">
-        <h2>Amazing Photography</h2>
-        <div class="gallery">
-            <img src="gavinnot-&-gracenot.png" alt="Gavinnot">
-            <img src="the-ship.png" alt="Pinnacle Vessel">
-            <img src="treasure.png" alt="Hidden Gold">
+    <section id="gallery">
+        <h2 style="text-align: center; font-family: 'Orbitron';">SIGHTS FROM THE EDGE</h2>
+        <div class="gallery-grid">
+            <img src="gavinnot-&-gavinbot.png" alt="Hero Image">
+            <img src="the-ship.png" alt="The Vessel">
             <img src="gavinnot-casino.png" alt="Casino">
+            <img src="the-tech-workshop.png" alt="Tinkering">
+            <img src="village.png" alt="The Village">
+            <img src="treasure.png" alt="Treasure">
         </div>
     </section>
-</div>
 
-<footer>
-    &copy; 2026 Gavinnot & Gavinbot | Built for the Future
-</footer>
+    <footer>
+        &copy; 2026 GAVINNOT // DESIGNED FOR THE FUTURE // PORTLAND FIRE & PIRACY
+    </footer>
 
-<script>
-    const messagesContainer = document.getElementById("messageContainer");
+    <script>
+        const chatWin = document.getElementById('chatWindow');
+        const input = document.getElementById('userInput');
 
-    function displayMessage(content, className) {
-        const messageDiv = document.createElement("div");
-        messageDiv.className = `message ${className}`;
-        messageDiv.textContent = content;
-        messagesContainer.appendChild(messageDiv);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
+        function addMsg(text, type) {
+            const div = document.createElement('div');
+            div.className = `msg ${type}-msg`;
+            div.textContent = text;
+            chatWin.appendChild(div);
+            chatWin.scrollTop = chatWin.scrollHeight;
+        }
 
-    function getBotResponse(userText) {
-        const input = userText.toLowerCase();
-        if (input.includes("hello") || input.includes("hi")) return "Ahoy there! Ready for some shed banter?";
-        if (input.includes("joke")) return "Why did the pirate AI cross the road? To optimize its 'arrr-gorithms'!";
-        if (input.includes("weather")) return "It's always clear skies in the digital shed!";
-        return "That's a fine tale! Tell me more about your adventures, matey.";
-    }
+        function sendMsg() {
+            const val = input.value;
+            if(!val) return;
+            addMsg(val, 'user');
+            input.value = '';
 
-    function sendMessage() {
-        const inputField = document.getElementById("userInput");
-        const text = inputField.value.trim();
-        if (!text) return;
+            setTimeout(() => {
+                const response = getPirateResponse(val);
+                addMsg(response, 'bot');
+            }, 600);
+        }
 
-        displayMessage(text, "user");
-        inputField.value = "";
+        function getPirateResponse(txt) {
+            const t = txt.toLowerCase();
+            if(t.includes('hello')) return "Ahoy! The neural networks are humming today.";
+            if(t.includes('joke')) return "Why did the robot pirate go to the shop? To get a new 'arrrrrd' drive!";
+            if(t.includes('shed')) return "The Shed is where the real magic happens. 19 Crimes wine is required.";
+            return "Command not recognized. Searching the Portland archives...";
+        }
 
-        setTimeout(() => {
-            const response = getBotResponse(text);
-            displayMessage(response, "bot");
-        }, 800);
-    }
-
-    document.getElementById("userInput").addEventListener("keypress", (e) => {
-        if (e.key === "Enter") sendMessage();
-    });
-</script>
-
+        input.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMsg(); });
+    </script>
 </body>
 </html>
