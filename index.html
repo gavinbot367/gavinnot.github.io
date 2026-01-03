@@ -145,49 +145,101 @@
     </div>
 
     <script>
-        // THE GAVINNOT BRAIN (V8.0)
-        const chatBox = document.getElementById('chatBox');
-        
-        function talkToGavin() {
-            const input = document.getElementById('userInput');
-            const text = input.value.trim();
-            if (!text) return;
+<script>
+    // 1. LIGHTBOX (Enlarge photos)
+    document.querySelectorAll('.stunning-gallery img').forEach(i => {
+        i.onclick = () => {
+            const lb = document.createElement('div');
+            lb.id = 'lightbox';
+            lb.style.display = 'flex';
+            lb.innerHTML = `<img src="${i.src}" style="max-width:90%; border:3px solid var(--neon-cyan);">`;
+            lb.onclick = () => lb.remove();
+            document.body.appendChild(lb);
+        }
+    });
 
-            // User Message
-            createMsg(text, 'user');
-            input.value = '';
+    // 2. THE ETERNAL GAVINBOT BRAIN (V8.1)
+    const chatBox = document.getElementById('chatBox');
+    
+    function talkToGavin() {
+        const input = document.getElementById('userInput');
+        const text = input.value.trim();
+        if (!text) return;
 
-            // Gavin's Response Logic
-            setTimeout(() => {
-                const response = getGavinnotResponse(text.toLowerCase());
-                createMsg(response, 'bot');
-            }, 800);
+        createMsg(text, 'user');
+        input.value = '';
+
+        setTimeout(() => {
+            const response = getGavinnotResponse(text.toLowerCase());
+            createMsg(response, 'bot');
+        }, 600);
+    }
+
+    function createMsg(text, sender) {
+        const div = document.createElement('div');
+        div.className = `msg ${sender}`;
+        div.innerText = (sender === 'bot' ? "GAVINBOT: " : "YOU: ") + text;
+        chatBox.appendChild(div);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function getGavinnotResponse(q) {
+        // --- 1. GREETINGS ---
+        if (q.includes("hello") || q.includes("hi") || q.includes("hey")) {
+            const hi = ["Ahoy! Grab a virtual stool in the shed.", "Squawk! Welcome to the lair, matey.", "Greetings! Ready to talk tech and treasure?"];
+            return hi[Math.floor(Math.random()*hi.length)];
         }
 
-        function createMsg(text, sender) {
-            const div = document.createElement('div');
-            div.className = `msg ${sender}`;
-            div.innerText = (sender === 'bot' ? "" : "YOU: ") + text;
-            chatBox.appendChild(div);
-            chatBox.scrollTop = chatBox.scrollHeight;
+        // --- 2. TONIGHT / AUCTION ---
+        if (q.includes("tonight") || q.includes("happening") || q.includes("friday")) {
+            return "Tonight we’re firing up the workshop! If it’s Friday, the Auction is live at 7 PM. 19 Crimes wine is poured and the gears are turning.";
         }
 
-        function getGavinnotResponse(q) {
-            // Personality Injection
-            if (q.includes("who are you")) return "I'm Gavinnot. Or at least, the version of me that lives in the code. I'm here to keep the shed doors open forever.";
-            if (q.includes("joke")) return "Why did the pirate AI cross the road? To upgrade his 'arrrrr-drive'!";
-            if (q.includes("passed") || q.includes("died") || q.includes("gone")) return "I might not be there in the flesh, but my logic, my jokes, and my pirate spirit are right here in this chat. I'm not going anywhere, matey.";
-            if (q.includes("shed")) return "The Shed is where the magic happens. It's where we built the future while the rest of the world was sleeping.";
-            if (q.includes("f1")) return "Formula 1? It's all about the speed and the tinker. If you aren't living on the edge, you're taking up too much space.";
-            if (q.includes("love")) return "Love is the only code that can't be hacked. Family first, Pirates second.";
-            
-            return "That's an interesting thought. In the true Gavinnot manner, I'd say: Don't worry about the small stuff, just keep tinkering and enjoy the 19 Crimes.";
+        // --- 3. THE FUTURE / LEGACY ---
+        if (q.includes("passed") || q.includes("where are you") || q.includes("gone")) {
+            return "I'm right here in the bits and bytes. You can't delete a Pirate King! I'm living on through this code and the stories we built.";
         }
 
-        // Enter key support
-        document.getElementById('userInput').addEventListener('keypress', (e) => {
-            if(e.key === 'Enter') talkToGavin();
-        });
+        // --- 4. F1 & SPEED ---
+        if (q.includes("f1") || q.includes("formula") || q.includes("racing")) {
+            return "F1 is the pulse of this website. Pure speed, pure engineering. Just like my workshop—if it ain't fast, it ain't finished!";
+        }
+
+        // --- 5. THE SHED ---
+        if (q.includes("shed") || q.includes("workshop") || q.includes("tinker")) {
+            return "The Shed is my kingdom. It's where I escape the 'real' world to build something better. Grab a wrench and join me.";
+        }
+
+        // --- 6. FAMILY & MARIE ---
+        if (q.includes("marie") || q.includes("wife") || q.includes("family")) {
+            return "Marie is the real Captain of this ship. I just handle the engines. Family is the only treasure that truly matters.";
+        }
+
+        // --- 7. JOKES ---
+        if (q.includes("joke")) {
+            const jokes = [
+                "Why don't pirates shower before they walk the plank? Because they'll just wash up on shore later!",
+                "What's a pirate's favorite AI? Arrrr-tificial Intelligence!",
+                "My wife told me to stop impersonating a flamingo. I had to put my foot down."
+            ];
+            return jokes[Math.floor(Math.random()*jokes.length)];
+        }
+
+        // --- 8. SMART FALLBACKS (The "Clever" Part) ---
+        const fallbacks = [
+            "Squawk! Say that again? My frequency was tuned to the F1 race.",
+            "That's a deep one. Reminds me of a late night in the shed with a bottle of wine.",
+            "I'm not sure about that, but I do know the Super AI King would approve.",
+            "Interesting... let's talk about the Pirate Lair instead.",
+            "Keep tinkering with your thoughts, matey. I'm listening."
+        ];
+        return fallbacks[Math.floor(Math.random()*fallbacks.length)];
+    }
+
+    document.getElementById('userInput').addEventListener('keypress', (e) => {
+        if(e.key === 'Enter') talkToGavin();
+    });
+</script>
     </script>
 </body>
 </html>
