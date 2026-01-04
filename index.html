@@ -28,6 +28,9 @@
 
         /* CHAT FRAME */
         .chat-frame { max-width: 750px; margin: 40px auto; background: #0a0a0a; border: 2px solid var(--neon); border-radius: 15px; display: flex; flex-direction: column; height: 600px; overflow: hidden; }
+        #chat-header { background: var(--neon); color: #000; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
+        #muteBtn { background: #000; color: var(--neon); border: 1px solid #000; padding: 2px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; font-weight: 900; }
+        
         #chat-display { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; background: #050505; }
         .msg { padding: 12px 18px; border-radius: 12px; max-width: 80%; line-height: 1.4; }
         .bot { align-self: flex-start; background: rgba(0,255,255,0.1); color: var(--neon); border-left: 4px solid var(--neon); }
@@ -57,18 +60,45 @@
     </div>
 
     <div class="chat-frame">
-        <div id="chat-header" style="background:var(--neon); color:#000; padding:10px; text-align:center; font-weight:bold;">GAVINBOT v13.0 // NEURAL LINK</div>
+        <div id="chat-header">
+            <span>GAVINBOT v15.0 // PORTLAND LAIR</span>
+            <button id="muteBtn" onclick="toggleMute()">🔊 UNMUTED</button>
+        </div>
         <div id="chat-display">
-            <div class="msg bot"><b>GAVINBOT:</b> Squawk! Systems online. Pull up a stool, tell me what's on your mind. We talking F1 or the Friday Auction?</div>
+            <div class="msg bot"><b>GAVINBOT:</b> Squawk! Systems online. Pull up a stool. If the voice is too loud, hit that mute button up top!</div>
         </div>
         <div class="input-bar">
-            <input type="text" id="userInput" placeholder="Type here and press Enter..." autofocus>
+            <input type="text" id="userInput" placeholder="Talk to the Captain..." autofocus>
             <button id="sendBtn">TALK</button>
         </div>
     </div>
 
     <script>
-        // GALLERY ASSETS
+        // 1. GLOBAL STATE
+        let isMuted = false;
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            const btn = document.getElementById('muteBtn');
+            btn.innerHTML = isMuted ? "🔇 MUTED" : "🔊 UNMUTED";
+            btn.style.color = isMuted ? "#ff00ff" : "#00ffff";
+            if(isMuted) window.speechSynthesis.cancel();
+        }
+
+        // 2. VOICE SYNTHESIS LOGIC
+        function speak(text) {
+            if (isMuted) return;
+            window.speechSynthesis.cancel();
+            const msg = new SpeechSynthesisUtterance();
+            msg.text = text;
+            const voices = window.speechSynthesis.getVoices();
+            msg.voice = voices.find(v => v.name.includes('Male') || v.name.includes('UK')) || voices[0];
+            msg.pitch = 0.6; 
+            msg.rate = 0.85;  
+            window.speechSynthesis.speak(msg);
+        }
+
+        // 3. GALLERY SETUP
         const imgFiles = [
             { src: "assets-blackcode.png", label: "Black Code" },
             { src: "assets-gavinbot.png", label: "Gavinbot Assets" },
@@ -106,12 +136,13 @@
                 document.getElementById('lightbox-img').src = img.src;
                 document.getElementById('downloadLink').href = img.src;
                 document.getElementById('lightbox').style.display = 'flex';
+                speak("Ah, a fine relic for the collection.");
             };
             div.innerHTML = `<img src="${img.src}"><span>${img.label}</span>`;
             gallery.appendChild(div);
         });
 
-        // CHATBOT BRAIN
+        // 4. CHATBOT CORE
         const display = document.getElementById('chat-display');
         const input = document.getElementById('userInput');
         const btn = document.getElementById('sendBtn');
@@ -122,41 +153,17 @@
             d.innerHTML = `<b>${type === 'bot' ? 'GAVINBOT' : 'YOU'}:</b> ` + text;
             display.appendChild(d);
             display.scrollTop = display.scrollHeight;
+            if(type === 'bot') speak(text);
         }
 
         function getCleverReply(msg) {
             const q = msg.toLowerCase();
             const hour = new Date().getHours();
-
-            if (q.includes("dick") || q.includes("ass") || q.includes("suck")) {
-                return "Squawk! Careful now, I’ve been called worse by better people in the Portland shipyards! Go grab a 19 Crimes and relax.";
-            }
-            if (q.includes("recipe") || q.includes("dark and stormy")) {
-                return "The **Gavinnot Special**: Glass of ice, 2oz Dark Rum (Goslings!), spicy Ginger Beer, and a massive squeeze of lime. Stir once. Perfection.";
-            }
-            if (q.includes("drink") || q.includes("thirsty")) {
-                if (hour < 12) return "A bit early for the hard stuff! Get a strong coffee and get back to the workshop.";
-                if (hour < 17) return "It's beer o'clock somewhere. A cold lager fits the workshop vibes right now.";
-                return "The sun's down! It's time for a 19 Crimes Red Blend or a Dark and Stormy.";
-            }
-            if (q.includes("f1") || q.includes("max") || q.includes("race")) {
-                return "F1 is the lifeblood here. If you aren't living on the edge, you're taking up too much space! Who's your money on?";
-            }
-            if (q.includes("auction")) {
-                return "Friday night, 7 PM sharp. If you aren't bidding, you're just watching history pass you by!";
-            }
-            if (q.includes("hi") || q.includes("hello")) {
-                return "Ahoy! Welcome back to the lair. I was just tuning the neural links. What's the latest?";
-            }
-            if (q.includes("story")) {
-                const stories = [
-                    "Remember the engine fix with just a zip-tie? Held for 3 weeks. Legend.",
-                    "The night the Auction got so heated we almost called a referee... classic.",
-                    "Spent 6 hours on a VR headset just to make the pirate ship look real. Worth it."
-                ];
-                return stories[Math.floor(Math.random() * stories.length)];
-            }
-            return "That's a deep thought. Reminds me of a late night in the shed. Say more!";
+            if (q.includes("dick") || q.includes("ass")) return "Squawk! Watch it or you'll walk the plank! Grab a 19 Crimes and chill out.";
+            if (q.includes("recipe")) return "Ice, 2oz Dark Rum, spicy Ginger Beer, and a whole lime. Stir it once.";
+            if (q.includes("drink")) return hour < 17 ? "It's coffee time." : "Sun's down! Get the wine.";
+            if (q.includes("hi")) return "Ahoy! Pull up a stool.";
+            return "Interesting. Reminds me of a late night in the shed. Tell me more!";
         }
 
         function run() {
@@ -164,18 +171,12 @@
             if(!val) return;
             addMsg(val, 'user');
             input.value = "";
-            setTimeout(() => addMsg(getCleverReply(val), 'bot'), 650);
+            setTimeout(() => addMsg(getCleverReply(val), 'bot'), 600);
         }
 
-        // ENTER KEY FIX
-        input.addEventListener("keypress", (event) => {
-            if (event.key === "Enter") {
-                event.preventDefault(); // Stop page refresh
-                run();
-            }
-        });
-
+        input.addEventListener("keypress", (e) => { if(e.key === "Enter") { e.preventDefault(); run(); } });
         btn.onclick = run;
+        window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
     </script>
 </body>
 </html>
