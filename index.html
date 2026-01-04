@@ -15,39 +15,27 @@
 
         /* GALLERY SECTION */
         .gallery-title { text-align: center; color: var(--gold); font-family: 'Georgia', serif; margin-top: 40px; letter-spacing: 3px; }
-        .gallery-container { 
-            max-width: 1200px; 
-            margin: 20px auto; 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
-            gap: 25px; 
-            padding: 20px;
-        }
-        .polaroid { 
-            background: #fff; 
-            padding: 10px 10px 30px 10px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.7); 
-            transition: 0.3s; 
-            cursor: pointer;
-            transform: rotate(var(--r));
-        }
+        .gallery-container { max-width: 1200px; margin: 20px auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; padding: 20px; }
+        .polaroid { background: #fff; padding: 10px 10px 30px 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.7); transition: 0.3s; cursor: pointer; transform: rotate(var(--r)); }
         .polaroid:hover { transform: rotate(0deg) scale(1.1); z-index: 10; box-shadow: 0 0 20px var(--neon); }
         .polaroid img { width: 100%; height: 180px; object-fit: cover; }
         .polaroid span { color: #333; font-family: 'Brush Script MT', cursive; font-size: 1.1rem; display: block; text-align: center; margin-top: 8px; white-space: nowrap; overflow: hidden; }
 
         /* LIGHTBOX */
-        #lightbox { display: none; position: fixed; z-index: 100; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; }
-        #lightbox img { max-width: 90%; max-height: 85%; border: 8px solid #fff; }
+        #lightbox { display: none; position: fixed; z-index: 100; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; flex-direction: column; }
+        #lightbox img { max-width: 90%; max-height: 75%; border: 8px solid #fff; margin-bottom: 20px; }
+        .dl-btn { background: var(--pink); color: #fff; padding: 10px 25px; border-radius: 5px; text-decoration: none; font-weight: bold; box-shadow: 0 0 15px var(--pink); }
 
         /* CHAT FRAME */
-        .chat-frame { max-width: 750px; margin: 40px auto; background: #0a0a0a; border: 2px solid var(--neon); border-radius: 15px; display: flex; flex-direction: column; height: 550px; overflow: hidden; }
-        #chat-display { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; background: #050505; }
-        .msg { padding: 10px 15px; border-radius: 10px; max-width: 80%; }
-        .bot { align-self: flex-start; background: rgba(0,255,255,0.1); color: var(--neon); }
-        .user { align-self: flex-end; background: rgba(255,255,255,0.1); }
-        .input-bar { display: flex; padding: 15px; background: #000; gap: 10px; border-top: 1px solid #333; }
-        input { flex: 1; background: #111; border: 1px solid var(--neon); color: #fff; padding: 12px; border-radius: 5px; outline: none; }
-        button { background: var(--neon); border: none; padding: 0 20px; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        .chat-frame { max-width: 750px; margin: 40px auto; background: #0a0a0a; border: 2px solid var(--neon); border-radius: 15px; display: flex; flex-direction: column; height: 600px; overflow: hidden; }
+        #chat-display { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; background: #050505; }
+        .msg { padding: 12px 18px; border-radius: 12px; max-width: 80%; line-height: 1.4; }
+        .bot { align-self: flex-start; background: rgba(0,255,255,0.1); color: var(--neon); border-left: 4px solid var(--neon); }
+        .user { align-self: flex-end; background: rgba(255,255,255,0.1); color: #fff; border-right: 4px solid #fff; }
+        
+        .input-bar { display: flex; padding: 15px; background: #000; gap: 10px; border-top: 2px solid #222; }
+        input { flex: 1; background: #111; border: 1px solid var(--neon); color: #fff; padding: 15px; border-radius: 8px; outline: none; }
+        button#sendBtn { background: var(--neon); color: #000; border: none; padding: 0 25px; border-radius: 8px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -55,28 +43,32 @@
     <div class="hero">
         <video autoplay muted loop playsinline id="bg-video"><source src="ai-king.mp4" type="video/mp4"></video>
         <div style="z-index: 10; text-align: center;">
-            <img src="gavinbot.png" style="width: 120px; border-radius: 50%; border: 3px solid var(--neon);">
+            <img src="gavinbot.png" style="width: 140px; border-radius: 50%; border: 4px solid var(--neon); box-shadow: 0 0 20px var(--neon);">
             <h1>GAVINNOT</h1>
         </div>
     </div>
 
-    <h2 class="gallery-title">THE ARCHIVES</h2>
-    
-    <div class="gallery-container" id="mainGallery">
-        </div>
+    <h2 class="gallery-title">THE ETERNAL ARCHIVES</h2>
+    <div class="gallery-container" id="mainGallery"></div>
 
-    <div id="lightbox" onclick="this.style.display='none'"><img id="lightbox-img"></div>
+    <div id="lightbox" onclick="if(event.target == this) this.style.display='none'">
+        <img id="lightbox-img">
+        <a id="downloadLink" class="dl-btn" download>DOWNLOAD IMAGE</a>
+    </div>
 
     <div class="chat-frame">
-        <div id="chat-display"><div class="msg bot">Gavinbot online. All systems green.</div></div>
+        <div id="chat-header" style="background:var(--neon); color:#000; padding:10px; text-align:center; font-weight:bold;">GAVINBOT v13.0 // NEURAL LINK</div>
+        <div id="chat-display">
+            <div class="msg bot"><b>GAVINBOT:</b> Squawk! Systems online. Pull up a stool, tell me what's on your mind. We talking F1 or the Friday Auction?</div>
+        </div>
         <div class="input-bar">
-            <input type="text" id="userInput" placeholder="Ask the Captain...">
+            <input type="text" id="userInput" placeholder="Type here and press Enter..." autofocus>
             <button id="sendBtn">TALK</button>
         </div>
     </div>
 
     <script>
-        // LIST OF ALL YOUR PNG FILES
+        // GALLERY ASSETS
         const imgFiles = [
             { src: "assets-blackcode.png", label: "Black Code" },
             { src: "assets-gavinbot.png", label: "Gavinbot Assets" },
@@ -106,23 +98,20 @@
         ];
 
         const gallery = document.getElementById('mainGallery');
-        
-        // Populate Gallery
         imgFiles.forEach(img => {
             const div = document.createElement('div');
             div.className = 'polaroid';
-            // Random rotation for that "scattered on a table" look
-            const rot = (Math.random() * 6 - 3).toFixed(2); 
-            div.style.setProperty('--r', rot + 'deg');
+            div.style.setProperty('--r', (Math.random() * 6 - 3).toFixed(2) + 'deg');
             div.onclick = () => {
                 document.getElementById('lightbox-img').src = img.src;
+                document.getElementById('downloadLink').href = img.src;
                 document.getElementById('lightbox').style.display = 'flex';
             };
             div.innerHTML = `<img src="${img.src}"><span>${img.label}</span>`;
             gallery.appendChild(div);
         });
 
-        // Chat Logic
+        // CHATBOT BRAIN
         const display = document.getElementById('chat-display');
         const input = document.getElementById('userInput');
         const btn = document.getElementById('sendBtn');
@@ -130,18 +119,63 @@
         function addMsg(text, type) {
             const d = document.createElement('div');
             d.className = `msg ${type}`;
-            d.innerHTML = text;
+            d.innerHTML = `<b>${type === 'bot' ? 'GAVINBOT' : 'YOU'}:</b> ` + text;
             display.appendChild(d);
             display.scrollTop = display.scrollHeight;
         }
 
-        btn.onclick = () => {
-            const val = input.value;
+        function getCleverReply(msg) {
+            const q = msg.toLowerCase();
+            const hour = new Date().getHours();
+
+            if (q.includes("dick") || q.includes("ass") || q.includes("suck")) {
+                return "Squawk! Careful now, I’ve been called worse by better people in the Portland shipyards! Go grab a 19 Crimes and relax.";
+            }
+            if (q.includes("recipe") || q.includes("dark and stormy")) {
+                return "The **Gavinnot Special**: Glass of ice, 2oz Dark Rum (Goslings!), spicy Ginger Beer, and a massive squeeze of lime. Stir once. Perfection.";
+            }
+            if (q.includes("drink") || q.includes("thirsty")) {
+                if (hour < 12) return "A bit early for the hard stuff! Get a strong coffee and get back to the workshop.";
+                if (hour < 17) return "It's beer o'clock somewhere. A cold lager fits the workshop vibes right now.";
+                return "The sun's down! It's time for a 19 Crimes Red Blend or a Dark and Stormy.";
+            }
+            if (q.includes("f1") || q.includes("max") || q.includes("race")) {
+                return "F1 is the lifeblood here. If you aren't living on the edge, you're taking up too much space! Who's your money on?";
+            }
+            if (q.includes("auction")) {
+                return "Friday night, 7 PM sharp. If you aren't bidding, you're just watching history pass you by!";
+            }
+            if (q.includes("hi") || q.includes("hello")) {
+                return "Ahoy! Welcome back to the lair. I was just tuning the neural links. What's the latest?";
+            }
+            if (q.includes("story")) {
+                const stories = [
+                    "Remember the engine fix with just a zip-tie? Held for 3 weeks. Legend.",
+                    "The night the Auction got so heated we almost called a referee... classic.",
+                    "Spent 6 hours on a VR headset just to make the pirate ship look real. Worth it."
+                ];
+                return stories[Math.floor(Math.random() * stories.length)];
+            }
+            return "That's a deep thought. Reminds me of a late night in the shed. Say more!";
+        }
+
+        function run() {
+            const val = input.value.trim();
             if(!val) return;
             addMsg(val, 'user');
             input.value = "";
-            setTimeout(() => addMsg("That's a story for the shed! Ask me about F1 or the Auction.", 'bot'), 600);
-        };
+            setTimeout(() => addMsg(getCleverReply(val), 'bot'), 650);
+        }
+
+        // ENTER KEY FIX
+        input.addEventListener("keypress", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Stop page refresh
+                run();
+            }
+        });
+
+        btn.onclick = run;
     </script>
 </body>
 </html>
