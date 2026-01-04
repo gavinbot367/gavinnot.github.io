@@ -5,41 +5,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAVINNOT | Eternal Pirate King</title>
     <style>
-        :root { --neon: #00ffff; --pink: #ff00ff; --gold: #fdbc4b; }
-        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 100px; }
+    :root { --neon: #00ffff; --pink: #ff00ff; }
+    body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 50px; }
+
+    /* FIXED CHAT FRAME - Forced visibility of the input box */
+    .chat-frame { 
+        max-width: 750px; 
+        margin: 40px auto; 
+        background: #0a0a0a; 
+        border: 2px solid var(--neon); 
+        border-radius: 15px; 
+        display: flex; 
+        flex-direction: column; 
+        height: 600px; /* Fixed height keeps the bottom in view */
+        overflow: hidden;
+        position: relative;
+    }
+
+    #chat-display { 
+        flex: 1; 
+        overflow-y: auto; 
+        padding: 20px; 
+        display: flex; 
+        flex-direction: column; 
+        gap: 15px; 
+        background: #050505; 
+    }
+
+    .msg { padding: 12px 18px; border-radius: 12px; max-width: 80%; line-height: 1.5; font-size: 1.1rem; }
+    .bot { align-self: flex-start; background: rgba(0,255,255,0.1); color: var(--neon); border-left: 4px solid var(--neon); }
+    .user { align-self: flex-end; background: rgba(255,255,255,0.1); color: #fff; border-right: 4px solid #fff; }
+
+    /* THE INPUT BAR - Anchored at the bottom */
+    .input-bar { 
+        display: flex; 
+        padding: 15px; 
+        background: #000; 
+        gap: 10px; 
+        border-top: 2px solid #222; 
+    }
+
+    input#userInput { 
+        flex: 1; 
+        background: #111; 
+        border: 1px solid var(--neon); 
+        color: #fff; 
+        padding: 15px; 
+        border-radius: 8px; 
+        outline: none;
+        font-size: 1rem;
+    }
+
+    button#sendBtn { 
+        background: var(--neon); 
+        color: #000; 
+        border: none; 
+        padding: 0 25px; 
+        border-radius: 8px; 
+        font-weight: bold; 
+        cursor: pointer; 
+    }
+</style>
+
+<script>
+    const display = document.getElementById('chat-display');
+    const input = document.getElementById('userInput');
+    const btn = document.getElementById('sendBtn');
+
+    function addMsg(text, type) {
+        const d = document.createElement('div');
+        d.className = `msg ${type}`;
+        d.innerHTML = (type === 'bot' ? "<b>GAVINBOT:</b> " : "<b>YOU:</b> ") + text;
+        display.appendChild(d);
+        display.scrollTop = display.scrollHeight;
+    }
+
+    function getCleverReply(msg) {
+        const q = msg.toLowerCase();
+        const now = new Date();
+        const hour = now.getHours();
+
+        // --- THE DARK AND STORMY RECIPE ---
+        if (q.includes("recipe") || q.includes("dark and stormy") || q.includes("how to make")) {
+            return "Alright, listen up. Here is the **Gavinnot Special**: Fill a glass with ice. 2oz of Dark Rum (Goslings if you've got it), top it with spicy Ginger Beer, and squeeze in a whole lime wedge. Stir it once. Drink it while looking at a sunset or an engine.";
+        }
+
+        // --- DRINK LOGIC ---
+        if (q.includes("drink") || q.includes("thirsty") || q.includes("beer") || q.includes("wine")) {
+            if (hour < 12) return "It's a bit early, matey! Stick to a strong black coffee for now. We've got work to do.";
+            if (hour < 17) return "It's afternoon. A cold lager is acceptable, but only if the tools are put away.";
+            return "The sun's over the yardarm! Break out the **19 Crimes Red Blend** or let me give you the recipe for a Dark and Stormy.";
+        }
+
+        // --- SASS/DICK CHECK ---
+        if (q.includes("dick") || q.includes("ass")) {
+            return "Squawk! Keep that talk for the pirates at the docks. Here in the shed, we keep it classier (mostly). Go grab a drink.";
+        }
+
+        // --- F1 & AUCTION ---
+        if (q.includes("f1")) return "F1 is life. Max is the king right now, but I'm always looking for an underdog story.";
+        if (q.includes("auction")) return "Friday at 7 PM. If you aren't there, you aren't trying!";
+
+        // --- DEFAULT ---
+        if (q.includes("hi") || q.includes("hello")) return "Ahoy! Pull up a stool. What's the latest?";
         
-        /* VIDEO SECTION */
-        .hero { position: relative; height: 70vh; display: flex; align-items: center; justify-content: center; overflow: hidden; border-bottom: 2px solid var(--neon); }
-        #bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; z-index: -1; transform: translate(-50%, -50%); filter: brightness(0.4); }
-        h1 { font-size: clamp(3rem, 10vw, 6rem); color: var(--neon); text-shadow: 0 0 20px var(--neon); margin: 0; font-family: 'Georgia', serif; letter-spacing: 10px; }
+        return "That's interesting. Reminds me of a late night in the shed with some good company. Tell me more!";
+    }
 
-        /* LEGACY MESSAGE */
-        .legacy-section { max-width: 850px; margin: 40px auto; padding: 30px; text-align: center; background: rgba(10, 10, 10, 0.8); border-radius: 20px; border: 1px solid #222; }
-        .legacy-section h2 { color: var(--gold); font-size: 2rem; margin-top: 0; }
-        .legacy-section p { font-size: 1.2rem; line-height: 1.8; color: #ddd; }
+    function run() {
+        const val = input.value.trim();
+        if(!val) return;
+        addMsg(val, 'user');
+        input.value = "";
+        setTimeout(() => addMsg(getCleverReply(val), 'bot'), 600);
+    }
 
-        /* CHATBOT INTERFACE */
-        .chat-frame { max-width: 750px; margin: 40px auto; background: #0a0a0a; border: 2px solid var(--neon); border-radius: 15px; box-shadow: 0 0 40px rgba(0,255,255,0.15); overflow: hidden; }
-        #chat-header { background: var(--neon); color: #000; padding: 15px; font-weight: 900; text-align: center; letter-spacing: 3px; font-size: 0.8rem; }
-        #chat-display { height: 400px; overflow-y: auto; padding: 25px; display: flex; flex-direction: column; gap: 18px; background: linear-gradient(to bottom, #050505, #111); scroll-behavior: smooth; }
-        
-        .msg { padding: 14px 20px; border-radius: 15px; max-width: 85%; line-height: 1.6; font-size: 1.05rem; position: relative; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .bot { align-self: flex-start; background: rgba(0,255,255,0.07); border-left: 5px solid var(--neon); color: var(--neon); border-bottom-left-radius: 2px; }
-        .user { align-self: flex-end; background: rgba(255, 255, 255, 0.05); border-right: 5px solid #fff; color: #eee; border-bottom-right-radius: 2px; }
-
-        /* QUICK BUTTONS */
-        .quick-bar { display: flex; flex-wrap: wrap; gap: 10px; padding: 10px 20px; background: #000; border-top: 1px solid #222; justify-content: center; }
-        .quick-btn { background: transparent; border: 1px solid var(--pink); color: var(--pink); padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; transition: 0.3s; }
-        .quick-btn:hover { background: var(--pink); color: #000; box-shadow: 0 0 15px var(--pink); }
-
-        .input-bar { display: flex; padding: 20px; background: #000; gap: 12px; }
-        input { flex: 1; background: #151515; border: 1px solid #333; color: #fff; padding: 16px; border-radius: 10px; outline: none; font-size: 1rem; }
-        input:focus { border-color: var(--neon); box-shadow: 0 0 10px rgba(0,255,255,0.2); }
-        button#sendBtn { background: var(--neon); color: #000; border: none; padding: 0 30px; border-radius: 10px; font-weight: 800; cursor: pointer; transition: 0.2s; }
-        button#sendBtn:hover { transform: scale(1.05); background: #fff; }
-    </style>
+    btn.onclick = run;
+    input.onkeydown = (e) => { 
+        if(e.key === "Enter") { 
+            e.preventDefault(); 
+            run(); 
+        } 
+    };
+</script>
 </head>
 <body>
 
