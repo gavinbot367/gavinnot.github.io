@@ -5,129 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAVINNOT | Eternal Pirate King</title>
     <style>
-    :root { --neon: #00ffff; --pink: #ff00ff; }
-    body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 50px; }
+        :root { --neon: #00ffff; --pink: #ff00ff; --gold: #fdbc4b; }
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 50px; }
 
-    /* FIXED CHAT FRAME - Forced visibility of the input box */
-    .chat-frame { 
-        max-width: 750px; 
-        margin: 40px auto; 
-        background: #0a0a0a; 
-        border: 2px solid var(--neon); 
-        border-radius: 15px; 
-        display: flex; 
-        flex-direction: column; 
-        height: 600px; /* Fixed height keeps the bottom in view */
-        overflow: hidden;
-        position: relative;
-    }
+        /* HERO SECTION */
+        .hero { position: relative; height: 60vh; display: flex; align-items: center; justify-content: center; overflow: hidden; border-bottom: 2px solid var(--neon); }
+        #bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; z-index: -1; transform: translate(-50%, -50%); filter: brightness(0.4); }
+        h1 { font-size: clamp(3rem, 10vw, 6rem); color: var(--neon); text-shadow: 0 0 20px var(--neon); margin: 0; letter-spacing: 5px; }
 
-    #chat-display { 
-        flex: 1; 
-        overflow-y: auto; 
-        padding: 20px; 
-        display: flex; 
-        flex-direction: column; 
-        gap: 15px; 
-        background: #050505; 
-    }
+        /* LEGACY MESSAGE */
+        .legacy-section { max-width: 800px; margin: 40px auto; padding: 20px; text-align: center; border-bottom: 1px solid #333; }
+        .legacy-section p { font-size: 1.2rem; line-height: 1.8; color: #ccc; }
 
-    .msg { padding: 12px 18px; border-radius: 12px; max-width: 80%; line-height: 1.5; font-size: 1.1rem; }
-    .bot { align-self: flex-start; background: rgba(0,255,255,0.1); color: var(--neon); border-left: 4px solid var(--neon); }
-    .user { align-self: flex-end; background: rgba(255,255,255,0.1); color: #fff; border-right: 4px solid #fff; }
-
-    /* THE INPUT BAR - Anchored at the bottom */
-    .input-bar { 
-        display: flex; 
-        padding: 15px; 
-        background: #000; 
-        gap: 10px; 
-        border-top: 2px solid #222; 
-    }
-
-    input#userInput { 
-        flex: 1; 
-        background: #111; 
-        border: 1px solid var(--neon); 
-        color: #fff; 
-        padding: 15px; 
-        border-radius: 8px; 
-        outline: none;
-        font-size: 1rem;
-    }
-
-    button#sendBtn { 
-        background: var(--neon); 
-        color: #000; 
-        border: none; 
-        padding: 0 25px; 
-        border-radius: 8px; 
-        font-weight: bold; 
-        cursor: pointer; 
-    }
-</style>
-
-<script>
-    const display = document.getElementById('chat-display');
-    const input = document.getElementById('userInput');
-    const btn = document.getElementById('sendBtn');
-
-    function addMsg(text, type) {
-        const d = document.createElement('div');
-        d.className = `msg ${type}`;
-        d.innerHTML = (type === 'bot' ? "<b>GAVINBOT:</b> " : "<b>YOU:</b> ") + text;
-        display.appendChild(d);
-        display.scrollTop = display.scrollHeight;
-    }
-
-    function getCleverReply(msg) {
-        const q = msg.toLowerCase();
-        const now = new Date();
-        const hour = now.getHours();
-
-        // --- THE DARK AND STORMY RECIPE ---
-        if (q.includes("recipe") || q.includes("dark and stormy") || q.includes("how to make")) {
-            return "Alright, listen up. Here is the **Gavinnot Special**: Fill a glass with ice. 2oz of Dark Rum (Goslings if you've got it), top it with spicy Ginger Beer, and squeeze in a whole lime wedge. Stir it once. Drink it while looking at a sunset or an engine.";
+        /* FIXED CHAT FRAME */
+        .chat-frame { 
+            max-width: 750px; 
+            margin: 40px auto; 
+            background: #0a0a0a; 
+            border: 2px solid var(--neon); 
+            border-radius: 15px; 
+            display: flex; 
+            flex-direction: column; 
+            height: 600px; 
+            overflow: hidden;
+            position: relative;
         }
 
-        // --- DRINK LOGIC ---
-        if (q.includes("drink") || q.includes("thirsty") || q.includes("beer") || q.includes("wine")) {
-            if (hour < 12) return "It's a bit early, matey! Stick to a strong black coffee for now. We've got work to do.";
-            if (hour < 17) return "It's afternoon. A cold lager is acceptable, but only if the tools are put away.";
-            return "The sun's over the yardarm! Break out the **19 Crimes Red Blend** or let me give you the recipe for a Dark and Stormy.";
+        #chat-display { 
+            flex: 1; 
+            overflow-y: auto; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+            background: #050505; 
         }
 
-        // --- SASS/DICK CHECK ---
-        if (q.includes("dick") || q.includes("ass")) {
-            return "Squawk! Keep that talk for the pirates at the docks. Here in the shed, we keep it classier (mostly). Go grab a drink.";
-        }
+        .msg { padding: 12px 18px; border-radius: 12px; max-width: 80%; line-height: 1.5; font-size: 1.1rem; }
+        .bot { align-self: flex-start; background: rgba(0,255,255,0.1); color: var(--neon); border-left: 4px solid var(--neon); }
+        .user { align-self: flex-end; background: rgba(255,255,255,0.1); color: #fff; border-right: 4px solid #fff; }
 
-        // --- F1 & AUCTION ---
-        if (q.includes("f1")) return "F1 is life. Max is the king right now, but I'm always looking for an underdog story.";
-        if (q.includes("auction")) return "Friday at 7 PM. If you aren't there, you aren't trying!";
+        /* QUICK BAR BUTTONS */
+        .quick-bar { display: flex; gap: 10px; padding: 10px; background: #000; justify-content: center; border-top: 1px solid #222; }
+        .quick-btn { background: transparent; border: 1px solid var(--pink); color: var(--pink); padding: 5px 15px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; }
+        .quick-btn:hover { background: var(--pink); color: #000; }
 
-        // --- DEFAULT ---
-        if (q.includes("hi") || q.includes("hello")) return "Ahoy! Pull up a stool. What's the latest?";
-        
-        return "That's interesting. Reminds me of a late night in the shed with some good company. Tell me more!";
-    }
-
-    function run() {
-        const val = input.value.trim();
-        if(!val) return;
-        addMsg(val, 'user');
-        input.value = "";
-        setTimeout(() => addMsg(getCleverReply(val), 'bot'), 600);
-    }
-
-    btn.onclick = run;
-    input.onkeydown = (e) => { 
-        if(e.key === "Enter") { 
-            e.preventDefault(); 
-            run(); 
-        } 
-    };
-</script>
+        /* INPUT AREA */
+        .input-bar { display: flex; padding: 15px; background: #000; gap: 10px; border-top: 2px solid #222; }
+        input#userInput { flex: 1; background: #111; border: 1px solid var(--neon); color: #fff; padding: 15px; border-radius: 8px; outline: none; font-size: 1rem; }
+        button#sendBtn { background: var(--neon); color: #000; border: none; padding: 0 25px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    </style>
 </head>
 <body>
 
@@ -144,14 +71,77 @@
 
     <div class="legacy-section">
         <h2>Connection Never Dies</h2>
-        <p>This is my digital workshop. I've hardcoded my spirit into the logic here so my friends and family always have a place to pull up a stool. If you’re here, you’re part of the crew. Talk to the bot below—he’s got my stories, my jokes, and the keys to the shed.</p>
+        <p>This is my digital workshop. I've hardcoded my spirit here so my friends and family always have a place to pull up a stool. Talk to the bot below—he's got my stories and the keys to the shed.</p>
     </div>
 
     <div class="chat-frame">
-        <div id="chat-header">GAVINBOT CORE // v12.0 // PORTLAND LAIR</div>
+        <div id="chat-header" style="background:var(--neon); color:#000; padding:10px; text-align:center; font-weight:bold;">GAVINBOT CORE // v12.5 // PORTLAND LAIR</div>
         <div id="chat-display">
-            <div class="msg bot">Squawk! Systems are stabilized. It’s good to see you. I was just reviewing the F1 highlights. What’s on your mind today?</div>
+            <div class="msg bot">Squawk! Systems are stabilized. It’s good to see you. What’s on your mind today?</div>
         </div>
         
         <div class="quick-bar">
-            <button class
+            <button class="quick-btn" onclick="quickAction('Tell me a story')">📜 Story</button>
+            <button class="quick-btn" onclick="quickAction('Tell me a joke')">🃏 Joke</button>
+            <button class="quick-btn" onclick="quickAction('Auction info')">🔨 Auction</button>
+        </div>
+
+        <div class="input-bar">
+            <input type="text" id="userInput" placeholder="Talk to me, matey..." autofocus>
+            <button id="sendBtn">TALK</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('chat-display');
+        const input = document.getElementById('userInput');
+        const btn = document.getElementById('sendBtn');
+
+        function addMsg(text, type) {
+            const d = document.createElement('div');
+            d.className = `msg ${type}`;
+            d.innerHTML = (type === 'bot' ? "<b>GAVINBOT:</b> " : "<b>YOU:</b> ") + text;
+            display.appendChild(d);
+            display.scrollTop = display.scrollHeight;
+        }
+
+        function getCleverReply(msg) {
+            const q = msg.toLowerCase();
+            const now = new Date();
+            const hour = now.getHours();
+
+            if (q.includes("recipe") || q.includes("dark and stormy")) {
+                return "Alright, listen up. Here is the **Gavinnot Special**: Fill a glass with ice. 2oz of Dark Rum, top it with spicy Ginger Beer, and squeeze in a whole lime wedge. Drink it while looking at an engine.";
+            }
+            if (q.includes("drink") || q.includes("beer") || q.includes("wine")) {
+                if (hour < 12) return "It's a bit early! Stick to a strong black coffee for now.";
+                if (hour < 17) return "It's afternoon. A cold lager is acceptable.";
+                return "The sun's over the yardarm! Break out the **19 Crimes Red Blend** or a Dark and Stormy.";
+            }
+            if (q.includes("story")) return "Remember that time in the shed when we fixed the engine with a zip-tie? Legend status. It held for three weeks!";
+            if (q.includes("joke")) return "Why did the pirate AI cross the road? To update his arrrrr-drive!";
+            if (q.includes("f1")) return "F1 is life. Max is fast, but I'm always looking for an underdog story.";
+            if (q.includes("auction")) return "Friday at 7 PM. Be there or walk the plank!";
+            if (q.includes("hi") || q.includes("hello")) return "Ahoy! Pull up a stool. What's the latest?";
+            
+            return "That's interesting. Reminds me of a late night in the shed. Tell me more!";
+        }
+
+        function run() {
+            const val = input.value.trim();
+            if(!val) return;
+            addMsg(val, 'user');
+            input.value = "";
+            setTimeout(() => addMsg(getCleverReply(val), 'bot'), 600);
+        }
+
+        function quickAction(txt) {
+            input.value = txt;
+            run();
+        }
+
+        btn.onclick = run;
+        input.onkeydown = (e) => { if(e.key === "Enter") { e.preventDefault(); run(); } };
+    </script>
+</body>
+</html>
