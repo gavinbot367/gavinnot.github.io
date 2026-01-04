@@ -14,10 +14,18 @@
         h1 { font-size: clamp(3rem, 10vw, 6rem); color: var(--neon); text-shadow: 0 0 20px var(--neon); margin: 0; letter-spacing: 5px; }
 
         /* LEGACY MESSAGE */
-        .legacy-section { max-width: 800px; margin: 40px auto; padding: 20px; text-align: center; border-bottom: 1px solid #333; }
+        .legacy-section { max-width: 800px; margin: 40px auto; padding: 20px; text-align: center; }
         .legacy-section p { font-size: 1.2rem; line-height: 1.8; color: #ccc; }
 
-        /* FIXED CHAT FRAME */
+        /* PHOTO GALLERY */
+        .gallery-container { max-width: 900px; margin: 20px auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px; }
+        .polaroid { background: #fff; padding: 10px 10px 30px 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transform: rotate(-2deg); transition: 0.3s; width: 200px; }
+        .polaroid:nth-child(even) { transform: rotate(3deg); }
+        .polaroid:hover { transform: rotate(0deg) scale(1.1); z-index: 10; cursor: pointer; }
+        .polaroid img { width: 100%; height: 180px; object-fit: cover; filter: sepia(0.3); }
+        .polaroid span { color: #333; font-family: 'Brush Script MT', cursive; font-size: 1.2rem; display: block; text-align: center; margin-top: 10px; }
+
+        /* CHAT FRAME */
         .chat-frame { 
             max-width: 750px; 
             margin: 40px auto; 
@@ -30,27 +38,14 @@
             overflow: hidden;
             position: relative;
         }
-
-        #chat-display { 
-            flex: 1; 
-            overflow-y: auto; 
-            padding: 20px; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 15px; 
-            background: #050505; 
-        }
-
+        #chat-display { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; background: #050505; }
         .msg { padding: 12px 18px; border-radius: 12px; max-width: 80%; line-height: 1.5; font-size: 1.1rem; }
         .bot { align-self: flex-start; background: rgba(0,255,255,0.1); color: var(--neon); border-left: 4px solid var(--neon); }
         .user { align-self: flex-end; background: rgba(255,255,255,0.1); color: #fff; border-right: 4px solid #fff; }
 
-        /* QUICK BAR BUTTONS */
+        /* QUICK BAR & INPUT */
         .quick-bar { display: flex; gap: 10px; padding: 10px; background: #000; justify-content: center; border-top: 1px solid #222; }
         .quick-btn { background: transparent; border: 1px solid var(--pink); color: var(--pink); padding: 5px 15px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; }
-        .quick-btn:hover { background: var(--pink); color: #000; }
-
-        /* INPUT AREA */
         .input-bar { display: flex; padding: 15px; background: #000; gap: 10px; border-top: 2px solid #222; }
         input#userInput { flex: 1; background: #111; border: 1px solid var(--neon); color: #fff; padding: 15px; border-radius: 8px; outline: none; font-size: 1rem; }
         button#sendBtn { background: var(--neon); color: #000; border: none; padding: 0 25px; border-radius: 8px; font-weight: bold; cursor: pointer; }
@@ -71,11 +66,30 @@
 
     <div class="legacy-section">
         <h2>Connection Never Dies</h2>
-        <p>This is my digital workshop. I've hardcoded my spirit here so my friends and family always have a place to pull up a stool. Talk to the bot below—he's got my stories and the keys to the shed.</p>
+        <p>This is my digital workshop. I've hardcoded my spirit here so my friends and family always have a place to pull up a stool.</p>
+    </div>
+
+    <div class="gallery-container">
+        <div class="polaroid">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/15712920828361685324_0">
+            <span>The Workshop</span>
+        </div>
+        <div class="polaroid">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/15712920828361685324_1">
+            <span>The Captain</span>
+        </div>
+        <div class="polaroid">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/15712920828361685324_2">
+            <span>Friday Night</span>
+        </div>
+        <div class="polaroid">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/15712920828361685324_3">
+            <span>The Crew</span>
+        </div>
     </div>
 
     <div class="chat-frame">
-        <div id="chat-header" style="background:var(--neon); color:#000; padding:10px; text-align:center; font-weight:bold;">GAVINBOT CORE // v12.5 // PORTLAND LAIR</div>
+        <div id="chat-header" style="background:var(--neon); color:#000; padding:10px; text-align:center; font-weight:bold;">GAVINBOT CORE // v12.6</div>
         <div id="chat-display">
             <div class="msg bot">Squawk! Systems are stabilized. It’s good to see you. What’s on your mind today?</div>
         </div>
@@ -111,20 +125,14 @@
             const hour = now.getHours();
 
             if (q.includes("recipe") || q.includes("dark and stormy")) {
-                return "Alright, listen up. Here is the **Gavinnot Special**: Fill a glass with ice. 2oz of Dark Rum, top it with spicy Ginger Beer, and squeeze in a whole lime wedge. Drink it while looking at an engine.";
+                return "Alright, listen up. Here is the **Gavinnot Special**: Fill a glass with ice. 2oz of Dark Rum, top it with spicy Ginger Beer, and squeeze in a whole lime wedge. Stir it once.";
             }
-            if (q.includes("drink") || q.includes("beer") || q.includes("wine")) {
-                if (hour < 12) return "It's a bit early! Stick to a strong black coffee for now.";
-                if (hour < 17) return "It's afternoon. A cold lager is acceptable.";
-                return "The sun's over the yardarm! Break out the **19 Crimes Red Blend** or a Dark and Stormy.";
-            }
-            if (q.includes("story")) return "Remember that time in the shed when we fixed the engine with a zip-tie? Legend status. It held for three weeks!";
+            if (q.includes("drink")) return hour < 17 ? "Grab a coffee." : "Crack the 19 Crimes Wine.";
+            if (q.includes("story")) return "Remember when we fixed that engine with a zip-tie? Classic.";
             if (q.includes("joke")) return "Why did the pirate AI cross the road? To update his arrrrr-drive!";
-            if (q.includes("f1")) return "F1 is life. Max is fast, but I'm always looking for an underdog story.";
-            if (q.includes("auction")) return "Friday at 7 PM. Be there or walk the plank!";
-            if (q.includes("hi") || q.includes("hello")) return "Ahoy! Pull up a stool. What's the latest?";
+            if (q.includes("hi") || q.includes("hello")) return "Ahoy! Pull up a stool.";
             
-            return "That's interesting. Reminds me of a late night in the shed. Tell me more!";
+            return "That's interesting. Tell me more!";
         }
 
         function run() {
@@ -135,11 +143,7 @@
             setTimeout(() => addMsg(getCleverReply(val), 'bot'), 600);
         }
 
-        function quickAction(txt) {
-            input.value = txt;
-            run();
-        }
-
+        function quickAction(txt) { input.value = txt; run(); }
         btn.onclick = run;
         input.onkeydown = (e) => { if(e.key === "Enter") { e.preventDefault(); run(); } };
     </script>
