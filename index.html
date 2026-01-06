@@ -170,4 +170,13 @@
             const val = input.value.trim();
             if(!val) return;
             addMsg(val, 'user');
-            input.value =
+            input.value = "";
+            setTimeout(() => addMsg(getCleverReply(val), 'bot'), 600);
+        }
+
+        input.addEventListener("keypress", (e) => { if(e.key === "Enter") { e.preventDefault(); run(); } });
+        btn.onclick = run;
+        window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+    </script>
+</body>
+</html>
