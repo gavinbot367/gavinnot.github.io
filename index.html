@@ -3,98 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAVINNOT | Eternal Pirate King</title>
+    <title>Gavinnot & Gavinbot | The Futuristic Pirate Lair</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto&display=swap" rel="stylesheet">
     <style>
-        :root { --neon: #00ffff; --pink: #ff00ff; --gold: #fdbc4b; }
-        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 100px; }
+        :root {
+            --neon-blue: #00ffff;
+            --neon-green: #19f7d2;
+            --gold: #fdbc4b;
+            --dark-bg: #0a0c18;
+        }
 
-        /* HERO SECTION */
-        .hero { position: relative; height: 50vh; display: flex; align-items: center; justify-content: center; overflow: hidden; border-bottom: 2px solid var(--neon); }
-        #bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; z-index: -1; transform: translate(-50%, -50%); filter: brightness(0.4); }
-        h1 { font-size: clamp(3rem, 10vw, 6rem); color: var(--neon); text-shadow: 0 0 20px var(--neon); margin: 0; letter-spacing: 5px; }
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+        }
 
-        /* GALLERY SECTION */
-        .gallery-title { text-align: center; color: var(--gold); font-family: 'Georgia', serif; margin-top: 40px; letter-spacing: 3px; }
-        .gallery-container { max-width: 1200px; margin: 20px auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; padding: 20px; }
-        .polaroid { background: #fff; padding: 10px 10px 30px 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.7); transition: 0.3s; cursor: pointer; transform: rotate(var(--r)); }
-        .polaroid:hover { transform: rotate(0deg) scale(1.1); z-index: 10; box-shadow: 0 0 20px var(--neon); }
-        .polaroid img { width: 100%; height: 180px; object-fit: cover; }
-        .polaroid span { color: #333; font-family: 'Brush Script MT', cursive; font-size: 1.1rem; display: block; text-align: center; margin-top: 8px; }
+        /* Header & Navigation */
+        header {
+            background: #000;
+            padding: 40px 20px;
+            border-bottom: 3px solid var(--neon-blue);
+            text-align: center;
+        }
 
-        /* LIGHTBOX */
-        #lightbox { display: none; position: fixed; z-index: 100; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; flex-direction: column; }
-        #lightbox img { max-width: 90%; max-height: 75%; border: 8px solid #fff; margin-bottom: 20px; }
-        .dl-btn { background: var(--pink); color: #fff; padding: 10px 25px; border-radius: 5px; text-decoration: none; font-weight: bold; cursor: pointer; }
+        nav {
+            background: rgba(35, 35, 35, 0.9);
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: var(--neon-green);
+            margin: 0 12px;
+            font-weight: bold;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9em;
+        }
+
+        /* Chat Widget Integration */
+        .chat-section {
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .chat-box {
+            max-width: 450px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            color: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        .messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 15px;
+            background: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: #1e88e5;
+            color: white;
+        }
+
+        .message.bot {
+            align-self: flex-start;
+            background: #e0e0e0;
+            color: #424242;
+            border: 1px solid #ccc;
+        }
+
+        .input-area {
+            display: flex;
+            padding: 10px;
+            background: #1565c0;
+            gap: 5px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        /* Content Sections */
+        .neon-border {
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 15px var(--neon-green);
+            background: rgba(10, 12, 24, 0.85);
+            margin: 30px auto;
+            padding: 25px;
+            max-width: 800px;
+            border-radius: 15px;
+        }
+
+        h1, h2 { font-family: 'Orbitron', sans-serif; color: var(--neon-blue); }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .gallery img {
+            width: 150px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .gallery img:hover {
+            border-color: var(--gold);
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
     </style>
 </head>
 <body>
 
-    <div class="hero">
-        <video autoplay muted loop playsinline id="bg-video">
-            <source src="ai-king.mp4" type="video/mp4">
-        </video>
-        <div style="z-index: 10; text-align: center;">
-            <img src="gavinbot.png" style="width: 120px; border-radius: 50%; border: 3px solid var(--neon); box-shadow: 0 0 15px var(--neon);">
-            <h1>GAVINNOT</h1>
+<header>
+    <h1>⚓ GAVINNOT – THE SOUND OF THE SHED ⚙️</h1>
+    <p>Late-night talks. Anxiety. Love. Battles. The story of Gavin & Marie.</p>
+</header>
+
+<nav>
+    <a href="#about">ABOUT</a>
+    <a href="#chat">CHAT</a>
+    <a href="#gallery">GALLERY</a>
+    <a href="village.html">VILLAGE</a>
+</nav>
+
+<div class="container">
+    <section id="chat" class="chat-section">
+        <div class="chat-box">
+            <div style="background: #0d47a1; color: white; padding: 10px; text-align: center; font-family: 'Orbitron';">
+                GAVINBOT v2.0
+            </div>
+            <div class="messages" id="messageContainer">
+                <div class="message bot">Squawk! Welcome to the shed, matey! How can I help ye today?</div>
+            </div>
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="Ask Gavinbot anything..." />
+                <button onclick="sendMessage()" style="padding: 10px 20px; cursor: pointer; background: var(--neon-blue); border: none; font-weight: bold;">SEND</button>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <h2 class="gallery-title">THE ARCHIVES</h2>
-    <div class="gallery-container" id="mainGallery"></div>
+    <section id="about" class="neon-border">
+        <h2>About the Lair</h2>
+        <p>Born in Yorkshire, made on Portland. Firefighter, pirate at heart, and builder of dreams. This site is my legacy—where the spark lives on through code and music.</p>
+    </section>
 
-    <div id="lightbox" onclick="if(event.target == this) this.style.display='none'">
-        <img id="lightbox-img">
-        <a id="downloadLink" class="dl-btn" download>DOWNLOAD IMAGE</a>
-    </div>
+    <section id="gallery" class="neon-border">
+        <h2>Amazing Photography</h2>
+        <div class="gallery">
+            <img src="gavinnot-&-gracenot.png" alt="Gavinnot">
+            <img src="the-ship.png" alt="Pinnacle Vessel">
+            <img src="treasure.png" alt="Hidden Gold">
+            <img src="gavinnot-casino.png" alt="Casino">
+        </div>
+    </section>
+</div>
 
-    <elevenlabs-convai agent-id="c4109p0q"></elevenlabs-convai>
-    <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
+<footer>
+    &copy; 2026 Gavinnot & Gavinbot | Built for the Future
+</footer>
 
-    <script>
-        // Use the Agent ID from your screenshot
-        const AGENT_ID = "c4109p0q"; 
+<script>
+    const messagesContainer = document.getElementById("messageContainer");
 
-        const imgFiles = [
-            { src: "assets-blackcode.png", label: "Black Code" },
-            { src: "assets-gavinbot.png", label: "Gavinbot Assets" },
-            { src: "auction-items.png", label: "The Auction" },
-            { src: "back-garden.png", label: "Back Garden" },
-            { src: "dream.png", label: "The Dream" },
-            { src: "edge-of-world.png", label: "World's Edge" },
-            { src: "gavinbot-village.png", label: "Bot Village" },
-            { src: "gavinnot-&-gavinbot.png", label: "The Duo" },
-            { src: "gavinnot-&-gracenot.png", label: "G & G" },
-            { src: "gavinnot-&-young-gracenot.png", label: "Memories" },
-            { src: "gavinnot-casino.png", label: "The Casino" },
-            { src: "gavinnot-character-poster.png", label: "The Captain" },
-            { src: "gavinnot-fish-and-chips.png", label: "Fish & Chips" },
-            { src: "gavinnot-pirate-&-gavinbot.png", label: "Pirate Link" },
-            { src: "gavinnot-village.png", label: "The Village" },
-            { src: "karaoke-church.png", label: "Karaoke Church" },
-            { src: "karaoke-circus.png", label: "Karaoke Circus" },
-            { src: "merlin.png", label: "Merlin" },
-            { src: "shed-essentials.png", label: "Shed Essentials" },
-            { src: "ship-head.png", label: "Ship's Head" },
-            { src: "super-artificial-intelligence-king.png", label: "Super AI" },
-            { src: "the-ship.png", label: "The Galleon" },
-            { src: "the-tech-workshop.png", label: "The Workshop" },
-            { src: "the-village-bar.png", label: "The Pub" },
-            { src: "treasure.png", label: "The Loot" }
-        ];
+    function displayMessage(content, className) {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `message ${className}`;
+        messageDiv.textContent = content;
+        messagesContainer.appendChild(messageDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
 
-        const gallery = document.getElementById('mainGallery');
-        imgFiles.forEach(img => {
-            const div = document.createElement('div');
-            div.className = 'polaroid';
-            div.style.setProperty('--r', (Math.random() * 6 - 3).toFixed(2) + 'deg');
-            div.onclick = () => {
-                document.getElementById('lightbox-img').src = img.src;
-                document.getElementById('downloadLink').href = img.src;
-                document.getElementById('lightbox').style.display = 'flex';
-            };
-            div.innerHTML = `<img src="${img.src}"><span>${img.label}</span>`;
-            gallery.appendChild(div);
-        });
-    </script>
+    function getBotResponse(userText) {
+        const input = userText.toLowerCase();
+        if (input.includes("hello") || input.includes("hi")) return "Ahoy there! Ready for some shed banter?";
+        if (input.includes("joke")) return "Why did the pirate AI cross the road? To optimize its 'arrr-gorithms'!";
+        if (input.includes("weather")) return "It's always clear skies in the digital shed!";
+        return "That's a fine tale! Tell me more about your adventures, matey.";
+    }
+
+    function sendMessage() {
+        const inputField = document.getElementById("userInput");
+        const text = inputField.value.trim();
+        if (!text) return;
+
+        displayMessage(text, "user");
+        inputField.value = "";
+
+        setTimeout(() => {
+            const response = getBotResponse(text);
+            displayMessage(response, "bot");
+        }, 800);
+    }
+
+    document.getElementById("userInput").addEventListener("keypress", (e) => {
+        if (e.key === "Enter") sendMessage();
+    });
+</script>
+
 </body>
 </html>
