@@ -20,6 +20,7 @@
             display: block;
             width: 100vw;
             height: 100vh;
+            touch-action: none; /* Critical: prevents browser gestures from stealing events */
         }
         .ui-layer {
             position: absolute;
@@ -31,6 +32,10 @@
             z-index: 20;
             text-align: center;
             padding: 20px;
+            pointer-events: none; /* Allows clicks to pass through to the game when visible */
+        }
+        .ui-layer > * {
+            pointer-events: auto; /* Re-enable for buttons */
         }
         .neon-text {
             color: #fff;
@@ -137,28 +142,26 @@ function resize() {
 window.addEventListener('resize', resize);
 resize();
 
-// Global touch move listener attached to window for better mobile reliability
-const updateTargetPosition = (x) => {
+// Pointer Events are the modern way to handle both Mouse and Touch reliably
+const handlePointer = (e) => {
     if (playerObj) {
-        playerObj.targetX = x;
+        // Use clientX for viewport coordinates
+        playerObj.targetX = e.clientX;
     }
 };
 
-// Touch handling logic
+// Use pointermove to handle mouse, touch, and stylus in one go
+window.addEventListener('pointermove', handlePointer);
+window.addEventListener('pointerdown', handlePointer);
+
+// Still prevent default on touch to stop scrolling
 window.addEventListener('touchstart', (e) => {
     if (gameRunning) e.preventDefault();
-    updateTargetPosition(e.touches[0].clientX);
 }, { passive: false });
 
 window.addEventListener('touchmove', (e) => {
     if (gameRunning) e.preventDefault();
-    updateTargetPosition(e.touches[0].clientX);
 }, { passive: false });
-
-// Mouse handling logic
-window.addEventListener('mousemove', (e) => {
-    updateTargetPosition(e.clientX);
-});
 
 function spawnEnemy() {
     if (Math.random() < 0.03) {
@@ -256,8 +259,14 @@ function endGame() {
     document.getElementById('finalScore').innerText = gameScore;
 }
 
-document.getElementById('startBtn').addEventListener('click', startGame);
-document.getElementById('restartBtn').addEventListener('click', startGame);
+document.getElementById('startBtn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    startGame();
+});
+document.getElementById('restartBtn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    startGame();
+});
 </script>
 </body>
 </html>
