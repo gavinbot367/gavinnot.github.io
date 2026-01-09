@@ -6,10 +6,10 @@
     <title>GAVINNOT | Eternal Pirate King</title>
     <style>
         :root { --neon: #00ffff; --pink: #ff00ff; --gold: #fdbc4b; }
-        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 50px; }
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 100px; }
 
         /* HERO SECTION */
-        .hero { position: relative; height: 60vh; display: flex; align-items: center; justify-content: center; overflow: hidden; border-bottom: 2px solid var(--neon); }
+        .hero { position: relative; height: 55vh; display: flex; align-items: center; justify-content: center; overflow: hidden; border-bottom: 2px solid var(--neon); }
         #bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; z-index: -1; transform: translate(-50%, -50%); filter: brightness(0.4); }
         h1 { font-size: clamp(3rem, 10vw, 6rem); color: var(--neon); text-shadow: 0 0 20px var(--neon); margin: 0; letter-spacing: 5px; }
 
@@ -24,16 +24,15 @@
         /* LIGHTBOX */
         #lightbox { display: none; position: fixed; z-index: 100; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; flex-direction: column; }
         #lightbox img { max-width: 90%; max-height: 75%; border: 8px solid #fff; margin-bottom: 20px; }
-        .dl-btn { background: var(--pink); color: #fff; padding: 10px 25px; border-radius: 5px; text-decoration: none; font-weight: bold; box-shadow: 0 0 15px var(--pink); }
-
-        /* NEW FLOATING CONVERSATION WIDGET OVERRIDE */
-        elevenlabs-convai { position: fixed; bottom: 20px; right: 20px; z-index: 999; }
+        .dl-btn { background: var(--pink); color: #fff; padding: 10px 25px; border-radius: 5px; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div class="hero">
-        <video autoplay muted loop playsinline id="bg-video"><source src="ai-king.mp4" type="video/mp4"></video>
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="ai-king.mp4" type="video/mp4">
+        </video>
         <div style="z-index: 10; text-align: center;">
             <img src="gavinbot.png" style="width: 140px; border-radius: 50%; border: 4px solid var(--neon); box-shadow: 0 0 20px var(--neon);">
             <h1>GAVINNOT</h1>
@@ -52,7 +51,7 @@
     <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 
     <script>
-        // 1. ALL 25 IMAGES RESTORED
+        // Restored all 25 images to the gallery
         const imgFiles = [
             { src: "assets-blackcode.png", label: "Black Code" },
             { src: "assets-gavinbot.png", label: "Gavinbot Assets" },
