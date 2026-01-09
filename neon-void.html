@@ -119,7 +119,6 @@ const AudioSys = {
 
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
-// Fixed: Using unique names for global state to avoid collisions
 let gameW, gameH, playerObj, enemiesList, bulletsList, gameRunning = false, gameScore = 0;
 
 function initPlayer() {
@@ -138,30 +137,28 @@ function resize() {
 window.addEventListener('resize', resize);
 resize();
 
-const handleMove = (e) => {
-    let clientX;
-    if (e.touches && e.touches.length > 0) {
-        clientX = e.touches[0].clientX;
-    } else {
-        clientX = e.clientX;
-    }
-    
-    if (playerObj && typeof clientX !== 'undefined') {
-        playerObj.targetX = clientX;
+// Global touch move listener attached to window for better mobile reliability
+const updateTargetPosition = (x) => {
+    if (playerObj) {
+        playerObj.targetX = x;
     }
 };
 
-window.addEventListener('mousemove', handleMove);
-
+// Touch handling logic
 window.addEventListener('touchstart', (e) => {
     if (gameRunning) e.preventDefault();
-    handleMove(e);
+    updateTargetPosition(e.touches[0].clientX);
 }, { passive: false });
 
 window.addEventListener('touchmove', (e) => {
     if (gameRunning) e.preventDefault();
-    handleMove(e);
+    updateTargetPosition(e.touches[0].clientX);
 }, { passive: false });
+
+// Mouse handling logic
+window.addEventListener('mousemove', (e) => {
+    updateTargetPosition(e.clientX);
+});
 
 function spawnEnemy() {
     if (Math.random() < 0.03) {
@@ -179,10 +176,12 @@ function animate() {
     ctx.fillStyle = 'rgba(5, 5, 5, 0.4)';
     ctx.fillRect(0, 0, gameW, gameH);
 
+    // Smooth movement logic
     playerObj.x += (playerObj.targetX - playerObj.x) * 0.3;
     if (playerObj.x < 20) playerObj.x = 20;
     if (playerObj.x > gameW - 20) playerObj.x = gameW - 20;
 
+    // Draw Player
     ctx.shadowBlur = 15; ctx.shadowColor = '#0ff';
     ctx.strokeStyle = '#0ff'; ctx.lineWidth = 3;
     ctx.beginPath();
@@ -192,11 +191,13 @@ function animate() {
     ctx.closePath(); ctx.stroke();
     ctx.shadowBlur = 0;
 
+    // Auto-fire logic
     if (Date.now() % 150 < 20) {
         bulletsList.push({ x: playerObj.x, y: playerObj.y - 15 });
         AudioSys.playShoot();
     }
 
+    // Update bullets
     bulletsList.forEach((b, i) => {
         b.y -= 10;
         ctx.fillStyle = '#ff0';
@@ -204,12 +205,14 @@ function animate() {
         if (b.y < 0) bulletsList.splice(i, 1);
     });
 
+    // Update enemies
     spawnEnemy();
     enemiesList.forEach((e, i) => {
         e.y += e.speed;
         ctx.strokeStyle = e.color;
         ctx.strokeRect(e.x - e.size/2, e.y - e.size/2, e.size, e.size);
 
+        // Bullet collisions
         bulletsList.forEach((b, bi) => {
             if (Math.hypot(b.x - e.x, b.y - e.y) < e.size) {
                 enemiesList.splice(i, 1);
@@ -219,8 +222,9 @@ function animate() {
             }
         });
 
+        // Player collisions
         if (Math.hypot(playerObj.x - e.x, playerObj.y - e.y) < e.size + 15) {
-            enemiesList.splice(i, i + 1);
+            enemiesList.splice(i, 1);
             playerObj.shield -= 20;
             AudioSys.playExplosion();
             if (playerObj.shield <= 0) endGame();
