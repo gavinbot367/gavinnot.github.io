@@ -20,7 +20,7 @@
             display: block;
             width: 100vw;
             height: 100vh;
-            touch-action: none; /* Critical: prevents browser gestures from stealing events */
+            touch-action: none;
         }
         .ui-layer {
             position: absolute;
@@ -32,10 +32,10 @@
             z-index: 20;
             text-align: center;
             padding: 20px;
-            pointer-events: none; /* Allows clicks to pass through to the game when visible */
+            pointer-events: none;
         }
         .ui-layer > * {
-            pointer-events: auto; /* Re-enable for buttons */
+            pointer-events: auto;
         }
         .neon-text {
             color: #fff;
@@ -142,25 +142,31 @@ function resize() {
 window.addEventListener('resize', resize);
 resize();
 
-// Pointer Events are the modern way to handle both Mouse and Touch reliably
-const handlePointer = (e) => {
+// Robust move handler
+function handleMove(clientX) {
     if (playerObj) {
-        // Use clientX for viewport coordinates
-        playerObj.targetX = e.clientX;
+        playerObj.targetX = clientX;
     }
-};
+}
 
-// Use pointermove to handle mouse, touch, and stylus in one go
-window.addEventListener('pointermove', handlePointer);
-window.addEventListener('pointerdown', handlePointer);
+// Unified Pointer Events - Attach to window but prioritize canvas
+window.addEventListener('pointermove', (e) => {
+    handleMove(e.clientX);
+});
 
-// Still prevent default on touch to stop scrolling
-window.addEventListener('touchstart', (e) => {
+window.addEventListener('pointerdown', (e) => {
+    handleMove(e.clientX);
+});
+
+// Extra touch-specific prevention to stop browser from interfering
+canvas.addEventListener('touchstart', (e) => {
     if (gameRunning) e.preventDefault();
+    handleMove(e.touches[0].clientX);
 }, { passive: false });
 
-window.addEventListener('touchmove', (e) => {
+canvas.addEventListener('touchmove', (e) => {
     if (gameRunning) e.preventDefault();
+    handleMove(e.touches[0].clientX);
 }, { passive: false });
 
 function spawnEnemy() {
@@ -179,12 +185,10 @@ function animate() {
     ctx.fillStyle = 'rgba(5, 5, 5, 0.4)';
     ctx.fillRect(0, 0, gameW, gameH);
 
-    // Smooth movement logic
     playerObj.x += (playerObj.targetX - playerObj.x) * 0.3;
     if (playerObj.x < 20) playerObj.x = 20;
     if (playerObj.x > gameW - 20) playerObj.x = gameW - 20;
 
-    // Draw Player
     ctx.shadowBlur = 15; ctx.shadowColor = '#0ff';
     ctx.strokeStyle = '#0ff'; ctx.lineWidth = 3;
     ctx.beginPath();
@@ -194,13 +198,11 @@ function animate() {
     ctx.closePath(); ctx.stroke();
     ctx.shadowBlur = 0;
 
-    // Auto-fire logic
     if (Date.now() % 150 < 20) {
         bulletsList.push({ x: playerObj.x, y: playerObj.y - 15 });
         AudioSys.playShoot();
     }
 
-    // Update bullets
     bulletsList.forEach((b, i) => {
         b.y -= 10;
         ctx.fillStyle = '#ff0';
@@ -208,14 +210,12 @@ function animate() {
         if (b.y < 0) bulletsList.splice(i, 1);
     });
 
-    // Update enemies
     spawnEnemy();
     enemiesList.forEach((e, i) => {
         e.y += e.speed;
         ctx.strokeStyle = e.color;
         ctx.strokeRect(e.x - e.size/2, e.y - e.size/2, e.size, e.size);
 
-        // Bullet collisions
         bulletsList.forEach((b, bi) => {
             if (Math.hypot(b.x - e.x, b.y - e.y) < e.size) {
                 enemiesList.splice(i, 1);
@@ -225,7 +225,6 @@ function animate() {
             }
         });
 
-        // Player collisions
         if (Math.hypot(playerObj.x - e.x, playerObj.y - e.y) < e.size + 15) {
             enemiesList.splice(i, 1);
             playerObj.shield -= 20;
