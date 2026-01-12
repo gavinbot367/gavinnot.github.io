@@ -25,6 +25,9 @@
         #lightbox { display: none; position: fixed; z-index: 100; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; flex-direction: column; }
         #lightbox img { max-width: 90%; max-height: 75%; border: 8px solid #fff; margin-bottom: 20px; }
         .dl-btn { background: var(--pink); color: #fff; padding: 10px 25px; border-radius: 5px; text-decoration: none; font-weight: bold; }
+        
+        /* GAME SECTION */
+        .game-wrapper { max-width: 1000px; margin: 50px auto; padding: 0 20px; }
     </style>
 </head>
 <body>
@@ -47,11 +50,20 @@
         <a id="downloadLink" class="dl-btn" download>DOWNLOAD IMAGE</a>
     </div>
 
+    <div class="game-wrapper">
+        <h2 class="gallery-title">NEON VOID</h2>
+        <iframe 
+            src="neon-void.html" 
+            style="width: 100%; height: 600px; border: none; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5);" 
+            title="Neon Void Game"
+            allow="autoplay">
+        </iframe>
+    </div>
+
     <elevenlabs-convai agent-id="c4109p0q"></elevenlabs-convai>
     <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 
     <script>
-        // Restored all 25 images to the gallery
         const imgFiles = [
             { src: "assets-blackcode.png", label: "Black Code" },
             { src: "assets-gavinbot.png", label: "Gavinbot Assets" },
@@ -95,10 +107,4 @@
         });
     </script>
 </body>
-<iframe 
-    src="neon-void.html" 
-    style="width: 100%; height: 600px; border: none; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5);" 
-    title="Neon Void Game"
-    allow="autoplay">
-</iframe>
 </html>
