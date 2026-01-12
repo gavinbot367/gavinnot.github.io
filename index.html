@@ -13,9 +13,9 @@
         #bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; z-index: -1; transform: translate(-50%, -50%); filter: brightness(0.4); }
         h1 { font-size: clamp(3rem, 10vw, 6rem); color: var(--neon); text-shadow: 0 0 20px var(--neon); margin: 0; letter-spacing: 5px; }
 
-        /* NEW CALL BUTTON */
+        /* INTERACTIVE BUTTON */
         .call-btn { 
-            background: transparent; 
+            background: rgba(0, 255, 255, 0.1); 
             color: var(--neon); 
             border: 2px solid var(--neon); 
             padding: 15px 30px; 
@@ -26,9 +26,11 @@
             margin-top: 20px; 
             transition: 0.3s; 
             text-transform: uppercase;
-            box-shadow: 0 0 10px var(--neon);
+            box-shadow: 0 0 15px var(--neon);
+            z-index: 20;
+            position: relative;
         }
-        .call-btn:hover { background: var(--neon); color: #000; box-shadow: 0 0 30px var(--neon); }
+        .call-btn:hover { background: var(--neon); color: #000; box-shadow: 0 0 40px var(--neon); }
 
         /* GALLERY SECTION */
         .gallery-title { text-align: center; color: var(--gold); font-family: 'Georgia', serif; margin-top: 40px; letter-spacing: 3px; }
@@ -43,8 +45,7 @@
         #lightbox img { max-width: 90%; max-height: 75%; border: 8px solid #fff; margin-bottom: 20px; }
         .dl-btn { background: var(--pink); color: #fff; padding: 10px 25px; border-radius: 5px; text-decoration: none; font-weight: bold; }
         
-        /* GAME SECTION */
-        .game-wrapper { max-width: 1000px; margin: 50px auto; padding: 0 20px; }
+        .game-wrapper { max-width: 1000px; margin: 50px auto; padding: 0 20px; text-align: center; }
     </style>
 </head>
 <body>
@@ -56,7 +57,7 @@
         <div style="z-index: 10; text-align: center;">
             <img src="gavinbot.png" style="width: 140px; border-radius: 50%; border: 4px solid var(--neon); box-shadow: 0 0 20px var(--neon);">
             <h1>GAVINNOT</h1>
-            <button class="call-btn" onclick="openGavinbot()">Communicate with Gavinnot</button>
+            <button class="call-btn" onclick="startConversation()">Communicate with Gavinnot</button>
         </div>
     </div>
 
@@ -73,19 +74,16 @@
         <iframe src="neon-void.html" style="width: 100%; height: 600px; border: none; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5);" title="Neon Void Game" allow="autoplay"></iframe>
     </div>
 
-    <elevenlabs-convai agent-id="c4109p0q"></elevenlabs-convai>
-    <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
+    <elevenlabs-convai agent-id="agent_7201kean8367ejw82a3rc4109p0q"></elevenlabs-convai>
+    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed@beta" async type="text/javascript"></script>
 
     <script>
-        // FUNCTION TO FORCE WIDGET OPEN
-        function openGavinbot() {
-            const widget = document.querySelector('elevenlabs-convai');
-            if (widget && widget.shadowRoot) {
-                // This targets the button inside ElevenLabs' hidden code
-                const btn = widget.shadowRoot.querySelector('button');
-                if (btn) btn.click();
-            } else {
-                alert("Gavinnot is still waking up... try again in a second!");
+        // Trigger for the human voice widget
+        function startConversation() {
+            const el = document.querySelector('elevenlabs-convai');
+            if (el && el.shadowRoot) {
+                const button = el.shadowRoot.querySelector('button');
+                if (button) button.click();
             }
         }
 
