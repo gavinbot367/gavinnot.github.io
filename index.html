@@ -78,12 +78,16 @@
     <script src="https://unpkg.com/@elevenlabs/convai-widget-embed@beta" async type="text/javascript"></script>
 
     <script>
-        // Trigger for the human voice widget
+        // Trigger for the conversational agent
         function startConversation() {
             const el = document.querySelector('elevenlabs-convai');
             if (el && el.shadowRoot) {
                 const button = el.shadowRoot.querySelector('button');
-                if (button) button.click();
+                if (button) {
+                    button.click();
+                }
+            } else {
+                console.log("Widget not fully loaded yet.");
             }
         }
 
