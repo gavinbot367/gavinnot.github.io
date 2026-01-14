@@ -13,12 +13,12 @@
         #bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; z-index: -1; transform: translate(-50%, -50%); filter: brightness(0.4); }
         h1 { font-size: clamp(3rem, 10vw, 6rem); color: var(--neon); text-shadow: 0 0 20px var(--neon); margin: 0; letter-spacing: 5px; }
 
-        /* INTERACTIVE BUTTON */
+        /* PULSING INTERACTIVE BUTTON */
         .call-btn { 
             background: rgba(0, 255, 255, 0.1); 
             color: var(--neon); 
             border: 2px solid var(--neon); 
-            padding: 15px 30px; 
+            padding: 15px 40px; 
             font-size: 1.2rem; 
             font-weight: bold; 
             cursor: pointer; 
@@ -26,11 +26,28 @@
             margin-top: 20px; 
             transition: 0.3s; 
             text-transform: uppercase;
-            box-shadow: 0 0 15px var(--neon);
-            z-index: 20;
             position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            animation: pulse-glow 2s infinite;
+            z-index: 20;
         }
-        .call-btn:hover { background: var(--neon); color: #000; box-shadow: 0 0 40px var(--neon); }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 10px var(--neon), inset 0 0 5px var(--neon); }
+            50% { box-shadow: 0 0 30px var(--neon), inset 0 0 10px var(--neon); transform: scale(1.02); }
+            100% { box-shadow: 0 0 10px var(--neon), inset 0 0 5px var(--neon); }
+        }
+
+        .call-btn:hover { 
+            background: var(--neon); 
+            color: #000; 
+            animation: none; 
+            box-shadow: 0 0 50px var(--neon); 
+        }
+
+        .btn-avatar { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--neon); }
 
         /* GALLERY SECTION */
         .gallery-title { text-align: center; color: var(--gold); font-family: 'Georgia', serif; margin-top: 40px; letter-spacing: 3px; }
@@ -57,7 +74,10 @@
         <div style="z-index: 10; text-align: center;">
             <img src="gavinbot.png" style="width: 140px; border-radius: 50%; border: 4px solid var(--neon); box-shadow: 0 0 20px var(--neon);">
             <h1>GAVINNOT</h1>
-            <button class="call-btn" onclick="startConversation()">Communicate with Gavinnot</button>
+            <button class="call-btn" onclick="startConversation()">
+                <img src="gavinbot.png" class="btn-avatar">
+                Communicate with Gavinnot
+            </button>
         </div>
     </div>
 
@@ -78,16 +98,11 @@
     <script src="https://unpkg.com/@elevenlabs/convai-widget-embed@beta" async type="text/javascript"></script>
 
     <script>
-        // Trigger for the conversational agent
         function startConversation() {
             const el = document.querySelector('elevenlabs-convai');
             if (el && el.shadowRoot) {
                 const button = el.shadowRoot.querySelector('button');
-                if (button) {
-                    button.click();
-                }
-            } else {
-                console.log("Widget not fully loaded yet.");
+                if (button) button.click();
             }
         }
 
