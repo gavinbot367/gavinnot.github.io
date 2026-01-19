@@ -5,53 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAVINNOT | Eternal Pirate King</title>
     <style>
-        /* Merlin Wish Styles */
-.wish-container {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(10, 10, 30, 0.95);
-    padding: 30px;
-    border: 2px solid var(--gold);
-    box-shadow: 0 0 30px var(--gold);
-    z-index: 1000;
-    text-align: center;
-    border-radius: 15px;
-    width: 300px;
-}
+        :root { 
+            --neon: #00ffff; 
+            --pink: #ff00ff; 
+            --gold: #fdbc4b; 
+        }
 
-.wish-input {
-    background: #000;
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    padding: 10px;
-    width: 90%;
-    margin-bottom: 15px;
-    font-family: 'Courier New', monospace;
-}
-
-.spark {
-    position: fixed;
-    color: var(--gold);
-    text-shadow: 0 0 10px var(--gold);
-    pointer-events: none;
-    z-index: 999;
-    animation: floatUp 4s forwards;
-    font-size: 1.2rem;
-}
-
-@keyframes floatUp {
-    0% { transform: translateY(0) scale(1); opacity: 1; }
-    100% { transform: translateY(-300px) scale(0); opacity: 0; }
-}        :root { --neon: #00ffff; --pink: #ff00ff; --gold: #fdbc4b; }
-        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 100px; }
+        body { 
+            background: #000; 
+            color: #fff; 
+            font-family: 'Segoe UI', sans-serif; 
+            margin: 0; 
+            padding-bottom: 100px; 
+            overflow-x: hidden;
+        }
 
         /* HERO SECTION */
-        .hero { position: relative; height: 55vh; display: flex; align-items: center; justify-content: center; overflow: hidden; border-bottom: 2px solid var(--neon); }
-        #bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; z-index: -1; transform: translate(-50%, -50%); filter: brightness(0.4); }
-        h1 { font-size: clamp(3rem, 10vw, 6rem); color: var(--neon); text-shadow: 0 0 20px var(--neon); margin: 0; letter-spacing: 5px; }
+        .hero { 
+            position: relative; 
+            height: 55vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden; 
+            border-bottom: 2px solid var(--neon); 
+        }
+
+        #bg-video { 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            min-width: 100%; 
+            min-height: 100%; 
+            z-index: -1; 
+            transform: translate(-50%, -50%); 
+            filter: brightness(0.4); 
+        }
+
+        h1 { 
+            font-size: clamp(3rem, 10vw, 6rem); 
+            color: var(--neon); 
+            text-shadow: 0 0 20px var(--neon); 
+            margin: 0; 
+            letter-spacing: 5px; 
+        }
 
         /* PULSING INTERACTIVE BUTTON */
         .call-btn { 
@@ -91,29 +88,114 @@
 
         /* GALLERY SECTION */
         .gallery-title { text-align: center; color: var(--gold); font-family: 'Georgia', serif; margin-top: 40px; letter-spacing: 3px; }
-        .gallery-container { max-width: 1200px; margin: 20px auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; padding: 20px; }
-        .polaroid { background: #fff; padding: 10px 10px 30px 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.7); transition: 0.3s; cursor: pointer; transform: rotate(var(--r)); }
-        .polaroid:hover { transform: rotate(0deg) scale(1.1); z-index: 10; box-shadow: 0 0 20px var(--neon); }
+        .gallery-container { 
+            max-width: 1200px; 
+            margin: 20px auto; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+            gap: 25px; 
+            padding: 20px; 
+        }
+
+        .polaroid { 
+            background: #fff; 
+            padding: 10px 10px 30px 10px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.7); 
+            transition: 0.3s; 
+            cursor: pointer; 
+            transform: rotate(var(--r)); 
+        }
+
+        .polaroid:hover { 
+            transform: rotate(0deg) scale(1.1); 
+            z-index: 10; 
+            box-shadow: 0 0 20px var(--neon); 
+        }
+
         .polaroid img { width: 100%; height: 180px; object-fit: cover; }
-        .polaroid span { color: #333; font-family: 'Brush Script MT', cursive; font-size: 1.1rem; display: block; text-align: center; margin-top: 8px; white-space: nowrap; overflow: hidden; }
+        .polaroid span { 
+            color: #333; 
+            font-family: 'Brush Script MT', cursive; 
+            font-size: 1.1rem; 
+            display: block; 
+            text-align: center; 
+            margin-top: 8px; 
+            white-space: nowrap; 
+            overflow: hidden; 
+        }
+
+        /* MERLIN WISH STYLES */
+        .wish-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(10, 10, 30, 0.95);
+            padding: 30px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 30px var(--gold);
+            z-index: 1000;
+            text-align: center;
+            border-radius: 15px;
+            width: 300px;
+        }
+
+        .wish-input {
+            background: #000;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 10px;
+            width: 90%;
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .spark {
+            position: fixed;
+            color: var(--gold);
+            text-shadow: 0 0 10px var(--gold);
+            pointer-events: none;
+            z-index: 999;
+            animation: floatUp 4s forwards;
+            font-size: 1.2rem;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-400px) scale(0); opacity: 0; }
+        }
 
         /* LIGHTBOX */
-        #lightbox { display: none; position: fixed; z-index: 100; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; flex-direction: column; }
+        #lightbox { 
+            display: none; 
+            position: fixed; 
+            z-index: 100; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.95); 
+            align-items: center; 
+            justify-content: center; 
+            flex-direction: column; 
+        }
         #lightbox img { max-width: 90%; max-height: 75%; border: 8px solid #fff; margin-bottom: 20px; }
         .dl-btn { background: var(--pink); color: #fff; padding: 10px 25px; border-radius: 5px; text-decoration: none; font-weight: bold; }
         
         .game-wrapper { max-width: 1000px; margin: 50px auto; padding: 0 20px; text-align: center; }
     </style>
 </head>
-<div id="wishBox" class="wish-container">
-    <h3 style="color: var(--gold); margin-top: 0;">MESSAGE TO MERLIN</h3>
-    <p style="font-size: 0.8rem; color: #aaa;">Whisper your wish to the Eternal Tree...</p>
-    <input type="text" id="userWish" class="wish-input" placeholder="Type your wish here...">
-    <br>
-    <button class="call-btn" style="font-size: 0.9rem; padding: 10px 20px;" onclick="castWish()">CAST WISH</button>
-    <button onclick="document.getElementById('wishBox').style.display='none'" style="background:none; border:none; color:#666; cursor:pointer; display:block; margin: 10px auto;">Cancel</button>
-</div>
 <body>
+
+    <div id="wishBox" class="wish-container">
+        <h3 style="color: var(--gold); margin-top: 0;">MESSAGE TO MERLIN</h3>
+        <p style="font-size: 0.8rem; color: #aaa;">Whisper your wish to the Eternal Tree...</p>
+        <input type="text" id="userWish" class="wish-input" placeholder="Type your wish here...">
+        <br>
+        <button class="call-btn" style="font-size: 0.9rem; padding: 10px 20px;" onclick="castWish()">CAST WISH</button>
+        <button onclick="document.getElementById('wishBox').style.display='none'" style="background:none; border:none; color:#666; cursor:pointer; display:block; margin: 10px auto;">Cancel</button>
+    </div>
 
     <div class="hero">
         <video autoplay muted loop playsinline id="bg-video">
@@ -172,7 +254,7 @@
             { src: "gavinnot-village.png", label: "The Village" },
             { src: "karaoke-church.png", label: "Karaoke Church" },
             { src: "karaoke-circus.png", label: "Karaoke Circus" },
-            { src: "merlin.png", label: "Merlin" },
+            { src: "merlin.png", label: "Merlin", isMagic: true },
             { src: "shed-essentials.png", label: "Shed Essentials" },
             { src: "ship-head.png", label: "Ship's Head" },
             { src: "super-artificial-intelligence-king.png", label: "Super AI" },
@@ -183,18 +265,44 @@
         ];
 
         const gallery = document.getElementById('mainGallery');
+        
         imgFiles.forEach(img => {
             const div = document.createElement('div');
             div.className = 'polaroid';
             div.style.setProperty('--r', (Math.random() * 6 - 3).toFixed(2) + 'deg');
+            
             div.onclick = () => {
-                document.getElementById('lightbox-img').src = img.src;
-                document.getElementById('downloadLink').href = img.src;
-                document.getElementById('lightbox').style.display = 'flex';
+                if(img.isMagic) {
+                    document.getElementById('wishBox').style.display = 'block';
+                } else {
+                    document.getElementById('lightbox-img').src = img.src;
+                    document.getElementById('downloadLink').href = img.src;
+                    document.getElementById('lightbox').style.display = 'flex';
+                }
             };
+
             div.innerHTML = `<img src="${img.src}"><span>${img.label}</span>`;
             gallery.appendChild(div);
         });
+
+        function castWish() {
+            const wishInput = document.getElementById('userWish');
+            const wishText = wishInput.value;
+            
+            if (wishText.trim() !== "") {
+                const spark = document.createElement('div');
+                spark.className = 'spark';
+                spark.innerHTML = "✦ " + wishText;
+                spark.style.left = "50%";
+                spark.style.top = "50%";
+                document.body.appendChild(spark);
+                
+                document.getElementById('wishBox').style.display = 'none';
+                wishInput.value = "";
+                
+                setTimeout(() => spark.remove(), 4000);
+            }
+        }
     </script>
 </body>
 </html>
