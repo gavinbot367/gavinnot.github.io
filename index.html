@@ -5,7 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAVINNOT | Eternal Pirate King</title>
     <style>
-        :root { --neon: #00ffff; --pink: #ff00ff; --gold: #fdbc4b; }
+        /* Merlin Wish Styles */
+.wish-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(10, 10, 30, 0.95);
+    padding: 30px;
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 30px var(--gold);
+    z-index: 1000;
+    text-align: center;
+    border-radius: 15px;
+    width: 300px;
+}
+
+.wish-input {
+    background: #000;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 10px;
+    width: 90%;
+    margin-bottom: 15px;
+    font-family: 'Courier New', monospace;
+}
+
+.spark {
+    position: fixed;
+    color: var(--gold);
+    text-shadow: 0 0 10px var(--gold);
+    pointer-events: none;
+    z-index: 999;
+    animation: floatUp 4s forwards;
+    font-size: 1.2rem;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-300px) scale(0); opacity: 0; }
+}        :root { --neon: #00ffff; --pink: #ff00ff; --gold: #fdbc4b; }
         body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 100px; }
 
         /* HERO SECTION */
@@ -65,6 +105,14 @@
         .game-wrapper { max-width: 1000px; margin: 50px auto; padding: 0 20px; text-align: center; }
     </style>
 </head>
+<div id="wishBox" class="wish-container">
+    <h3 style="color: var(--gold); margin-top: 0;">MESSAGE TO MERLIN</h3>
+    <p style="font-size: 0.8rem; color: #aaa;">Whisper your wish to the Eternal Tree...</p>
+    <input type="text" id="userWish" class="wish-input" placeholder="Type your wish here...">
+    <br>
+    <button class="call-btn" style="font-size: 0.9rem; padding: 10px 20px;" onclick="castWish()">CAST WISH</button>
+    <button onclick="document.getElementById('wishBox').style.display='none'" style="background:none; border:none; color:#666; cursor:pointer; display:block; margin: 10px auto;">Cancel</button>
+</div>
 <body>
 
     <div class="hero">
