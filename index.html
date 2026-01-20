@@ -3,61 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Permissions-Policy" content="microphone=(self), camera=()">
+    <meta http-equiv="Permissions-Policy" content="microphone=(self)">
     <title>GAVINNOT | Eternal Pirate King</title>
     <style>
         :root { --neon: #00ffff; --pink: #ff00ff; --gold: #fdbc4b; }
         body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 100px; overflow-x: hidden; }
 
-        /* HERO SECTION */
+        /* HERO */
         .hero { position: relative; height: 55vh; display: flex; align-items: center; justify-content: center; overflow: hidden; border-bottom: 2px solid var(--neon); }
         #bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; z-index: -1; transform: translate(-50%, -50%); filter: brightness(0.4); }
         h1 { font-size: clamp(3rem, 10vw, 6rem); color: var(--neon); text-shadow: 0 0 20px var(--neon); margin: 0; letter-spacing: 5px; }
 
-        /* PULSING BUTTON */
+        /* BUTTONS */
         .call-btn { 
             background: rgba(0, 255, 255, 0.1); color: var(--neon); border: 2px solid var(--neon); 
             padding: 15px 40px; font-size: 1.2rem; font-weight: bold; cursor: pointer; border-radius: 50px; 
-            margin-top: 20px; transition: 0.3s; text-transform: uppercase; position: relative;
-            display: inline-flex; align-items: center; gap: 15px; animation: pulse-glow 2s infinite; z-index: 20;
+            margin-top: 20px; transition: 0.3s; text-transform: uppercase; display: inline-flex; align-items: center; gap: 15px; animation: pulse-glow 2s infinite; 
         }
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 0 10px var(--neon), inset 0 0 5px var(--neon); }
-            50% { box-shadow: 0 0 30px var(--neon), inset 0 0 10px var(--neon); transform: scale(1.02); }
-            100% { box-shadow: 0 0 10px var(--neon), inset 0 0 5px var(--neon); }
-        }
-        .call-btn:hover { background: var(--neon); color: #000; animation: none; box-shadow: 0 0 50px var(--neon); }
+        @keyframes pulse-glow { 0% { box-shadow: 0 0 10px var(--neon); } 50% { box-shadow: 0 0 30px var(--neon); transform: scale(1.02); } 100% { box-shadow: 0 0 10px var(--neon); } }
+        .call-btn:hover { background: var(--neon); color: #000; box-shadow: 0 0 50px var(--neon); }
         .btn-avatar { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--neon); }
 
         /* GALLERY & MERLIN */
-        .gallery-title { text-align: center; color: var(--gold); font-family: 'Georgia', serif; margin-top: 40px; letter-spacing: 3px; }
         .gallery-container { max-width: 1200px; margin: 20px auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; padding: 20px; }
         .polaroid { background: #fff; padding: 10px 10px 30px 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.7); transition: 0.3s; cursor: pointer; transform: rotate(var(--r)); }
         .polaroid:hover { transform: rotate(0deg) scale(1.1); z-index: 10; box-shadow: 0 0 20px var(--neon); }
         .polaroid img { width: 100%; height: 180px; object-fit: cover; }
         .polaroid span { color: #333; font-family: 'Brush Script MT', cursive; font-size: 1.1rem; display: block; text-align: center; margin-top: 8px; }
 
-        .wish-container { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(10, 10, 30, 0.95); padding: 30px; border: 2px solid var(--gold); box-shadow: 0 0 30px var(--gold); z-index: 1000; text-align: center; border-radius: 15px; width: 300px; }
-        .wish-input { background: #000; border: 1px solid var(--gold); color: var(--gold); padding: 10px; width: 90%; margin-bottom: 15px; }
+        /* WISH MODAL */
+        #wishBox { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(10, 10, 30, 0.95); padding: 30px; border: 2px solid var(--gold); box-shadow: 0 0 30px var(--gold); z-index: 1000; text-align: center; border-radius: 15px; width: 300px; }
+        .wish-input { background: #000; border: 1px solid var(--gold); color: var(--gold); padding: 10px; width: 90%; margin-bottom: 15px; outline: none; }
         .spark { position: fixed; color: var(--gold); text-shadow: 0 0 10px var(--gold); pointer-events: none; z-index: 999; animation: floatUp 4s forwards; font-size: 1.2rem; }
-        @keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-400px) scale(0); opacity: 0; } }
+        @keyframes floatUp { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-400px); opacity: 0; } }
 
         /* LIGHTBOX */
         #lightbox { display: none; position: fixed; z-index: 100; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; flex-direction: column; }
         #lightbox img { max-width: 90%; max-height: 75%; border: 8px solid #fff; margin-bottom: 20px; }
         .dl-btn { background: var(--pink); color: #fff; padding: 10px 25px; border-radius: 5px; text-decoration: none; font-weight: bold; }
-        .game-wrapper { max-width: 1000px; margin: 50px auto; padding: 0 20px; text-align: center; }
     </style>
 </head>
 <body>
 
-    <div id="wishBox" class="wish-container">
-        <h3 style="color: var(--gold); margin-top: 0;">MESSAGE TO MERLIN</h3>
-        <p style="font-size: 0.8rem; color: #aaa;">Whisper your wish to the Eternal Tree...</p>
-        <input type="text" id="userWish" class="wish-input" placeholder="Type your wish here...">
-        <br>
+    <div id="wishBox">
+        <h3 style="color: var(--gold); margin: 0 0 10px 0;">MESSAGE TO MERLIN</h3>
+        <input type="text" id="userWish" class="wish-input" placeholder="Type your wish...">
         <button class="call-btn" style="font-size: 0.9rem; padding: 10px 20px;" onclick="castWish()">CAST WISH</button>
         <button onclick="document.getElementById('wishBox').style.display='none'" style="background:none; border:none; color:#666; cursor:pointer; display:block; margin: 10px auto;">Cancel</button>
+    </div>
+
+    <div id="lightbox" onclick="if(event.target == this) this.style.display='none'">
+        <img id="lightbox-img">
+        <a id="downloadLink" class="dl-btn" download>DOWNLOAD IMAGE</a>
     </div>
 
     <div class="hero">
@@ -65,37 +62,37 @@
             <source src="ai-king.mp4" type="video/mp4">
         </video>
         <div style="z-index: 10; text-align: center;">
-            <img src="gavinbot.png" style="width: 140px; border-radius: 50%; border: 4px solid var(--neon); box-shadow: 0 0 20px var(--neon);">
+            <img src="gavinbot.png" style="width: 140px; border-radius: 50%; border: 4px solid var(--neon);">
             <h1>GAVINNOT</h1>
             <button class="call-btn" onclick="startConversation()">
-                <img src="gavinbot.png" class="btn-avatar">
-                Communicate with Gavinnot
+                <img src="gavinbot.png" class="btn-avatar"> Communicate with Gavinnot
             </button>
         </div>
     </div>
 
-    <h2 class="gallery-title">THE ETERNAL ARCHIVES</h2>
+    <h2 style="text-align: center; color: var(--gold); margin-top: 40px;">THE ETERNAL ARCHIVES</h2>
     <div class="gallery-container" id="mainGallery"></div>
 
-    <div id="lightbox" onclick="if(event.target == this) this.style.display='none'">
-        <img id="lightbox-img">
-        <a id="downloadLink" class="dl-btn" download>DOWNLOAD IMAGE</a>
+    <div style="text-align:center; margin: 50px auto; max-width: 1000px;">
+        <h2 style="color: var(--gold);">NEON VOID</h2>
+        <iframe src="neon-void.html" style="width: 100%; height: 600px; border: none; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5);"></iframe>
     </div>
 
-    <div class="game-wrapper">
-        <h2 class="gallery-title">NEON VOID</h2>
-        <iframe src="neon-void.html" style="width: 100%; height: 600px; border: none; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5);" title="Neon Void Game" allow="autoplay"></iframe>
+    <div id="elevenlabs-container">
+        <elevenlabs-convai agent-id="agent_7201kean8367ejw82a3rc4109p0q"></elevenlabs-convai>
     </div>
-
-    <elevenlabs-convai agent-id="agent_7201kean8367ejw82a3rc4109p0q"></elevenlabs-convai>
     <script src="https://unpkg.com/@elevenlabs/convai-widget-embed@beta" async type="text/javascript"></script>
 
     <script>
+        console.log("Gavinnot System Initialized...");
+
         function startConversation() {
             const el = document.querySelector('elevenlabs-convai');
             if (el && el.shadowRoot) {
                 const button = el.shadowRoot.querySelector('button');
                 if (button) button.click();
+            } else {
+                alert("Gavinnot is still waking up... try again in 2 seconds.");
             }
         }
 
@@ -141,21 +138,20 @@
                     document.getElementById('lightbox').style.display = 'flex';
                 }
             };
-            div.innerHTML = `<img src="${img.src}"><span>${img.label}</span>`;
+            div.innerHTML = `<img src="${img.src}" onerror="this.src='https://via.placeholder.com/200?text=Missing+Image'"><span>${img.label}</span>`;
             gallery.appendChild(div);
         });
 
         function castWish() {
-            const wishInput = document.getElementById('userWish');
-            const wishText = wishInput.value;
-            if (wishText.trim() !== "") {
+            const input = document.getElementById('userWish');
+            if (input.value.trim() !== "") {
                 const spark = document.createElement('div');
                 spark.className = 'spark';
-                spark.innerHTML = "✦ " + wishText;
+                spark.innerHTML = "✦ " + input.value;
                 spark.style.left = "50%"; spark.style.top = "50%";
                 document.body.appendChild(spark);
                 document.getElementById('wishBox').style.display = 'none';
-                wishInput.value = "";
+                input.value = "";
                 setTimeout(() => spark.remove(), 4000);
             }
         }
