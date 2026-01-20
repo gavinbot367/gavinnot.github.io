@@ -9,7 +9,7 @@
         :root { --neon: #00ffff; --pink: #ff00ff; --gold: #fdbc4b; }
         body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 100px; overflow-x: hidden; }
 
-        /* HERO */
+        /* HERO SECTION */
         .hero { position: relative; height: 55vh; display: flex; align-items: center; justify-content: center; overflow: hidden; border-bottom: 2px solid var(--neon); }
         #bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; z-index: -1; transform: translate(-50%, -50%); filter: brightness(0.4); }
         h1 { font-size: clamp(3rem, 10vw, 6rem); color: var(--neon); text-shadow: 0 0 20px var(--neon); margin: 0; letter-spacing: 5px; }
@@ -24,18 +24,30 @@
         .call-btn:hover { background: var(--neon); color: #000; box-shadow: 0 0 50px var(--neon); }
         .btn-avatar { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--neon); }
 
-        /* GALLERY & MERLIN */
+        /* GALLERY & POLAROIDS */
         .gallery-container { max-width: 1200px; margin: 20px auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; padding: 20px; }
         .polaroid { background: #fff; padding: 10px 10px 30px 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.7); transition: 0.3s; cursor: pointer; transform: rotate(var(--r)); }
         .polaroid:hover { transform: rotate(0deg) scale(1.1); z-index: 10; box-shadow: 0 0 20px var(--neon); }
         .polaroid img { width: 100%; height: 180px; object-fit: cover; }
         .polaroid span { color: #333; font-family: 'Brush Script MT', cursive; font-size: 1.1rem; display: block; text-align: center; margin-top: 8px; }
 
+        /* SPECIAL MERLIN GLOW */
+        .polaroid.magic-item {
+            border: 2px solid var(--gold);
+            animation: merlin-pulse 3s infinite ease-in-out;
+        }
+        @keyframes merlin-pulse {
+            0% { box-shadow: 0 0 10px var(--gold); transform: rotate(var(--r)) scale(1); }
+            50% { box-shadow: 0 0 25px var(--gold); transform: rotate(0deg) scale(1.05); }
+            100% { box-shadow: 0 0 10px var(--gold); transform: rotate(var(--r)) scale(1); }
+        }
+        .polaroid.magic-item:hover { box-shadow: 0 0 40px var(--gold) !important; filter: brightness(1.2); }
+
         /* WISH MODAL */
         #wishBox { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(10, 10, 30, 0.95); padding: 30px; border: 2px solid var(--gold); box-shadow: 0 0 30px var(--gold); z-index: 1000; text-align: center; border-radius: 15px; width: 300px; }
         .wish-input { background: #000; border: 1px solid var(--gold); color: var(--gold); padding: 10px; width: 90%; margin-bottom: 15px; outline: none; }
-        .spark { position: fixed; color: var(--gold); text-shadow: 0 0 10px var(--gold); pointer-events: none; z-index: 999; animation: floatUp 4s forwards; font-size: 1.2rem; }
-        @keyframes floatUp { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-400px); opacity: 0; } }
+        .spark { position: fixed; color: var(--gold); text-shadow: 0 0 10px var(--gold); pointer-events: none; z-index: 999; animation: floatUp 4s forwards; font-size: 1.2rem; white-space: nowrap; }
+        @keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-400px) scale(0.5); opacity: 0; } }
 
         /* LIGHTBOX */
         #lightbox { display: none; position: fixed; z-index: 100; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; flex-direction: column; }
@@ -47,7 +59,9 @@
 
     <div id="wishBox">
         <h3 style="color: var(--gold); margin: 0 0 10px 0;">MESSAGE TO MERLIN</h3>
+        <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 15px;">Your wish will float into the Eternal Tree...</p>
         <input type="text" id="userWish" class="wish-input" placeholder="Type your wish...">
+        <br>
         <button class="call-btn" style="font-size: 0.9rem; padding: 10px 20px;" onclick="castWish()">CAST WISH</button>
         <button onclick="document.getElementById('wishBox').style.display='none'" style="background:none; border:none; color:#666; cursor:pointer; display:block; margin: 10px auto;">Cancel</button>
     </div>
@@ -70,10 +84,10 @@
         </div>
     </div>
 
-    <h2 style="text-align: center; color: var(--gold); margin-top: 40px;">THE ETERNAL ARCHIVES</h2>
+    <h2 style="text-align: center; color: var(--gold); margin-top: 40px; letter-spacing: 2px;">THE ETERNAL ARCHIVES</h2>
     <div class="gallery-container" id="mainGallery"></div>
 
-    <div style="text-align:center; margin: 50px auto; max-width: 1000px;">
+    <div style="text-align:center; margin: 50px auto; max-width: 1000px; padding: 0 20px;">
         <h2 style="color: var(--gold);">NEON VOID</h2>
         <iframe src="neon-void.html" style="width: 100%; height: 600px; border: none; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5);"></iframe>
     </div>
@@ -125,10 +139,19 @@
         ];
 
         const gallery = document.getElementById('mainGallery');
+        
         imgFiles.forEach(img => {
             const div = document.createElement('div');
-            div.className = 'polaroid';
+            
+            // Apply magic class if Merlin
+            if(img.isMagic) {
+                div.className = 'polaroid magic-item';
+            } else {
+                div.className = 'polaroid';
+            }
+
             div.style.setProperty('--r', (Math.random() * 6 - 3).toFixed(2) + 'deg');
+            
             div.onclick = () => {
                 if(img.isMagic) {
                     document.getElementById('wishBox').style.display = 'block';
@@ -138,6 +161,7 @@
                     document.getElementById('lightbox').style.display = 'flex';
                 }
             };
+
             div.innerHTML = `<img src="${img.src}" onerror="this.src='https://via.placeholder.com/200?text=Missing+Image'"><span>${img.label}</span>`;
             gallery.appendChild(div);
         });
@@ -147,11 +171,21 @@
             if (input.value.trim() !== "") {
                 const spark = document.createElement('div');
                 spark.className = 'spark';
+                // Glowing star prefix
                 spark.innerHTML = "✦ " + input.value;
-                spark.style.left = "50%"; spark.style.top = "50%";
+                
+                // Position spark in the center of the screen
+                spark.style.left = "50%"; 
+                spark.style.top = "50%";
+                spark.style.transform = "translate(-50%, -50%)";
+                
                 document.body.appendChild(spark);
+                
+                // Close box
                 document.getElementById('wishBox').style.display = 'none';
                 input.value = "";
+                
+                // Remove spark after animation finishes
                 setTimeout(() => spark.remove(), 4000);
             }
         }
