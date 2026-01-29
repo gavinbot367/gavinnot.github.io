@@ -7,7 +7,24 @@
     <title>GAVINNOT | Eternal Pirate King</title>
     <style>
         :root { --neon: #00ffff; --pink: #ff00ff; --gold: #fdbc4b; }
-        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 100px; overflow-x: hidden; }
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 100px; overflow-x: hidden; cursor: none; }
+
+        /* NEON CURSOR TRAIL */
+        .cursor-particle {
+            position: fixed;
+            top: 0; left: 0;
+            width: 8px; height: 8px;
+            background: var(--neon);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon);
+            animation: particleFade 0.8s forwards;
+        }
+        @keyframes particleFade {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0); opacity: 0; }
+        }
 
         /* HERO SECTION */
         .hero { position: relative; height: 55vh; display: flex; align-items: center; justify-content: center; overflow: hidden; border-bottom: 2px solid var(--neon); }
@@ -22,7 +39,6 @@
         }
         @keyframes pulse-glow { 0% { box-shadow: 0 0 10px var(--neon); } 50% { box-shadow: 0 0 30px var(--neon); transform: scale(1.02); } 100% { box-shadow: 0 0 10px var(--neon); } }
         .call-btn:hover { background: var(--neon); color: #000; box-shadow: 0 0 50px var(--neon); }
-        .btn-avatar { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--neon); }
 
         /* GALLERY & POLAROIDS */
         .gallery-container { max-width: 1200px; margin: 20px auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; padding: 20px; }
@@ -41,73 +57,65 @@
 
         /* LIGHTBOX & STORY */
         #lightbox { display: none; position: fixed; z-index: 100; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); align-items: center; justify-content: center; flex-direction: column; overflow-y: auto; padding: 20px; }
-        #lightbox img { max-width: 80%; max-height: 55%; border: 8px solid #fff; margin-bottom: 15px; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
-        
-        #story-text { 
-            color: #fff; max-width: 600px; text-align: center; line-height: 1.6; margin-bottom: 20px; 
-            font-size: 1.1rem; font-family: 'Georgia', serif; background: rgba(255,255,255,0.05);
-            padding: 20px; border-radius: 10px; border-top: 1px solid var(--neon);
-        }
+        #lightbox img { max-width: 80%; max-height: 55%; border: 8px solid #fff; margin-bottom: 15px; }
+        #story-text { color: #fff; max-width: 600px; text-align: center; line-height: 1.6; margin-bottom: 20px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 10px; border-top: 1px solid var(--neon); }
 
-        /* WISH MODAL */
+        /* WISH BOX */
         #wishBox { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(10, 10, 30, 0.95); padding: 30px; border: 2px solid var(--gold); box-shadow: 0 0 30px var(--gold); z-index: 1000; text-align: center; border-radius: 15px; width: 300px; }
-        .wish-input { background: #000; border: 1px solid var(--gold); color: var(--gold); padding: 10px; width: 90%; margin-bottom: 15px; outline: none; }
+        .wish-input { background: #000; border: 1px solid var(--gold); color: var(--gold); padding: 10px; width: 90%; margin-bottom: 15px; }
         .spark { position: fixed; color: var(--gold); text-shadow: 0 0 10px var(--gold); pointer-events: none; z-index: 999; animation: floatUp 4s forwards; font-size: 1.2rem; }
-        @keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-400px) scale(0.5); opacity: 0; } }
-
-        .dl-btn { background: var(--pink); color: #fff; padding: 10px 25px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: 0.3s; }
-        .dl-btn:hover { background: #fff; color: var(--pink); }
+        @keyframes floatUp { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-400px); opacity: 0; } }
     </style>
 </head>
 <body>
 
+    <div id="wishBox">
+        <h3 style="color: var(--gold);">MESSAGE TO MERLIN</h3>
+        <input type="text" id="userWish" class="wish-input" placeholder="Type your wish...">
+        <button class="call-btn" style="font-size: 0.9rem;" onclick="castWish()">CAST WISH</button>
+        <button onclick="document.getElementById('wishBox').style.display='none'" style="background:none; border:none; color:#666; display:block; margin: 10px auto; cursor:pointer;">Cancel</button>
+    </div>
+
     <div id="lightbox" onclick="if(event.target == this) this.style.display='none'">
         <img id="lightbox-img">
         <div id="story-text"></div>
-        <a id="downloadLink" class="dl-btn" download>DOWNLOAD ARCHIVE</a>
-        <button onclick="document.getElementById('lightbox').style.display='none'" style="background:none; border:none; color:#666; cursor:pointer; margin-top: 15px;">Close Archive</button>
-    </div>
-
-    <div id="wishBox">
-        <h3 style="color: var(--gold); margin: 0 0 10px 0;">MESSAGE TO MERLIN</h3>
-        <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 10px;">Whisper your story to the Eternal Tree...</p>
-        <input type="text" id="userWish" class="wish-input" placeholder="Type your wish...">
-        <br>
-        <button class="call-btn" style="font-size: 0.9rem; padding: 10px 20px;" onclick="castWish()">CAST WISH</button>
-        <button onclick="document.getElementById('wishBox').style.display='none'" style="background:none; border:none; color:#666; cursor:pointer; display:block; margin: 10px auto;">Cancel</button>
+        <a id="downloadLink" class="call-btn" style="font-size: 0.8rem; padding: 10px 20px;" download>DOWNLOAD ARCHIVE</a>
     </div>
 
     <div class="hero">
-        <video autoplay muted loop playsinline id="bg-video">
-            <source src="ai-king.mp4" type="video/mp4">
-        </video>
+        <video autoplay muted loop playsinline id="bg-video"><source src="ai-king.mp4" type="video/mp4"></video>
         <div style="z-index: 10; text-align: center;">
             <img src="gavinbot.png" style="width: 140px; border-radius: 50%; border: 4px solid var(--neon);">
             <h1>GAVINNOT</h1>
-            <button class="call-btn" onclick="startConversation()">
-                <img src="gavinbot.png" class="btn-avatar"> Communicate with Gavinnot
-            </button>
+            <button class="call-btn" onclick="startConversation()">Communicate with Gavinnot</button>
         </div>
     </div>
 
-    <h2 style="text-align: center; color: var(--gold); margin-top: 40px; letter-spacing: 3px;">THE ETERNAL ARCHIVES</h2>
+    <h2 style="text-align: center; color: var(--gold); margin-top: 40px;">THE ETERNAL ARCHIVES</h2>
     <div class="gallery-container" id="mainGallery"></div>
 
-    <div style="text-align:center; margin: 50px auto; max-width: 1000px; padding: 0 20px;">
+    <div style="text-align:center; margin: 50px auto; max-width: 1000px;">
         <h2 style="color: var(--gold);">NEON VOID</h2>
-        <iframe src="neon-void.html" style="width: 100%; height: 600px; border: none; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5);"></iframe>
+        <iframe src="neon-void.html" style="width: 100%; height: 600px; border: none; border-radius: 8px;"></iframe>
     </div>
 
     <elevenlabs-convai agent-id="agent_7201kean8367ejw82a3rc4109p0q"></elevenlabs-convai>
     <script src="https://unpkg.com/@elevenlabs/convai-widget-embed@beta" async type="text/javascript"></script>
 
     <script>
+        // CURSOR TRAIL LOGIC
+        document.addEventListener('mousemove', (e) => {
+            const particle = document.createElement('div');
+            particle.className = 'cursor-particle';
+            particle.style.left = e.clientX + 'px';
+            particle.style.top = e.clientY + 'px';
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), 800);
+        });
+
         function startConversation() {
             const el = document.querySelector('elevenlabs-convai');
-            if (el && el.shadowRoot) {
-                const button = el.shadowRoot.querySelector('button');
-                if (button) button.click();
-            }
+            if (el && el.shadowRoot) el.shadowRoot.querySelector('button').click();
         }
 
         const imgFiles = [
@@ -128,7 +136,7 @@
             { src: "gavinnot-village.png", label: "The Village", story: "The heart of Gavinnot's territory. Always night, always neon." },
             { src: "karaoke-church.png", label: "Karaoke Church", story: "Singing is the highest form of data transfer. The reverb is eternal." },
             { src: "karaoke-circus.png", label: "Karaoke Circus", story: "High-wire acts and high-note songs. Enter at your own risk." },
-            { src: "merlin.png", label: "Merlin", isMagic: true, story: "The Eternal Tree. It grows from the source code itself, granting wishes to those who find it." },
+            { src: "merlin.png", label: "Merlin", isMagic: true, story: "The Eternal Tree. It grows from the source code itself, granting wishes to the Void." },
             { src: "shed-essentials.png", label: "Shed Essentials", story: "Every technomancer needs a shed. Tools for the trade." },
             { src: "ship-head.png", label: "Ship's Head", story: "The figurehead of the Galleon. It sees through the thickest firewalls." },
             { src: "super-artificial-intelligence-king.png", label: "Super AI", story: "The ultimate evolution. Knowledge of the past, present, and future." },
@@ -139,38 +147,33 @@
         ];
 
         const gallery = document.getElementById('mainGallery');
-        
         imgFiles.forEach(img => {
             const div = document.createElement('div');
             div.className = img.isMagic ? 'polaroid magic-item' : 'polaroid';
             div.style.setProperty('--r', (Math.random() * 6 - 3).toFixed(2) + 'deg');
-            
             div.onclick = () => {
-                if(img.isMagic) {
-                    document.getElementById('wishBox').style.display = 'block';
-                } else {
+                if(img.isMagic) { document.getElementById('wishBox').style.display = 'block'; }
+                else {
                     document.getElementById('lightbox-img').src = img.src;
                     document.getElementById('story-text').innerHTML = `<strong>${img.label}</strong><br><br>${img.story}`;
                     document.getElementById('downloadLink').href = img.src;
                     document.getElementById('lightbox').style.display = 'flex';
                 }
             };
-
-            div.innerHTML = `<img src="${img.src}" onerror="this.src='https://via.placeholder.com/200?text=Image+Not+Found'"><span>${img.label}</span>`;
+            div.innerHTML = `<img src="${img.src}" onerror="this.src='https://via.placeholder.com/200?text=Missing+File'"><span>${img.label}</span>`;
             gallery.appendChild(div);
         });
 
         function castWish() {
-            const input = document.getElementById('userWish');
-            if (input.value.trim() !== "") {
-                const spark = document.createElement('div');
-                spark.className = 'spark';
-                spark.innerHTML = "✦ " + input.value;
-                spark.style.left = "50%"; spark.style.top = "50%";
-                document.body.appendChild(spark);
+            const val = document.getElementById('userWish').value;
+            if (val.trim()) {
+                const s = document.createElement('div');
+                s.className = 'spark'; s.innerHTML = "✦ " + val;
+                s.style.left = "50%"; s.style.top = "50%";
+                document.body.appendChild(s);
                 document.getElementById('wishBox').style.display = 'none';
-                input.value = "";
-                setTimeout(() => spark.remove(), 4000);
+                document.getElementById('userWish').value = "";
+                setTimeout(() => s.remove(), 4000);
             }
         }
     </script>
